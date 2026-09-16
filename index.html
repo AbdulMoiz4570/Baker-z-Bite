@@ -1,0 +1,5482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baker'z Bite | Spreading Joy in Every Bite!</title>
+  <!-- Google Fonts: Pacifico for logo, Montserrat & Playfair Display for modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* --- CSS RESET & THEME VARIABLES --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg-cream: #FAF6ED;
+      --text-brown: #3C1C13;
+      --accent-red: #D11B47;
+      --card-brown: #3B1E13;
+      --light-brown: #F2E8DA;
+      --white: #FFFFFF;
+      --gold-accent: #C5A059;
+      --gold-hover: #e5be75;
+      --transition-fast: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-brown);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* --- ANNOUNCEMENT TICKER --- */
+    .ticker-bar {
+      background-color: var(--light-brown);
+      color: var(--text-brown);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 10px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(60, 28, 19, 0.08);
+    }
+
+    .ticker-content {
+      display: inline-flex;
+      width: max-content;
+      animation: ticker 25s linear infinite;
+      will-change: transform;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
+    .ticker-item {
+      display: inline-block;
+      margin: 0 30px;
+      flex-shrink: 0;
+    }
+
+    @keyframes ticker {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+
+      100% {
+        transform: translate3d(-50%, 0, 0);
+      }
+    }
+
+    /* --- HEADER / NAVBAR --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 5%;
+      background-color: var(--bg-cream);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      transition: var(--transition-smooth);
+    }
+
+    .logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      color: var(--text-brown);
+      transition: var(--transition-fast);
+    }
+
+    .logo:hover {
+      transform: scale(1.02);
+      color: var(--accent-red);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav a {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-brown);
+      transition: var(--transition-fast);
+      position: relative;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent-red);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--accent-red);
+      transition: var(--transition-fast);
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+
+    .header-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-brown);
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition-fast);
+    }
+
+    .icon-item:hover {
+      color: var(--accent-red);
+      transform: translateY(-2px);
+    }
+
+    .icon-item svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      margin-bottom: 3px;
+      transition: var(--transition-fast);
+    }
+
+    /* Cart Badge - Hidden by default when 0 */
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -2px;
+      background-color: var(--accent-red);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: none;
+      /* Initially hidden */
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* --- SEARCH BAR OVERLAY --- */
+    .search-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-cream);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+      padding: 20px 5%;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .search-overlay.open {
+      transform: translateY(0);
+    }
+
+    .search-input-wrapper {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 700px;
+      background-color: var(--white);
+      border: 2px solid var(--text-brown);
+      border-radius: 30px;
+      padding: 8px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-input-wrapper i {
+      font-size: 1.2rem;
+      color: var(--text-brown);
+      margin-right: 12px;
+    }
+
+    .search-input-wrapper input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 1rem;
+      font-family: inherit;
+      font-weight: 600;
+      color: var(--text-brown);
+    }
+
+    .close-search-btn {
+      margin-left: 10px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-brown);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .close-search-btn:hover {
+      color: var(--accent-red);
+    }
+
+    .search-results-list {
+      width: 100%;
+      max-width: 700px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: var(--white);
+      padding: 10px 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      border: 1px solid rgba(60, 28, 19, 0.05);
+    }
+
+    .search-result-item:hover {
+      background: var(--light-brown);
+    }
+
+    .search-result-item img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .search-result-info {
+      flex-grow: 1;
+    }
+
+    .search-result-info h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-brown);
+    }
+
+    .search-result-info p {
+      font-size: 0.8rem;
+      color: #6B4E45;
+    }
+
+    .search-result-price {
+      font-weight: 800;
+      color: var(--accent-red);
+    }
+
+    /* --- QUICK VIEW MODAL --- */
+    .quickview-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 13, 10, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease;
+      z-index: 3000;
+      padding: 20px;
+    }
+
+    .quickview-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .quickview-modal {
+      background: var(--bg-cream);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(12px);
+      transition: transform 0.25s ease;
+      box-shadow: 0 20px 50px rgba(26, 13, 10, 0.3);
+    }
+
+    .quickview-overlay.open .quickview-modal {
+      transform: translateY(0);
+    }
+
+    .quickview-close-btn {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.85);
+      border: none;
+      font-size: 1.5rem;
+      line-height: 1;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .quickview-img-wrap {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      border-radius: 18px 18px 0 0;
+    }
+
+    .quickview-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .quickview-info {
+      padding: 22px 24px 26px;
+    }
+
+    .quickview-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-brown);
+      margin-bottom: 6px;
+    }
+
+    .quickview-price {
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--accent-red);
+      margin-bottom: 14px;
+    }
+
+    .quickview-desc {
+      font-size: 0.9rem;
+      color: #6B4E45;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .quickview-add-btn {
+      width: 100%;
+      padding: 13px 18px;
+    }
+
+    /* --- SLIDE-OUT CART DRAWER --- */
+    .cart-drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(26, 13, 10, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 2500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .cart-drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      background-color: var(--bg-cream);
+      z-index: 2600;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -8px 0 30px rgba(60, 28, 19, 0.2);
+      border-left: 1px solid rgba(197, 160, 89, 0.2);
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      padding: 22px 25px;
+      background-color: var(--card-brown);
+      color: var(--white);
+      border-bottom: 2px solid var(--gold-accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cart-header h3 i {
+      color: var(--gold-accent);
+      font-size: 1.1rem;
+    }
+
+    .close-cart-btn {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--light-brown);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-cart-btn:hover {
+      color: var(--white);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .cart-items-container {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background-color: var(--bg-cream);
+    }
+
+    .cart-empty-msg {
+      text-align: center;
+      color: #6B4E45;
+      margin: auto 0;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cart-empty-msg i {
+      font-size: 2.5rem;
+      color: var(--gold-accent);
+      opacity: 0.7;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background-color: var(--white);
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(60, 28, 19, 0.08);
+      box-shadow: 0 4px 12px rgba(60, 28, 19, 0.04);
+      position: relative;
+      transition: var(--transition-fast);
+    }
+
+    .cart-item:hover {
+      border-color: rgba(197, 160, 89, 0.4);
+      box-shadow: 0 6px 16px rgba(60, 28, 19, 0.08);
+    }
+
+    .cart-item-img {
+      width: 65px;
+      height: 65px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--light-brown);
+    }
+
+    .cart-item-details {
+      flex-grow: 1;
+    }
+
+    .cart-item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-brown);
+      line-height: 1.2;
+    }
+
+    .cart-item-price {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent-red);
+      margin-top: 4px;
+    }
+
+    .cart-qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      background: var(--bg-cream);
+      width: fit-content;
+      padding: 2px 8px;
+      border-radius: 20px;
+      border: 1px solid rgba(60, 28, 19, 0.1);
+    }
+
+    .qty-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--text-brown);
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+
+    .qty-btn:hover {
+      color: var(--accent-red);
+      background-color: var(--white);
+    }
+
+    .cart-item-qty {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-brown);
+      min-width: 16px;
+      text-align: center;
+    }
+
+    .remove-cart-item {
+      color: #A38B83;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition-fast);
+      padding: 6px;
+      border-radius: 50%;
+    }
+
+    .remove-cart-item:hover {
+      color: var(--accent-red);
+      background-color: rgba(209, 27, 71, 0.08);
+    }
+
+    .cart-footer {
+      padding: 20px 25px;
+      background-color: var(--white);
+      border-top: 1px solid rgba(60, 28, 19, 0.08);
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.02);
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text-brown);
+    }
+
+    .cart-total-row span:last-child {
+      font-size: 1.3rem;
+      color: var(--accent-red);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 30px;
+      border: none;
+      background: linear-gradient(135deg, var(--card-brown) 0%, #2A130B 100%);
+      color: var(--gold-accent);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      box-shadow: 0 4px 14px rgba(60, 28, 19, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid var(--gold-accent);
+    }
+
+    .checkout-btn:hover {
+      background: linear-gradient(135deg, var(--accent-red) 0%, #a81236 100%);
+      color: var(--white);
+      border-color: var(--accent-red);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(209, 27, 71, 0.3);
+    }
+
+    /* --- REWORKED THEMED ADD-TO-CART BUTTON STYLES --- */
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap 0.3s ease;
+    }
+
+    .add-btn {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      cursor: pointer;
+      border-radius: 25px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .add-btn i {
+      font-size: 0.85rem;
+      transition: transform 0.3s ease;
+    }
+
+    /* Confirmation state: same pill, new color — sized by the row it
+       already has, never by the length of the label. */
+    .card .add-btn.added-state-standard {
+      background-color: #3FAE5C;
+      border-color: #3FAE5C;
+      color: var(--white);
+    }
+
+    .card-actions.cart-adding {
+      gap: 0;
+    }
+
+    .card-actions.cart-adding .quickview-btn {
+      max-width: 0;
+      opacity: 0;
+      padding: 9px 0;
+      border-width: 0;
+      pointer-events: none;
+    }
+
+    .quickview-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      border-radius: 25px;
+      padding: 9px 14px;
+      background: transparent;
+      color: var(--text-brown);
+      border: 1px solid var(--text-brown);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 160px;
+    }
+
+    .quickview-btn i {
+      font-size: 0.8rem;
+    }
+
+    .quickview-btn:hover {
+      background: var(--text-brown);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Standard Card Button */
+    .card .add-btn {
+      flex: 1;
+      padding: 9px 14px;
+      background-color: var(--card-brown);
+      color: var(--light-brown);
+      border: 1px solid var(--card-brown);
+    }
+
+    .card .add-btn:hover {
+      background-color: var(--accent-red);
+      color: var(--white);
+      border-color: var(--accent-red);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(209, 27, 71, 0.25);
+    }
+
+    .card .add-btn:hover i {
+      transform: scale(1.15) rotate(-8deg);
+    }
+
+    
+
+    /* --- HERO CAROUSEL SECTION --- */
+    .hero-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 20px 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-slider {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 100%;
+    }
+
+    .hero-slide {
+      min-width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px 60px;
+      min-height: 400px;
+      opacity: 0.8;
+      transition: opacity 0.5s ease;
+    }
+
+    .hero-slide.active-slide {
+      opacity: 1;
+    }
+
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(60, 28, 19, 0.15);
+      color: var(--text-brown);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: var(--transition-fast);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-arrow:hover {
+      background-color: var(--accent-red);
+      color: var(--white);
+      border-color: var(--accent-red);
+    }
+
+    .hero-arrow.prev {
+      left: 15px;
+    }
+
+    .hero-arrow.next {
+      right: 15px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-arrow {
+        display: none;
+      }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      max-width: 600px;
+      margin-bottom: 30px;
+      z-index: 2;
+      transition: var(--transition-smooth);
+    }
+
+    .hero-title span {
+      color: var(--accent-red);
+      display: block;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      display: inline-block;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-red);
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      background-color: var(--white);
+      color: var(--text-brown);
+    }
+
+    .hero-img-left,
+    .hero-img-right {
+      position: absolute;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      z-index: 1;
+      transition: transform 0.6s ease;
+    }
+
+    .hero-img-left {
+      left: 5%;
+      top: 10%;
+      width: 180px;
+      height: 180px;
+    }
+
+    .hero-img-right {
+      right: 5%;
+      top: 10%;
+      width: 200px;
+      height: 200px;
+    }
+
+    .hero-slide:hover .hero-img-left {
+      transform: rotate(-3deg) scale(1.03);
+    }
+
+    .hero-slide:hover .hero-img-right {
+      transform: rotate(3deg) scale(1.03);
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: -20px;
+      margin-bottom: 30px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: #D1C4B2;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .dot.active {
+      background-color: var(--accent-red);
+      width: 28px;
+      border-radius: 10px;
+    }
+
+    /* --- FEATURED BANNER SECTION --- */
+    .featured-section {
+      display: flex;
+      width: 100%;
+      background-color: var(--card-brown);
+      color: var(--white);
+      min-height: 380px;
+      overflow: hidden;
+    }
+
+    .featured-text {
+      flex: 1;
+      padding: 60px 5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .featured-text h2 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      max-width: 400px;
+    }
+
+    .featured-text p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      font-weight: 400;
+      color: #E2D3CA;
+    }
+
+    .featured-image {
+      flex: 1.2;
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=80');
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+
+    .featured-section:hover .featured-image {
+      transform: scale(1.03);
+    }
+
+    /* --- MENU SECTION --- */
+    .menu-header {
+      text-align: center;
+      padding: 60px 20px 20px 20px;
+    }
+
+    .menu-header h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .menu-header p {
+      font-size: 1.1rem;
+      color: #6B4E45;
+      margin-bottom: 30px;
+    }
+
+    .category-nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .cat-btn {
+      padding: 10px 24px;
+      border-radius: 25px;
+      background-color: var(--white);
+      border: 2px solid var(--text-brown);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-brown);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .cat-btn:hover,
+    .cat-btn.active {
+      background-color: var(--text-brown);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(60, 28, 19, 0.15);
+    }
+
+    /* --- SCROLLABLE MENU CONTAINER --- */
+    .menu-scroll-wrapper {
+      max-width: 1200px;
+      margin: 0 auto 80px auto;
+      padding: 0 20px;
+    }
+
+    .menu-container {
+      max-height: 600px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      padding: 10px 25px 30px 10px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      border: 1px solid #E5D8C5;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .menu-container::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .menu-container::-webkit-scrollbar-track {
+      background: var(--light-brown);
+      border-radius: 10px;
+    }
+
+    .menu-container::-webkit-scrollbar-thumb {
+      background: var(--text-brown);
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .menu-container::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-red);
+    }
+
+    .menu-category {
+      display: block;
+      /* Managed dynamically via JavaScript filter */
+    }
+
+    .category-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 30px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #E5D8C5;
+    }
+
+    .menu-category:first-of-type .category-title {
+      margin-top: 10px;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    /* ITEM CARD */
+    .card {
+      background-color: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(60, 28, 19, 0.06);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+      will-change: transform, box-shadow, outline;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 30px rgba(60, 28, 19, 0.12);
+    }
+
+    .card.highlighted {
+      animation: standardSmoothGlow 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes standardSmoothGlow {
+      0% {
+        outline: 0px solid transparent;
+        outline-offset: 0px;
+        transform: scale(1);
+        box-shadow: 0 8px 20px rgba(60, 28, 19, 0.06);
+      }
+
+      40% {
+        outline: 3px solid var(--accent-red);
+        outline-offset: 6px;
+        transform: scale(1.03);
+        box-shadow: 0 12px 30px rgba(209, 27, 71, 0.3);
+      }
+
+      100% {
+        outline: 0px solid transparent;
+        outline-offset: 0px;
+        transform: scale(1);
+        box-shadow: 0 8px 20px rgba(60, 28, 19, 0.06);
+      }
+    }
+
+    .card-img-container {
+      position: relative;
+      height: 200px;
+      width: 100%;
+      background-color: var(--light-brown);
+      overflow: hidden;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.06);
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background-color: var(--accent-red);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+    }
+
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .item-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .item-price {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--accent-red);
+    }
+
+    .item-desc {
+      font-size: 0.85rem;
+      color: #6B4E45;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    /* --- FAQ SECTION --- */
+    #faq-section {
+      padding: 70px 24px;
+      background: var(--bg-cream);
+      display: flex;
+      justify-content: center;
+    }
+
+    .faq-container {
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .faq-container h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--text-brown);
+      margin-bottom: 8px;
+    }
+
+    .faq-container>p {
+      font-size: 0.95rem;
+      color: #6B4E45;
+      margin-bottom: 32px;
+    }
+
+    .faq-list {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(26, 13, 10, 0.06);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-brown);
+      text-align: left;
+    }
+
+    .faq-question i {
+      color: var(--gold-accent);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-answer p {
+      padding: 0 20px 18px;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #6B4E45;
+    }
+
+    .faq-footnote {
+      margin-top: 26px;
+      font-size: 0.88rem;
+      color: #6B4E45;
+    }
+
+    .faq-footnote a {
+      color: var(--accent-red);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* --- FEEDBACK SECTION --- */
+    #feedback-section {
+      padding: 70px 24px;
+      background: var(--bg-cream);
+      display: flex;
+      justify-content: center;
+    }
+
+    .feedback-container {
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .feedback-container h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--text-brown);
+      margin-bottom: 8px;
+    }
+
+    .feedback-container>p {
+      font-size: 0.95rem;
+      color: #6B4E45;
+      margin-bottom: 32px;
+    }
+
+    .feedback-form {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 32px;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(26, 13, 10, 0.08);
+      position: relative;
+    }
+
+    .feedback-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .feedback-field {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .feedback-field label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-brown);
+      margin-bottom: 8px;
+    }
+
+    .optional-tag {
+      font-weight: 400;
+      color: #A38B83;
+      font-size: 0.78rem;
+    }
+
+    .feedback-field input,
+    .feedback-field textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(60, 28, 19, 0.18);
+      background: var(--bg-cream);
+      color: var(--text-brown);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition-fast);
+      resize: vertical;
+    }
+
+    .feedback-field input:focus,
+    .feedback-field textarea:focus {
+      border-color: var(--accent-red);
+      background: var(--white);
+    }
+
+    .feedback-field.invalid input,
+    .feedback-field.invalid textarea {
+      border-color: var(--accent-red);
+    }
+
+    .feedback-stars {
+      display: flex;
+      gap: 8px;
+      font-size: 1.6rem;
+    }
+
+    .feedback-stars i {
+      color: #D9CBC0;
+      cursor: pointer;
+      transition: transform 0.15s ease, color 0.15s ease;
+    }
+
+    .feedback-stars i:hover {
+      transform: scale(1.15);
+    }
+
+    .feedback-stars i.selected {
+      color: var(--gold-accent);
+    }
+
+    .feedback-error {
+      display: none;
+      color: var(--accent-red);
+      font-size: 0.78rem;
+      margin-top: 6px;
+    }
+
+    .feedback-field.invalid .feedback-error {
+      display: block;
+    }
+
+    .feedback-submit-btn {
+      width: 100%;
+      background: var(--card-brown);
+      color: var(--white);
+      border: 1px solid var(--card-brown);
+      border-radius: 30px;
+      padding: 13px 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition-fast);
+    }
+
+    .feedback-submit-btn:hover {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+      transform: translateY(-2px);
+    }
+
+    .feedback-confirmation {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(45, 90, 39, 0.1);
+      border: 1px solid rgba(45, 90, 39, 0.3);
+      color: #2D5A27;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .feedback-confirmation.show {
+      display: flex;
+    }
+
+    @media (max-width: 480px) {
+      .feedback-form {
+        padding: 24px 18px;
+      }
+    }
+
+    /* --- FOOTER --- */
+    .site-footer {
+      background: var(--card-brown);
+      color: var(--light-brown);
+      padding: 60px 24px 0;
+    }
+
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1.2fr 1.3fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-col h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: rgba(242, 232, 218, 0.75);
+    }
+
+    .footer-contact ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .footer-contact li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: rgba(242, 232, 218, 0.85);
+    }
+
+    .footer-contact li i {
+      color: var(--gold-accent);
+      font-size: 0.95rem;
+      margin-top: 2px;
+      width: 16px;
+      flex-shrink: 0;
+    }
+
+    .footer-contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-contact-form input,
+    .footer-contact-form textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      resize: vertical;
+      transition: var(--transition-fast);
+    }
+
+    .footer-contact-form input::placeholder,
+    .footer-contact-form textarea::placeholder {
+      color: rgba(242, 232, 218, 0.5);
+    }
+
+    .footer-contact-form input:focus,
+    .footer-contact-form textarea:focus {
+      border-color: var(--gold-accent);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-contact-form input.invalid,
+    .footer-contact-form textarea.invalid {
+      border-color: var(--accent-red);
+    }
+
+    .footer-form-error {
+      display: none;
+      color: #f3a3b6;
+      font-size: 0.76rem;
+      margin-top: -6px;
+    }
+
+    .footer-form-error.show {
+      display: block;
+    }
+
+    .footer-contact-form button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--gold-accent);
+      color: #1A0D0A;
+      border: none;
+      border-radius: 25px;
+      padding: 11px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .footer-contact-form button:hover {
+      background: var(--gold-hover);
+      transform: translateY(-2px);
+    }
+
+    .footer-form-confirmation {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(45, 90, 39, 0.25);
+      border: 1px solid rgba(87, 173, 74, 0.4);
+      color: #b7e6ac;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .footer-form-confirmation.show {
+      display: flex;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(242, 232, 218, 0.6);
+    }
+
+    @media (max-width: 860px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* --- CHAT BOT WIDGET (launcher button — colors intentionally unchanged) --- */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--white);
+      border-radius: 30px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 25px rgba(60, 28, 19, 0.15);
+      cursor: pointer;
+      z-index: 2000;
+      border: 1px solid #E5D8C5;
+      transition: var(--transition-smooth);
+    }
+
+    .chat-widget:hover {
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 8px 30px rgba(60, 28, 19, 0.22);
+    }
+
+    .chat-widget.is-active {
+      transform: scale(0.96);
+    }
+
+    .chat-icon {
+      position: relative;
+      background-color: var(--light-brown);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-red);
+      transition: var(--transition-fast);
+    }
+
+    .chat-widget:hover .chat-icon {
+      background-color: var(--accent-red);
+      color: var(--white);
+    }
+
+    .chat-icon .chat-ping {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #3FAE5C;
+      border: 2px solid var(--white);
+    }
+
+    .chat-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-brown);
+      line-height: 1.2;
+    }
+
+    /* --- CHAT PANEL (redesigned assistant UI) --- */
+    .chat-panel {
+      position: fixed;
+      bottom: 92px;
+      right: 20px;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+      height: 560px;
+      max-height: calc(100vh - 130px);
+      background: var(--bg-cream);
+      border-radius: 22px;
+      box-shadow: 0 20px 55px rgba(26, 13, 10, 0.32);
+      border: 1px solid #E5D8C5;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 2100;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.97);
+      transform-origin: bottom right;
+      transition: var(--transition-smooth);
+    }
+
+    .chat-panel.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .chat-panel-header {
+      background: linear-gradient(135deg, var(--card-brown) 0%, #2A1209 100%);
+      color: var(--white);
+      padding: 16px 16px 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 2px solid var(--gold-accent);
+      flex-shrink: 0;
+    }
+
+    .chat-panel-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .chat-panel-header-info .chat-avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .chat-panel-header-info i.chat-header-icon {
+      background: rgba(197, 160, 89, 0.18);
+      color: var(--gold-accent);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      border: 1px solid rgba(197, 160, 89, 0.35);
+    }
+
+    .chat-status-dot {
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #3FAE5C;
+      border: 2px solid var(--card-brown);
+      box-shadow: 0 0 0 0 rgba(63, 174, 92, 0.6);
+      animation: chatPulse 2.2s infinite;
+    }
+
+    @keyframes chatPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(63, 174, 92, 0.55);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(63, 174, 92, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(63, 174, 92, 0);
+      }
+    }
+
+    .chat-panel-header-text {
+      min-width: 0;
+    }
+
+    .chat-panel-header-text .chat-title-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .chat-panel-header-info h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .chat-ai-badge {
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #1A0D0A;
+      background: var(--gold-accent);
+      padding: 2px 7px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .chat-panel-header-info span.chat-subtitle {
+      font-size: 0.72rem;
+      color: #E3C8B4;
+      display: block;
+      margin-top: 1px;
+    }
+
+    .chat-panel-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .chat-panel-reset,
+    .chat-panel-close {
+      background: none;
+      border: none;
+      color: var(--light-brown);
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+
+    .chat-panel-close {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .chat-panel-reset {
+      font-size: 0.85rem;
+    }
+
+    .chat-panel-reset:hover,
+    .chat-panel-close:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .chat-panel-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background:
+        radial-gradient(circle at 15% 8%, rgba(197, 160, 89, 0.07), transparent 40%),
+        var(--bg-cream);
+    }
+
+    .chat-panel-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-panel-messages::-webkit-scrollbar-thumb {
+      background: #DCC9AF;
+      border-radius: 10px;
+    }
+
+    .chat-panel-messages::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .chat-msg-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      margin: 6px 0;
+      max-width: 92%;
+      animation: chatMsgIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes chatMsgIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-msg-row.bot {
+      align-self: flex-start;
+    }
+
+    .chat-msg-row.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .chat-msg-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--card-brown);
+      color: var(--gold-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      margin-bottom: 2px;
+    }
+
+    .chat-msg-col {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .chat-msg-row.user .chat-msg-col {
+      align-items: flex-end;
+    }
+
+    .chat-msg {
+      max-width: 100%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      white-space: pre-line;
+    }
+
+    .chat-msg.bot {
+      background: var(--white);
+      color: var(--text-brown);
+      border: 1px solid #EEE1CE;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 8px rgba(60, 28, 19, 0.04);
+    }
+
+    .chat-msg.user {
+      background: var(--accent-red);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-msg strong {
+      font-weight: 700;
+    }
+
+    .chat-msg-time {
+      font-size: 0.63rem;
+      color: #B9A489;
+      margin-top: 3px;
+      padding: 0 3px;
+    }
+
+    /* Typing indicator */
+    .chat-typing-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      align-self: flex-start;
+      margin: 6px 0;
+    }
+
+    .chat-typing-bubble {
+      background: var(--white);
+      border: 1px solid #EEE1CE;
+      border-bottom-left-radius: 4px;
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chat-typing-bubble span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-red);
+      opacity: 0.5;
+      animation: chatTypingBounce 1.1s infinite ease-in-out;
+    }
+
+    .chat-typing-bubble span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .chat-typing-bubble span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes chatTypingBounce {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+
+      30% {
+        transform: translateY(-4px);
+        opacity: 1;
+      }
+    }
+
+    /* Contextual suggestion chips (rendered inline in the conversation) */
+    .chat-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-self: flex-start;
+      max-width: 92%;
+      margin: 2px 0 10px 34px;
+      animation: chatMsgIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .chat-suggestion-chip {
+      background: var(--white);
+      border: 1px solid var(--gold-accent);
+      color: var(--text-brown);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      font-family: inherit;
+    }
+
+    .chat-suggestion-chip:hover {
+      background: var(--gold-accent);
+      color: #1A0D0A;
+      transform: translateY(-1px);
+    }
+
+    .chat-suggestion-chip:disabled {
+      opacity: 0.45;
+      cursor: default;
+      transform: none;
+    }
+
+    .chat-panel-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border-top: 1px solid #E5D8C5;
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    .chat-panel-input-row input {
+      flex-grow: 1;
+      border: 1px solid #E5D8C5;
+      border-radius: 20px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      color: var(--text-brown);
+      background: var(--bg-cream);
+      transition: var(--transition-fast);
+    }
+
+    .chat-panel-input-row input:focus {
+      border-color: var(--accent-red);
+      background: var(--white);
+    }
+
+    .chat-panel-input-row button {
+      background: var(--card-brown);
+      color: var(--gold-accent);
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition-fast);
+    }
+
+    .chat-panel-input-row button:hover:not(:disabled) {
+      background: var(--accent-red);
+      color: var(--white);
+    }
+
+    .chat-panel-input-row button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .chat-panel-footnote {
+      text-align: center;
+      font-size: 0.62rem;
+      color: #C9B8A5;
+      padding: 0 12px 10px;
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 480px) {
+      .chat-panel {
+        right: 10px;
+        bottom: 80px;
+        width: calc(100vw - 20px);
+      }
+
+      .chat-text {
+        display: none;
+      }
+    }
+
+    /* --- RESPONSIVE STYLES --- */
+    @media (max-width: 900px) {
+
+      .hero-img-left,
+      .hero-img-right {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        width: 120px;
+        height: 120px;
+        margin: 10px;
+      }
+
+      .hero-slide {
+        padding-top: 20px;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .featured-section {
+        flex-direction: column;
+      }
+
+      .featured-image {
+        height: 300px;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .menu-header h2 {
+        font-size: 2.2rem;
+      }
+    }
+
+    /* --- DELIVERY LOCATION CHECK MODAL --- */
+    .location-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 13, 10, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease;
+      z-index: 3000;
+      padding: 20px;
+    }
+
+    .location-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .location-modal {
+      background: var(--bg-cream);
+      border-radius: 18px;
+      padding: 32px 28px 28px;
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      transform: translateY(12px);
+      transition: transform 0.25s ease;
+      box-shadow: 0 20px 50px rgba(26, 13, 10, 0.3);
+    }
+
+    .location-overlay.open .location-modal {
+      transform: translateY(0);
+    }
+
+    .location-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--text-brown);
+    }
+
+    .location-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .location-modal-header i {
+      color: var(--accent-red);
+      font-size: 20px;
+    }
+
+    .location-modal-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin: 0;
+      color: var(--text-brown);
+    }
+
+    .location-modal-sub {
+      font-size: 14px;
+      color: #6B4E45;
+      line-height: 1.5;
+      margin: 0 0 22px;
+    }
+
+    .location-map-wrap {
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid rgba(60, 28, 19, 0.14);
+    }
+
+    .location-map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .location-check-btn {
+      width: 100%;
+      background: var(--card-brown);
+      color: var(--white);
+      border: 1px solid var(--card-brown);
+      border-radius: 30px;
+      padding: 14px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition-fast);
+    }
+
+    .location-check-btn:hover {
+      background: var(--accent-red);
+      border-color: var(--accent-red);
+    }
+
+    .location-check-btn:active {
+      transform: scale(0.98);
+    }
+
+    .location-check-btn:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .location-spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: location-spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes location-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .location-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 16px 0;
+      color: #A38B83;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .location-divider::before,
+    .location-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(60, 28, 19, 0.14);
+    }
+
+    .location-divider span {
+      padding: 0 12px;
+    }
+
+    .location-area-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .location-area-row select {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(60, 28, 19, 0.2);
+      background: var(--white);
+      color: var(--text-brown);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .location-area-row select:focus {
+      border-color: var(--accent-red);
+    }
+
+    .location-area-row button {
+      background: transparent;
+      color: var(--text-brown);
+      border: 1px solid var(--text-brown);
+      border-radius: 30px;
+      padding: 10px 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .location-area-row button:hover {
+      background: var(--text-brown);
+      color: var(--white);
+    }
+
+    .location-result {
+      margin-top: 16px;
+      border-radius: 12px;
+      padding: 14px 15px;
+      font-size: 13.5px;
+      line-height: 1.55;
+      display: none;
+    }
+
+    .location-result.show {
+      display: block;
+    }
+
+    .location-result.in-range {
+      background: rgba(45, 90, 39, 0.1);
+      border: 1px solid rgba(45, 90, 39, 0.3);
+      color: #2D5A27;
+    }
+
+    .location-result.out-range {
+      background: rgba(197, 160, 89, 0.12);
+      border: 1px solid rgba(197, 160, 89, 0.4);
+      color: #8A6415;
+    }
+
+    .location-result.error {
+      background: rgba(60, 28, 19, 0.06);
+      border: 1px solid rgba(60, 28, 19, 0.14);
+      color: rgba(60, 28, 19, 0.75);
+    }
+
+    .location-result strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ANNOUNCEMENT TICKER -->
+  <div class="ticker-bar">
+    <div class="ticker-content">
+      <span class="ticker-item">FREE SHIPPING ON ORDERS OVER RS. 3,500</span> •
+      <span class="ticker-item">FRESH BAKED DAILY</span> •
+      <span class="ticker-item">HANDCRAFTED WITH LOVE</span> •
+      <span class="ticker-item">ORDER BEFORE 12PM FOR SAME DAY DELIVERY</span> •
+      <span class="ticker-item">SPREADING JOY IN EVERY BITE</span> •
+      <span class="ticker-item">FREE SHIPPING ON ORDERS OVER RS. 3,500</span> •
+      <span class="ticker-item">FRESH BAKED DAILY</span> •
+      <span class="ticker-item">HANDCRAFTED WITH LOVE</span> •
+      <span class="ticker-item">ORDER BEFORE 12PM FOR SAME DAY DELIVERY</span> •
+      <span class="ticker-item">SPREADING JOY IN EVERY BITE</span>
+    </div>
+  </div>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-input-wrapper">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="search-input" placeholder="Search cupcakes, cookies, merchandise..."
+        oninput="handleSearch()">
+      <button class="close-search-btn" id="close-search">&times;</button>
+    </div>
+    <div class="search-results-list" id="search-results"></div>
+  </div>
+
+  <!-- DELIVERY LOCATION CHECK MODAL -->
+  <div class="location-overlay" id="location-overlay">
+    <div class="location-modal">
+      <button class="location-close-btn" id="location-close">&times;</button>
+      <div class="location-modal-header">
+        <i class="fa-solid fa-location-dot"></i>
+        <h3>Check Delivery to You</h3>
+      </div>
+      <p class="location-modal-sub">Share your location and we'll tell you if Baker'z Bite delivers to your doorstep.
+      </p>
+
+      <div class="location-map-wrap">
+        <iframe id="location-map-iframe" src="https://www.google.com/maps?q=24.8607,67.0011&z=15&output=embed"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <button class="location-check-btn" id="location-check-btn">
+        <span class="location-spinner" id="location-spinner"></span>
+        <span id="location-btn-label"><i class="fa-solid fa-location-crosshairs"></i> Use My Location</span>
+      </button>
+
+      <div class="location-divider"><span>or</span></div>
+
+      <div class="location-area-row">
+        <select id="area-select">
+          <option value="" disabled selected>Select your area</option>
+          <option value="Saddar">Saddar</option>
+          <option value="Clifton">Clifton</option>
+          <option value="Defence (DHA)">Defence (DHA)</option>
+          <option value="Gulshan-e-Iqbal">Gulshan-e-Iqbal</option>
+          <option value="North Nazimabad">North Nazimabad</option>
+          <option value="Malir">Malir</option>
+          <option value="Korangi">Korangi</option>
+          <option value="Gulistan-e-Johar">Gulistan-e-Johar</option>
+        </select>
+        <button id="area-check-btn">Check</button>
+      </div>
+
+      <div class="location-result" id="location-result"></div>
+    </div>
+  </div>
+
+  <!-- QUICK VIEW MODAL -->
+  <div class="quickview-overlay" id="quickview-overlay">
+    <div class="quickview-modal">
+      <button class="quickview-close-btn" id="quickview-close">&times;</button>
+      <div class="quickview-img-wrap">
+        <img id="quickview-img" src="" alt="">
+      </div>
+      <div class="quickview-info">
+        <h3 id="quickview-title"></h3>
+        <span class="quickview-price" id="quickview-price"></span>
+        <p class="quickview-desc" id="quickview-desc"></p>
+        <button class="add-btn quickview-add-btn" id="quickview-add-btn">
+          <i class="fa-solid fa-cart-plus"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE-OUT CART DRAWER -->
+  <div class="cart-drawer-overlay" id="cart-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <h3><i class="fa-solid fa-basket-shopping"></i> Your Bakery Cart</h3>
+      <button class="close-cart-btn" id="close-cart"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-items-container" id="cart-items">
+      <div class="cart-empty-msg">
+        <i class="fa-solid fa-cookie-bite"></i>
+        <span>Your cart is empty.<br>Treat yourself to something sweet!</span>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total Amount</span>
+        <span id="cart-total-price">Rs. 0</span>
+      </div>
+      <button class="checkout-btn" onclick="checkout()">
+        <span>Proceed to Checkout</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- HEADER / NAVBAR -->
+  <header>
+    <a href="#" class="logo">Baker'z Bite</a>
+
+    <nav>
+      <ul>
+        <li><a href="#merchandise-section">Merchandise</a></li>
+        <li><a href="#menu-section">Our Menu</a></li>
+        <li><a href="#faq-section">FAQ</a></li>
+        <li><a href="Gallery.html">Gallery</a></li>
+        <li><a href="Feedback.html">Feedback</a></li>
+        <li><a href="About_Us.html">About Us</a></li>
+        
+      </ul>
+    </nav>
+
+    <div class="header-icons">
+      <div class="icon-item" id="search-btn">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+        </svg>
+        <span>search</span>
+      </div>
+      <div class="icon-item" id="location-btn">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+        </svg>
+        <span>locations</span>
+      </div>
+      <div class="icon-item" id="cart-btn">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+        </svg>
+        <span>cart</span>
+        <span class="cart-badge" id="cart-count">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SLIDER SECTION -->
+  <section class="hero-wrapper">
+    <div class="hero-slider" id="hero-slider">
+
+      <!-- Slide 1 -->
+      <div class="hero-slide active-slide">
+        <img class="hero-img-left"
+          src="Images/LotusMini.png"
+          alt="Lotus Mini">
+        <img class="hero-img-right"
+          src="Images/ChocolateChipCookie.png"
+          alt="Chocolate Chip Cookie">
+
+        <h1 class="hero-title">
+          Spreading Joy <br>
+          <span>in every bite!</span>
+        </h1>
+
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="toggleLocationModal(true)">Check Delivery Availability</button>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="hero-slide">
+        <img class="hero-img-left"
+          src="Images/RedVelvetMini.png"
+          alt="Red Velvet Mini">
+        <img class="hero-img-right"
+          src="Images/HazelNutCookie.png"
+          alt="Hazel Nut Cookie">
+
+        <h1 class="hero-title">
+          Handcrafted Treats <br>
+          <span>Baked Fresh Daily!</span>
+        </h1>
+
+        <div class="hero-buttons">
+          <a href="#menu-section" class="btn btn-primary" onclick="filterCategory('all', document.getElementById('btn-cat-all'))">Explore Our Full Menu</a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="hero-slide">
+        <img class="hero-img-left"
+          src="Images/BlueberryMini.png"
+          alt="Blueberry Mini">
+        <img class="hero-img-right"
+          src="Images/Cappuccino.png"
+          alt="Cappuccino">
+
+        <h1 class="hero-title">
+          Freshly Baked <br>
+          <span>Every Single Morning!</span>
+        </h1>
+
+        <div class="hero-buttons">
+          <a href="#menu-section" class="btn btn-primary" onclick="filterCategory('special', document.getElementById('btn-cat-special'))">View Today's Specials</a>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="hero-slide">
+        <img class="hero-img-left"
+          src="Images/CheeseCake.png"
+          alt="CheeseCake">
+        <img class="hero-img-right"
+          src="Images/StrawberryMini.png"
+          alt="Strawberry Mini">
+
+        <h1 class="hero-title">
+          Special Cakes <br>
+          <span>For Every Celebration!</span>
+        </h1>
+
+        <div class="hero-buttons">
+          <a href="#menu-section" class="btn btn-primary" onclick="filterCategory('cupcakes', document.getElementById('btn-cat-cupcakes'))">Order a Cake</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Prev / Next Arrows -->
+    <button class="hero-arrow prev" onclick="step(-1); restartAutoSlide();"><i
+        class="fa-solid fa-chevron-left"></i></button>
+    <button class="hero-arrow next" onclick="step(1); restartAutoSlide();"><i
+        class="fa-solid fa-chevron-right"></i></button>
+
+    <!-- Navigation Dots -->
+    <div class="slider-dots">
+      <div class="dot active" onclick="goToSlide(0); restartAutoSlide();"></div>
+      <div class="dot" onclick="goToSlide(1); restartAutoSlide();"></div>
+      <div class="dot" onclick="goToSlide(2); restartAutoSlide();"></div>
+      <div class="dot" onclick="goToSlide(3); restartAutoSlide();"></div>
+    </div>
+  </section>
+
+
+  <!-- FEATURED BANNER SECTION -->
+  <section class="featured-section" id="About-Us">
+    <div class="featured-text">
+      <h2>Baked Fresh, Every Single Morning</h2>
+      <p>We use only pure butter, organic flour, and premium single-origin chocolate to deliver rich, authentic flavors.
+      </p>
+      <div style="display:flex; gap:15px; flex-wrap:wrap;">
+        <a href="#menu-section" class="btn btn-secondary">Explore Menu</a>
+        <a href="About_Us.html" class="btn btn-primary">Our Story</a>
+      </div>
+    </div>
+    <div class="featured-image"></div>
+  </section>
+
+
+  <!-- MERCHANDISE SECTION -->
+  <section id="merchandise-section">
+    <div class="menu-header">
+      <h2>Merchandise</h2>
+      <p>Take a piece of Baker'z Bite home with our signature branded merchandise.</p>
+    </div>
+
+    <div class="menu-scroll-wrapper">
+      <div class="items-grid">
+
+        <div class="card" id="item-bakerz-mug">
+          <div class="card-img-container">
+            <img class="card-img"
+              src="Images/Mugs.png"
+              alt="Bakerz Bite Mugs">
+          </div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h4 class="item-title">Bakerz Bite Mugs</h4>
+              <span class="item-price">Rs. 950</span>
+            </div>
+            <p class="item-desc">Ceramic mug printed with the Baker'z Bite logo — perfect for your morning coffee.</p>
+            <div class="card-actions">
+              <button class="add-btn"
+                onclick="addToCart('Bakerz Bite Mugs', 950, 'Images/Mugs.png', this)">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Add</span>
+              </button>
+              <button class="quickview-btn" onclick="openQuickView(this)">
+                <i class="fa-solid fa-eye"></i>
+                <span>Quick View</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="item-bakerz-bag">
+          <div class="card-img-container">
+            <img class="card-img"
+              src="Images/Purse.png"
+              alt="Bakerz Bite Bags">
+          </div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h4 class="item-title">Bakerz Bite Bags</h4>
+              <span class="item-price">Rs. 1,200</span>
+            </div>
+            <p class="item-desc">Reusable canvas tote bag with the Baker'z Bite print — great for grocery runs or
+              gifting.</p>
+            <div class="card-actions">
+              <button class="add-btn"
+                onclick="addToCart('Bakerz Bite Bags', 1200, 'Images/Purse.png', this)">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Add</span>
+              </button>
+              <button class="quickview-btn" onclick="openQuickView(this)">
+                <i class="fa-solid fa-eye"></i>
+                <span>Quick View</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="item-bakerz-glasses">
+          <div class="card-img-container">
+            <img class="card-img"
+              src="Images/Jug.png"
+              alt="Bakerz Bite Glasses">
+          </div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h4 class="item-title">Bakerz Bite Glasses</h4>
+              <span class="item-price">Rs. 1,100</span>
+            </div>
+            <p class="item-desc">Etched glass set featuring the Baker'z Bite logo, perfect for milk, juice, or iced
+              coffee.</p>
+            <div class="card-actions">
+              <button class="add-btn"
+                onclick="addToCart('Bakerz Bite Glasses', 1100, 'Images/Jug.png', this)">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Add</span>
+              </button>
+              <button class="quickview-btn" onclick="openQuickView(this)">
+                <i class="fa-solid fa-eye"></i>
+                <span>Quick View</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="item-bakerz-tray">
+          <div class="card-img-container">
+            <img class="card-img"
+              src="Images/Trays.png"
+              alt="Bakerz Bite Trays">
+          </div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h4 class="item-title">Bakerz Bite Trays</h4>
+              <span class="item-price">Rs. 1,250</span>
+            </div>
+            <p class="item-desc">Wooden serving tray branded with the Baker'z Bite logo — ideal for serving your
+              favorite treats.</p>
+            <div class="card-actions">
+              <button class="add-btn"
+                onclick="addToCart('Bakerz Bite Trays', 1250, 'Images/Trays.png', this)">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Add</span>
+              </button>
+              <button class="quickview-btn" onclick="openQuickView(this)">
+                <i class="fa-solid fa-eye"></i>
+                <span>Quick View</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU SECTION -->
+  <section id="menu-section">
+    <div class="menu-header">
+      <h2>Explore Our Menu</h2>
+      <p>Discover our wide selection of fresh cupcakes, artisanal cookies, and mini treats.</p>
+
+      <div class="category-nav">
+        <button class="cat-btn active" id="btn-cat-all" onclick="filterCategory('all', this)">All</button>
+        <button class="cat-btn" id="btn-cat-special" onclick="filterCategory('special', this)">Today's Special</button>
+        <button class="cat-btn" id="btn-cat-cupcakes" onclick="filterCategory('cupcakes', this)">Cakes</button>
+        <button class="cat-btn" id="btn-cat-cookies" onclick="filterCategory('cookies', this)">Cookies</button>
+        <button class="cat-btn" id="btn-cat-beverages" onclick="filterCategory('beverages', this)">Beverages</button>
+        <button class="cat-btn" id="btn-cat-minis" onclick="filterCategory('minis', this)">Mini's</button>
+      </div>
+    </div>
+
+    <div class="menu-scroll-wrapper">
+      <div class="menu-container" id="menu-container">
+
+        <!-- TODAY'S SPECIAL CATEGORY -->
+        <div class="menu-category" data-category="special" id="category-special">
+          <h3 class="category-title">Today's Special</h3>
+          <div class="items-grid">
+
+            <div class="card" id="item-special-three-milk-cake">
+              <div class="card-img-container">
+                <span class="badge">Today's Special</span>
+                <img class="card-img"
+                  src="Images/Three_Milk_Cake_Slice.png"
+                  alt="Three Milk Cake Slice Special">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Three Milk Cake Slice</h4>
+                  <span class="item-price">Rs. 1100</span>
+                </div>
+                <p class="item-desc">Today only — our beloved three milk cake at a special price, soaked fresh this morning.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Three Milk Cake Slice (Today\'s Special)', 1100, 'Images/Three_Milk_Cake_Slice.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-special-double-choc-cookie">
+              <div class="card-img-container">
+                <span class="badge">Today's Special</span>
+                <img class="card-img"
+                  src="Images/Double_Chocolate_Cookie_Duo.png"
+                  alt="Double Chocolate Cookie Duo Special">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Double Chocolate Cookie Duo</h4>
+                  <span class="item-price">Rs. 550</span>
+                </div>
+                <p class="item-desc">Two fudgy double chocolate cookies, warm from the oven, bundled at today's special price.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Double Chocolate Cookie Duo (Today\'s Special)', 550, 'Images/Double_Chocolate_Cookie_Duo.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-special-strawberry-mini">
+              <div class="card-img-container">
+                <span class="badge">Today's Special</span>
+                <img class="card-img"
+                  src="Images/Strawberry_Mini_Treat.png"
+                  alt="Strawberry Mini Treat Special">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Strawberry Mini Treat</h4>
+                  <span class="item-price">Rs. 350</span>
+                </div>
+                <p class="item-desc">A fresh box of 12 strawberry buttercream minis, baked this morning and priced special for today.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Strawberry Mini Treat (Today\'s Special)', 350, 'Images/Strawberry_Mini_Treat.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-special-hot-chocolate">
+              <div class="card-img-container">
+                <span class="badge">Today's Special</span>
+                <img class="card-img"
+                  src="Images/Rich_Hot_Chocolate.png"
+                  alt="Rich Hot Chocolate Special">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Rich Hot Chocolate</h4>
+                  <span class="item-price">Rs. 380</span>
+                </div>
+                <p class="item-desc">Velvety melted chocolate topped with whipped cream — today's special sip to pair with your treats.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Rich Hot Chocolate (Today\'s Special)', 380, 'Images/Rich_Hot_Chocolate.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CAKES CATEGORY -->
+        <div class="menu-category" data-category="cupcakes" id="category-cupcakes">
+          <h3 class="category-title">Cakes</h3>
+          <div class="items-grid">
+
+            <div class="card" id="item-kitkat-cake">
+              <div class="card-img-container">
+                <span class="badge">Popular</span>
+                <img class="card-img"
+                  src="Images/KitkatCake.png"
+                  alt="Kitkat Cake">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Kitkat Cake</h4>
+                  <span class="item-price">Rs. 1200</span>
+                </div>
+                <p class="item-desc">Chocolate sponge wrapped in crisp Kitkat fingers with a rich chocolate drip.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Kitkat Cake', 1200, 'Images/KitkatCake.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView (this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-cheese-cake">
+              <div class="card-img-container">
+                <span class="badge">Popular</span>
+                <img class="card-img"
+                  src="Images/CheeseCake.png"
+                  alt="Cheese Cake">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Cheese Cake</h4>
+                  <span class="item-price">Rs. 1200</span>
+                </div>
+                <p class="item-desc">Creamy baked cheesecake on a buttery biscuit base with a smooth vanilla finish.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Cheese Cake', 1200, 'Images/CheeseCake.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView (this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-three-milk-cake">
+              <div class="card-img-container">
+                <span class="badge">Popular</span>
+                <img class="card-img"
+                  src="Images/ThreeMilkCake.png"
+                  alt="Three Milk Cake">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Three Milk Cake</h4>
+                  <span class="item-price">Rs. 1700</span>
+                </div>
+                <p class="item-desc">Soft sponge soaked in three kinds of milk, finished with a light whipped cream.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Three Milk Cake', 1700, 'Images/ThreeMilkCake.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView (this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-nutella-cake">
+              <div class="card-img-container">
+                <span class="badge">Popular</span>
+                <img class="card-img"
+                  src="Images/NutellaCake.png"
+                  alt="Nutella Cake">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Nutella Cake</h4>
+                  <span class="item-price">Rs. 1550</span>
+                </div>
+                <p class="item-desc">Chocolate sponge layered with silky Nutella cream and a hazelnut chocolate glaze.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Nutella Cake', 1550, 'Images/NutellaCake.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView (this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-red-velvet-cake">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/RedVelvetCake.png"
+                  alt="Red Velvet Cake">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Red Velvet Cake</h4>
+                  <span class="item-price">Rs. 1300</span>
+                </div>
+                <p class="item-desc">Traditional rich red cocoa cake layered with smooth cream cheese frosting.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Red Velvet', 1300, 'Images/RedVelvetCake.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-chocolate-cake">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/ChocolateCake.png"
+                  alt="Chocolate Cake">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Chocolate Cake</h4>
+                  <span class="item-price">Rs. 1450</span>
+                </div>
+                <p class="item-desc">Dark chocolate cake filled with fudge lava and whipped chocolate frosting.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Chocolate Cake', 1450, 'Images/ChocolateCake.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- COOKIES CATEGORY -->
+        <div class="menu-category" data-category="cookies" id="category-cookies">
+          <h3 class="category-title">Cookies</h3>
+          <div class="items-grid">
+
+            <div class="card" id="item-chocolate-chip-cookie">
+              <div class="card-img-container">
+                <span class="badge">Bestseller</span>
+                <img class="card-img"
+                  src="Images/ChocolateChipCookie.png"
+                  alt="Chocolate Chip Cookie">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Chocolate Chip Cookie</h4>
+                  <span class="item-price">Rs. 380</span>
+                </div>
+                <p class="item-desc">Warm, chewy brown butter cookie loaded with semi-sweet dark chocolate chunks.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Chocolate Chip Cookie', 380, 'Images/ChocolateChipCookie.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-hazelnut-cookie">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/HazelNutCookie.png"
+                  alt="Hazel Nut Cookie">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Hazel Nut Cookie</h4>
+                  <span class="item-price">Rs. 450</span>
+                </div>
+                <p class="item-desc">Buttery cookie packed with toasted hazelnuts and a hint of cocoa.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Hazel Nut Cookie', 450, 'Images/HazelNutCookie.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-almond-cookie">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/AlmondCookie.png"
+                  alt="Almond Cookie">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Almond Cookie</h4>
+                  <span class="item-price">Rs. 370</span>
+                </div>
+                <p class="item-desc">Crisp cookie studded with sliced almonds and a delicate almond aroma.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Almond Cookie', 370, 'Images/AlmondCookie.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-classic-cookie">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/Classic Cookie.png"
+                  alt="Classic Cookie">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Classic Cookie</h4>
+                  <span class="item-price">Rs. 300</span>
+                </div>
+                <p class="item-desc">A simple, buttery classic cookie baked golden with a soft centre.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Classic Cookie', 300, 'Images/Classic Cookie.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-double-chocolate-cookie">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/DoubleChocolateCookie.png"
+                  alt="Double Chocolate Cookie">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Double Chocolate Cookie</h4>
+                  <span class="item-price">Rs. 450</span>
+                </div>
+                <p class="item-desc">Loaded with cocoa and chocolate chunks for a rich, fudgy bite.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Double Chocolate Cookie', 450, 'Images/DoubleChocolateCookie.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-peanut-cookie">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/PeanutCookie.png"
+                  alt="Peanut Cookie">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Peanut Cookie</h4>
+                  <span class="item-price">Rs. 370</span>
+                </div>
+                <p class="item-desc">Crumbly cookie packed with roasted peanuts and a nutty finish.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Peanut Cookie', 370, 'Images/PeanutCookie.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BEVERAGES CATEGORY -->
+        <div class="menu-category" data-category="beverages" id="category-beverages">
+          <h3 class="category-title">Beverages</h3>
+          <div class="items-grid">
+
+            <div class="card" id="item-caramel-latte">
+              <div class="card-img-container">
+                <span class="badge">Popular</span>
+                <img class="card-img"
+                  src="Images/CaramelLatte.png"
+                  alt="Caramel Latte">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Caramel Latte</h4>
+                  <span class="item-price">Rs. 950</span>
+                </div>
+                <p class="item-desc">Smooth espresso and steamed milk finished with a swirl of house-made caramel.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Caramel Latte', 950, 'Images/CaramelLatte.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-cappuccino">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/Cappuccino.png"
+                  alt="Cappuccino">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Cappuccino</h4>
+                  <span class="item-price">Rs. 880</span>
+                </div>
+                <p class="item-desc">Bold espresso topped with steamed milk foam and a dusting of cocoa.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Cappuccino', 880, 'Images/Cappuccino.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-iced-latte">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/IcedLatte.png"
+                  alt="Iced Latte">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Iced Latte</h4>
+                  <span class="item-price">Rs. 820</span>
+                </div>
+                <p class="item-desc">Cold-brewed coffee over ice with a touch of vanilla bean syrup and cream.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Iced Latte', 820, 'Images/IcedLatte.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-latte">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/Latte.png"
+                  alt="Latte">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Latte</h4>
+                  <span class="item-price">Rs. 780</span>
+                </div>
+                <p class="item-desc">Smooth espresso balanced with steamed milk for a mellow, creamy cup.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Latte', 780, 'Images/Latte.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-hot-chocolate">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/HotChocolate.png"
+                  alt="Hot Chocolate">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Hot Chocolate</h4>
+                  <span class="item-price">Rs. 620</span>
+                </div>
+                <p class="item-desc">Rich melted chocolate topped with whipped cream and a dusting of cocoa.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Hot Chocolate', 620, 'Images/HotChocolate.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+
+          </div>
+        </div>
+
+        <!-- MINIS CATEGORY -->
+        <div class="menu-category" data-category="minis" id="category-minis">
+          <h3 class="category-title">Mini's</h3>
+          <div class="items-grid">
+
+            <div class="card" id="item-assorted-mini-box">
+              <div class="card-img-container">
+                <span class="badge">Value</span>
+                <img class="card-img"
+                  src="Images/LotusMini.png"
+                  alt="Lotus Mini">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Lotus Mini</h4>
+                  <span class="item-price">Rs. 500</span>
+                </div>
+                <p class="item-desc">Box of 12 bite-sized signature cupcakes featuring our top popular flavors.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Lotus Mini', 500, 'Images/LotusMini.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-red-velvet-mini">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/RedVelvetMini.png"
+                  alt="Red Velvet Mini">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Red Velvet Mini</h4>
+                  <span class="item-price">Rs. 500</span>
+                </div>
+                <p class="item-desc">Box of 12 miniature red velvet cupcakes topped with cream cheese frosting.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Red Velvet Mini', 500, 'Images/RedVelvetMini.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" id="item-strawberry-mini">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/StrawberryMini.png"
+                  alt="Strawberry Mini">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Strawberry Mini</h4>
+                  <span class="item-price">Rs. 500</span>
+                </div>
+                <p class="item-desc">Box of 12 mini cupcakes topped with fresh strawberry buttercream.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Strawberry Mini', 500, 'Images/StrawberryMini.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+             <div class="card" id="item-blueberry-mini">
+              <div class="card-img-container">
+                <img class="card-img"
+                  src="Images/BlueberryMini.png"
+                  alt="Blueberry Mini">
+              </div>
+              <div class="card-body">
+                <div class="card-header-row">
+                  <h4 class="item-title">Blueberry Mini</h4>
+                  <span class="item-price">Rs. 500</span>
+                </div>
+                <p class="item-desc">Box of 12 mini cupcakes swirled with blueberry compote and cream.</p>
+                <div class="card-actions">
+                  <button class="add-btn"
+                    onclick="addToCart('Blueberry Mini', 500, 'Images/BlueberryMini.png', this)">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Add</span>
+                  </button>
+                  <button class="quickview-btn" onclick="openQuickView(this)">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Quick View</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq-section">
+    <div class="faq-container">
+      <h2>Frequently Asked Questions</h2>
+      <p>A few things people usually want to know before ordering.</p>
+
+      <div class="faq-list" id="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What products does Bakerz Bite offer?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We bake cakes, cupcakes, cookies, brownies, and fresh pastries daily. Our menu also rotates with seasonal
+              treats, so there's usually something new worth trying.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Do you make custom cakes?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. We design custom cakes for birthdays, weddings, and special occasions — just share your flavor,
+              size, and design preferences, and we'll bring it to life.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What ingredients are used?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We use fresh, high-quality ingredients with no artificial preservatives. Butter, real cream, and premium
+              chocolate go into everything we bake.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How can I contact Bakerz Bite?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>You can reach us by phone, WhatsApp, or through our social media pages for orders and inquiries. Add your
+              actual contact number and handles here.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What are the current offers?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Offers change from time to time, especially around holidays and weekends. Follow our social pages so you
+              don't miss a deal.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Where is Bakerz Bite located?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Add your shop address here. We also take delivery orders across the city — let us know your area when you
+              order.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What are your delivery timings and coverage area?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We deliver daily within our local delivery zone, and orders placed before 12 PM qualify for same-day
+              delivery. You can check whether we reach your neighborhood using the location icon in the header.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I cancel or make changes to my order?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, as long as your order hasn't gone into preparation yet. Reach out to us as soon as possible by
+              phone or WhatsApp with your order details and we'll do our best to accommodate the change.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Do you cater to dietary restrictions or eggless orders?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Many of our items can be made eggless or adjusted for common dietary preferences. Just mention your
+              requirement when placing your order and we'll let you know what's possible for that item.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How should I store my treats to keep them fresh?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Cupcakes and cookies stay fresh at room temperature for about a day. For longer storage, keep them
+              refrigerated in an airtight container and bring to room temperature before enjoying — best within 2–3
+              days for peak freshness.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What payment methods do you accept?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We accept cash on delivery as well as online payment at checkout. If you have a preferred payment
+              method for a large or custom order, mention it when you get in touch and we'll work it out.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>How do I share feedback or report a problem with my order?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We'd genuinely like to hear about it. Head over to our <a href="Feedback.html">Feedback page</a> to
+              rate your experience and send us a message — every submission is read by our team.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="faq-footnote">Didn't find your answer? <a href="#contact-form">Message us directly</a> or visit our
+        <a href="Feedback.html">Feedback page</a> and we'll get back to you.</p>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+
+      <div class="footer-col footer-brand">
+        <h3>Baker'z Bite</h3>
+        <p>Freshly baked happiness, delivered with love — cupcakes, cookies, and treats made every single morning.</p>
+      </div>
+
+      <div class="footer-col footer-contact">
+        <h4>Get in Touch</h4>
+        <ul>
+          <li><i class="fa-solid fa-envelope"></i><span>hello@bakerzbite.com</span></li>
+          <li><i class="fa-solid fa-location-dot"></i><span>Shop #12, Main Boulevard, Karachi, Pakistan</span></li>
+          <li><i class="fa-solid fa-phone"></i><span>+92 300 1234567</span></li>
+          <li><i class="fa-solid fa-clock"></i><span>Mon – Sun: 9:00 AM – 9:00 PM</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-form-col">
+        <h4>Send Us a Message</h4>
+        <form id="contact-form" class="footer-contact-form" novalidate>
+          <input type="text" id="contact-name" placeholder="Your Name (optional)">
+
+          <input type="email" id="contact-email" placeholder="Your Email">
+          <span class="footer-form-error" id="contact-email-error">Please enter a valid email.</span>
+
+          <textarea id="contact-message" rows="3" placeholder="Your Message"></textarea>
+          <span class="footer-form-error" id="contact-message-error">Please enter a message.</span>
+
+          <button type="submit">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Send Message</span>
+          </button>
+
+          <div class="footer-form-confirmation" id="footer-form-confirmation">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Message sent! We'll get back to you soon.</span>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Baker'z Bite. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- CHAT BOT WIDGET (launcher — colors unchanged) -->
+  <div class="chat-widget" id="chat-toggle-btn">
+    <div class="chat-icon">
+      <i class="fa-solid fa-comments"></i>
+      <span class="chat-ping"></span>
+    </div>
+    <div class="chat-text">Need Help?<br>Chat with us!</div>
+  </div>
+
+  <!-- CHAT PANEL: Baker'z Bite AI Assistant -->
+  <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Baker'z Bite AI Assistant">
+    <div class="chat-panel-header">
+      <div class="chat-panel-header-info">
+        <div class="chat-avatar-wrap">
+          <i class="fa-solid fa-cookie-bite chat-header-icon"></i>
+          <span class="chat-status-dot" title="Online"></span>
+        </div>
+        <div class="chat-panel-header-text">
+          <div class="chat-title-row">
+            <h4>Baker'z Bite</h4>
+            <span class="chat-ai-badge">AI Assistant</span>
+          </div>
+          <span class="chat-subtitle" id="chat-subtitle">Online now &middot; ask me anything</span>
+        </div>
+      </div>
+      <div class="chat-panel-header-actions">
+        <button class="chat-panel-reset" id="chat-panel-reset" title="Restart conversation" aria-label="Restart conversation">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+        <button class="chat-panel-close" id="chat-panel-close" aria-label="Close chat">&times;</button>
+      </div>
+    </div>
+
+    <div class="chat-panel-messages" id="chat-panel-messages"></div>
+
+    <div class="chat-panel-input-row">
+      <input type="text" id="chat-panel-input" placeholder="Ask about menu, delivery, hours..." autocomplete="off">
+      <button id="chat-panel-send" aria-label="Send message"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+    <div class="chat-panel-footnote">Baker'z Bite Assistant can occasionally be mistaken — for anything urgent, reach us directly.</div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // --- DATABASE OF ALL PRODUCTS ---
+    const products = [
+      { id: 'item-special-three-milk-cake', name: 'Three Milk Cake Slice', price: 1100, img: 'Images/Three_Milk_Cake_Slice.png', desc: 'Today only — our beloved three milk cake at a special price, soaked fresh this morning', category: 'special' },
+      { id: 'item-special-double-choc-cookie', name: 'Double Chocolate Cookie Duo', price: 550, img: 'Images/Double_Chocolate_Cookie_Duo.png', desc: 'Two fudgy double chocolate cookies, warm from the oven, bundled at today\'s special price', category: 'special' },
+      { id: 'item-special-strawberry-mini', name: 'Strawberry Mini Treat', price: 350, img: 'Images/Strawberry_Mini_Treat.png', desc: 'A fresh box of 12 strawberry buttercream minis, baked this morning and priced special for today', category: 'special' },
+      { id: 'item-special-hot-chocolate', name: 'Rich Hot Chocolate', price: 380, img: 'Images/Rich_Hot_Chocolate.png', desc: 'Velvety melted chocolate topped with whipped cream — today\'s special sip to pair with your treats', category: 'special' },
+      { id: 'item-kitkat-cake', name: 'Kitkat Cake', price: 1200, img: 'Images/KitkatCake.png', desc: 'Chocolate sponge wrapped in crisp Kitkat fingers with a rich chocolate drip', category: 'cupcakes' },
+      { id: 'item-cheese-cake', name: 'Cheese Cake', price: 1200, img: 'Images/CheeseCake.png', desc: 'Creamy baked cheesecake on a buttery biscuit base with a smooth vanilla finish', category: 'cupcakes' },
+      { id: 'item-three-milk-cake', name: 'Three Milk Cake', price: 1700, img: 'Images/ThreeMilkCake.png', desc: 'Soft sponge soaked in three kinds of milk, finished with a light whipped cream', category: 'cupcakes' },
+      { id: 'item-nutella-cake', name: 'Nutella Cake', price: 1550, img: 'Images/NutellaCake.png', desc: 'Chocolate sponge layered with silky Nutella cream and a hazelnut chocolate glaze', category: 'cupcakes' },
+      { id: 'item-red-velvet-cake', name: 'Red Velvet Cake', price: 1300, img: 'Images/RedVelvetCake.png', desc: 'Traditional rich red cocoa cake layered with smooth cream cheese frosting', category: 'cupcakes' },
+      { id: 'item-chocolate-cake', name: 'Chocolate Cake', price: 1450, img: 'Images/ChocolateCake.png', desc: 'Dark chocolate cake filled with fudge lava and whipped chocolate frosting', category: 'cupcakes' },
+      { id: 'item-chocolate-chip-cookie', name: 'Chocolate Chip Cookie', price: 380, img: 'Images/ChocolateChipCookie.png', desc: 'Warm, chewy brown butter cookie loaded with dark chocolate chunks', category: 'cookies' },
+      { id: 'item-hazelnut-cookie', name: 'Hazel Nut Cookie', price: 450, img: 'Images/HazelNutCookie.png', desc: 'Buttery cookie packed with toasted hazelnuts and a hint of cocoa', category: 'cookies' },
+      { id: 'item-almond-cookie', name: 'Almond Cookie', price: 370, img: 'Images/AlmondCookie.png', desc: 'Crisp cookie studded with sliced almonds and a delicate almond aroma', category: 'cookies' },
+      { id: 'item-classic-cookie', name: 'Classic Cookie', price: 300, img: 'Images/Classic Cookie.png', desc: 'A simple, buttery classic cookie baked golden with a soft centre', category: 'cookies' },
+      { id: 'item-double-chocolate-cookie', name: 'Double Chocolate Cookie', price: 450, img: 'Images/DoubleChocolateCookie.png', desc: 'Loaded with cocoa and chocolate chunks for a rich, fudgy bite', category: 'cookies' },
+      { id: 'item-peanut-cookie', name: 'Peanut Cookie', price: 370, img: 'Images/PeanutCookie.png', desc: 'Crumbly cookie packed with roasted peanuts and a nutty finish', category: 'cookies' },
+      { id: 'item-caramel-latte', name: 'Caramel Latte', price: 950, img: 'Images/CaramelLatte.png', desc: 'Smooth espresso and steamed milk finished with house-made caramel', category: 'beverages' },
+      { id: 'item-cappuccino', name: 'Cappuccino', price: 880, img: 'Images/Cappuccino.png', desc: 'Bold espresso topped with steamed milk foam and a dusting of cocoa', category: 'beverages' },
+      { id: 'item-iced-latte', name: 'Iced Latte', price: 820, img: 'Images/IcedLatte.png', desc: 'Cold-brewed coffee over ice with vanilla bean syrup and cream', category: 'beverages' },
+      { id: 'item-latte', name: 'Latte', price: 780, img: 'Images/Latte.png', desc: 'Smooth espresso balanced with steamed milk for a mellow, creamy cup', category: 'beverages' },
+      { id: 'item-hot-chocolate', name: 'Hot Chocolate', price: 620, img: 'Images/HotChocolate.png', desc: 'Rich melted chocolate topped with whipped cream and a dusting of cocoa', category: 'beverages' },
+      { id: 'item-assorted-mini-box', name: 'Assorted Mini Box', price: 500, img: 'Images/LotusMini.png', desc: 'Box of 12 bite-sized signature cupcakes featuring our top popular flavors', category: 'minis' },
+      { id: 'item-red-velvet-mini', name: 'Red Velvet Mini', price: 500, img: 'Images/RedVelvetMini.png', desc: 'Box of 12 miniature red velvet cupcakes topped with cream cheese frosting', category: 'minis' },
+      { id: 'item-strawberry-mini', name: 'Strawberry Mini', price: 500, img: 'Images/StrawberryMini.png', desc: 'Box of 12 mini cupcakes topped with fresh strawberry buttercream', category: 'minis' },
+      { id: 'item-blueberry-mini', name: 'Blueberry Mini', price: 500, img: 'Images/BlueberryMini.png', desc: 'Box of 12 mini cupcakes swirled with blueberry compote and cream', category: 'minis' },
+      { id: 'item-bakerz-mug', name: 'Bakerz Bite Mugs', price: 950, img: 'Images/Mugs.png', desc: 'Ceramic mug printed with the bakery logo, perfect for your morning coffee', category: 'merchandise' },
+      { id: 'item-bakerz-bag', name: 'Bakerz Bite Bags', price: 1200, img: 'Images/Purse.png', desc: 'Reusable canvas tote bag with the bakery print, great for gifting', category: 'merchandise' },
+      { id: 'item-bakerz-glasses', name: 'Bakerz Bite Glasses', price: 1100, img: 'Images/Jug.png', desc: 'Etched glass set featuring the bakery logo, perfect for iced coffee', category: 'merchandise' },
+      { id: 'item-bakerz-tray', name: 'Bakerz Bite Trays', price: 1250, img: 'Images/Trays.png', desc: 'Wooden serving tray branded with the bakery logo', category: 'merchandise' }
+    ];
+
+    // --- CART MANAGEMENT ---
+    // Stored in localStorage so the cart is shared with About_Us.html
+    const CART_STORAGE_KEY = 'bakerzBiteCart';
+
+    function loadCart() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(CART_STORAGE_KEY));
+        return Array.isArray(saved) ? saved : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+      } catch (e) {
+        /* storage unavailable (private mode) - cart just won't persist */
+      }
+    }
+
+    let cart = loadCart();
+
+    function addToCart(title, price, img, btnElement) {
+      const existingIndex = cart.findIndex(item => item.title === title);
+
+      if (existingIndex > -1) {
+        cart[existingIndex].qty += 1;
+      } else {
+        cart.push({ title, price, img, qty: 1 });
+      }
+
+      updateCartUI();
+
+      if (btnElement) {
+        const textSpan = btnElement.querySelector('span');
+        const iconEl = btnElement.querySelector('i');
+        const origText = textSpan ? textSpan.innerText : btnElement.innerText;
+        const origIconClass = iconEl ? iconEl.className : '';
+        const stateClass = 'added-state-standard';
+        const actionsRow = btnElement.closest('.card-actions');
+
+        btnElement.classList.add(stateClass);
+        if (actionsRow) actionsRow.classList.add('cart-adding');
+        if (textSpan) textSpan.innerText = "Added to Cart";
+        if (iconEl) iconEl.className = "fa-solid fa-circle-check";
+
+        setTimeout(() => {
+          btnElement.classList.remove(stateClass);
+          if (actionsRow) actionsRow.classList.remove('cart-adding');
+          if (textSpan) textSpan.innerText = origText;
+          if (iconEl) iconEl.className = origIconClass;
+        }, 1400);
+      }
+    }
+
+    function updateCartUI() {
+      const cartCountEl = document.getElementById('cart-count');
+      const cartItemsEl = document.getElementById('cart-items');
+      const cartTotalEl = document.getElementById('cart-total-price');
+
+      saveCart();
+
+      const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+
+      // Toggle badge visibility depending on items in cart
+      if (totalQty > 0) {
+        cartCountEl.style.display = "flex";
+        cartCountEl.innerText = totalQty;
+      } else {
+        cartCountEl.style.display = "none";
+        cartCountEl.innerText = "0";
+      }
+
+      cartCountEl.style.transform = "scale(1.4)";
+      setTimeout(() => cartCountEl.style.transform = "scale(1)", 300);
+
+      if (cart.length === 0) {
+        cartItemsEl.innerHTML = `
+          <div class="cart-empty-msg">
+            <i class="fa-solid fa-cookie-bite"></i>
+            <span>Your cart is empty.<br>Treat yourself to something sweet!</span>
+          </div>`;
+        cartTotalEl.innerText = "Rs. 0";
+        return;
+      }
+
+      let itemsHTML = '';
+      let grandTotal = 0;
+
+      cart.forEach((item, idx) => {
+        const itemTotal = item.price * item.qty;
+        grandTotal += itemTotal;
+
+        itemsHTML += `
+          <div class="cart-item">
+            <img src="${item.img}" class="cart-item-img" alt="${item.title}">
+            <div class="cart-item-details">
+              <div class="cart-item-title">${item.title}</div>
+              <div class="cart-item-price">Rs. ${item.price.toLocaleString()}</div>
+              <div class="cart-qty-controls">
+                <button class="qty-btn" onclick="changeQty(${idx}, -1)">-</button>
+                <span class="cart-item-qty">${item.qty}</span>
+                <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+              </div>
+            </div>
+            <i class="fa-solid fa-trash-can remove-cart-item" onclick="removeItem(${idx})"></i>
+          </div>
+        `;
+      });
+
+      cartItemsEl.innerHTML = itemsHTML;
+      cartTotalEl.innerText = `Rs. ${grandTotal.toLocaleString()}`;
+    }
+
+    function changeQty(index, change) {
+      cart[index].qty += change;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      alert("Thank you for your order! Proceeding to payment portal.");
+      cart = [];
+      updateCartUI();
+      toggleCart(false);
+    }
+
+    // --- CART DRAWER TOGGLE ---
+    const cartBtn = document.getElementById('cart-btn');
+    const closeCartBtn = document.getElementById('close-cart');
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartOverlay = document.getElementById('cart-overlay');
+
+    function toggleCart(open) {
+      if (open) {
+        cartDrawer.classList.add('open');
+        cartOverlay.classList.add('open');
+      } else {
+        cartDrawer.classList.remove('open');
+        cartOverlay.classList.remove('open');
+      }
+    }
+
+    cartBtn.addEventListener('click', () => toggleCart(true));
+    closeCartBtn.addEventListener('click', () => toggleCart(false));
+    cartOverlay.addEventListener('click', () => toggleCart(false));
+
+    // --- SEARCH FUNCTIONALITY ---
+    const searchBtn = document.getElementById('search-btn');
+    const closeSearchBtn = document.getElementById('close-search');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+
+    function toggleSearch(open) {
+      if (open) {
+        searchOverlay.classList.add('open');
+        setTimeout(() => searchInput.focus(), 300);
+      } else {
+        searchOverlay.classList.remove('open');
+        searchInput.value = '';
+        searchResults.innerHTML = '';
+      }
+    }
+
+    searchBtn.addEventListener('click', () => toggleSearch(true));
+    closeSearchBtn.addEventListener('click', () => toggleSearch(false));
+
+    function handleSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) {
+        searchResults.innerHTML = '';
+        return;
+      }
+
+      const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
+
+      if (filtered.length === 0) {
+        searchResults.innerHTML = `<div style="padding: 15px; text-align: center; color: #6B4E45; font-weight: 600;">No sweet treats found matching "${query}"</div>`;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach(item => {
+        html += `
+          <div class="search-result-item" onclick="selectSearchResult('${item.id}', '${item.category || ''}')">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="search-result-info">
+              <h5>${item.name}</h5>
+              <p>${item.desc}</p>
+            </div>
+            <div class="search-result-price">Rs. ${item.price.toLocaleString()}</div>
+          </div>
+        `;
+      });
+      searchResults.innerHTML = html;
+    }
+
+    function selectSearchResult(elementId, category) {
+      toggleSearch(false);
+
+      // Automatically switch category button selection and show filtered items if item belongs to a menu category
+      if (category) {
+        const targetBtn = document.getElementById(`btn-cat-${category}`);
+        if (targetBtn) {
+          filterCategory(category, targetBtn);
+        }
+      } else {
+        // Fallback to 'all' if unmapped
+        const allCategoryBtn = document.querySelector('.category-nav .cat-btn');
+        if (allCategoryBtn) {
+          filterCategory('all', allCategoryBtn);
+        }
+      }
+
+      // Allow a brief browser paint cycle for display block rendering before scrolling and highlighting
+      setTimeout(() => {
+        const el = document.getElementById(elementId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.classList.add('highlighted');
+          setTimeout(() => {
+            el.classList.remove('highlighted');
+          }, 1500);
+        }
+      }, 50);
+    }
+
+    // --- MENU FILTERING & HIDING REST SECTIONS ---
+    function filterCategory(category, btnElement) {
+      const buttons = document.querySelectorAll('.category-nav .cat-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+
+      const container = document.getElementById('menu-container');
+      const categories = container.querySelectorAll('.menu-category');
+
+      if (category === 'all') {
+        categories.forEach(cat => cat.style.display = 'block');
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        categories.forEach(cat => {
+          if (cat.getAttribute('data-category') === category) {
+            cat.style.display = 'block';
+          } else {
+            cat.style.display = 'none';
+          }
+        });
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // --- RESTORE CART + HANDLE LINKS COMING FROM OTHER PAGES ---
+    // Shows any items saved from another page, and if we arrived via a
+    // search result on About_Us.html (index.html#item-...), opens that
+    // item's category and highlights it.
+    updateCartUI();
+
+    window.addEventListener('load', () => {
+      const id = window.location.hash.slice(1);
+      if (!id.startsWith('item-')) return;
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+      selectSearchResult(product.id, product.category || '');
+    });
+
+    // --- DELIVERY LOCATION CHECK ---
+    const BAKERY_CONFIG = {
+      lat: 24.8607,          // TODO: replace with Baker'z Bite's actual shop coordinates
+      lng: 67.0011,
+      deliveryRadiusKm: 8    // how far your delivery reaches from the shop
+    };
+
+    // TODO: replace with real distances (km) from your shop to each area
+    const AREA_DISTANCES_KM = {
+      "Saddar": 3,
+      "Clifton": 6,
+      "Defence (DHA)": 9,
+      "Gulshan-e-Iqbal": 11,
+      "North Nazimabad": 13,
+      "Malir": 18,
+      "Korangi": 15,
+      "Gulistan-e-Johar": 14
+    };
+
+    const locationBtn = document.getElementById('location-btn');
+    const locationMapIframe = document.getElementById('location-map-iframe');
+    locationMapIframe.src = `https://www.google.com/maps?q=${BAKERY_CONFIG.lat},${BAKERY_CONFIG.lng}&z=15&output=embed`;
+    const locationOverlay = document.getElementById('location-overlay');
+    const locationClose = document.getElementById('location-close');
+    const locationCheckBtn = document.getElementById('location-check-btn');
+    const locationSpinner = document.getElementById('location-spinner');
+    const locationBtnLabel = document.getElementById('location-btn-label');
+    const locationResult = document.getElementById('location-result');
+    const areaSelect = document.getElementById('area-select');
+    const areaCheckBtn = document.getElementById('area-check-btn');
+
+    function toggleLocationModal(open) {
+      if (open) {
+        locationOverlay.classList.add('open');
+      } else {
+        locationOverlay.classList.remove('open');
+        locationResult.className = 'location-result';
+        locationResult.innerHTML = '';
+        locationBtnLabel.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Use My Location';
+        areaSelect.selectedIndex = 0;
+      }
+    }
+
+    function haversineKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) ** 2 +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function setLocationLoading(isLoading) {
+      locationCheckBtn.disabled = isLoading;
+      locationSpinner.style.display = isLoading ? 'inline-block' : 'none';
+      locationBtnLabel.innerHTML = isLoading
+        ? 'Locating you…'
+        : '<i class="fa-solid fa-location-crosshairs"></i> Use My Location';
+    }
+
+    function showDeliveryResult(distanceKm, areaLabel) {
+      const rounded = distanceKm.toFixed(1);
+      const whereText = areaLabel ? `${areaLabel} is` : "You're";
+
+      if (distanceKm <= BAKERY_CONFIG.deliveryRadiusKm) {
+        locationResult.className = 'location-result show in-range';
+        locationResult.innerHTML = `<strong>Great news!</strong>${whereText} about ${rounded} km away — we deliver there.`;
+      } else {
+        locationResult.className = 'location-result show out-range';
+        locationResult.innerHTML = `<strong>Just outside our zone</strong>${whereText} about ${rounded} km away, a little beyond our ${BAKERY_CONFIG.deliveryRadiusKm} km delivery range. Pickup at the shop is still available!`;
+      }
+    }
+
+    function handleLocationSuccess(position) {
+      setLocationLoading(false);
+      const { latitude, longitude } = position.coords;
+      const distance = haversineKm(latitude, longitude, BAKERY_CONFIG.lat, BAKERY_CONFIG.lng);
+      showDeliveryResult(distance);
+    }
+
+    function handleLocationError(error) {
+      setLocationLoading(false);
+      let message = "We couldn't get your location — please try again.";
+      if (error.code === error.PERMISSION_DENIED) {
+        message = "Location access was denied. Please enable location permissions for this site to check delivery.";
+      } else if (error.code === error.POSITION_UNAVAILABLE) {
+        message = "Your location isn't available right now. Check your device's location settings and try again.";
+      } else if (error.code === error.TIMEOUT) {
+        message = "That took too long. Please try again.";
+      }
+      locationResult.className = 'location-result show error';
+      locationResult.innerHTML = `<strong>Couldn't check delivery</strong>${message}`;
+    }
+
+    locationBtn.addEventListener('click', () => toggleLocationModal(true));
+    locationClose.addEventListener('click', () => toggleLocationModal(false));
+    locationOverlay.addEventListener('click', (e) => {
+      if (e.target === locationOverlay) toggleLocationModal(false);
+    });
+
+    locationCheckBtn.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        locationResult.className = 'location-result show error';
+        locationResult.innerHTML = "<strong>Not supported</strong>Your browser doesn't support location detection.";
+        return;
+      }
+      setLocationLoading(true);
+      navigator.geolocation.getCurrentPosition(handleLocationSuccess, handleLocationError, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      });
+    });
+
+    areaCheckBtn.addEventListener('click', () => {
+      const selectedArea = areaSelect.value;
+      if (!selectedArea) {
+        locationResult.className = 'location-result show error';
+        locationResult.innerHTML = "<strong>Pick an area</strong>Please select your area from the list first.";
+        return;
+      }
+      const distance = AREA_DISTANCES_KM[selectedArea];
+      showDeliveryResult(distance, selectedArea);
+    });
+
+    // ================================================================
+    // BAKER'Z BITE AI ASSISTANT
+    // A self-contained, dependency-free conversational engine.
+    // Instead of matching fixed phrases, it: normalizes and tokenizes
+    // input, tolerates typos via edit-distance, scores multiple
+    // intents at once, reads live data straight from the page (menu
+    // items, prices, badges, delivery zones, footer contact details)
+    // so answers stay accurate even if the site content changes, and
+    // keeps short-term conversational memory so it can resolve
+    // follow-ups like "how much is that" or "what about weekends".
+    // ================================================================
+    (function bakerzBiteAssistant() {
+      const chatToggleBtn = document.getElementById('chat-toggle-btn');
+      const chatPanel = document.getElementById('chat-panel');
+      const chatPanelClose = document.getElementById('chat-panel-close');
+      const chatPanelReset = document.getElementById('chat-panel-reset');
+      const chatMessages = document.getElementById('chat-panel-messages');
+      const chatInput = document.getElementById('chat-panel-input');
+      const chatSendBtn = document.getElementById('chat-panel-send');
+      const chatSubtitle = document.getElementById('chat-subtitle');
+
+      const SHOP_NAME = "Baker'z Bite";
+
+      // ---------------------------------------------------------------
+      // 1. LIVE KNOWLEDGE BASE — pulled from the page itself
+      // ---------------------------------------------------------------
+      function readContactInfo() {
+        const info = { email: '', phone: '', address: '', hours: '' };
+        document.querySelectorAll('.footer-contact li').forEach((li) => {
+          const icon = li.querySelector('i');
+          const text = (li.querySelector('span')?.textContent || '').trim();
+          if (!icon || !text) return;
+          if (icon.classList.contains('fa-envelope')) info.email = text;
+          else if (icon.classList.contains('fa-location-dot')) info.address = text;
+          else if (icon.classList.contains('fa-phone')) info.phone = text;
+          else if (icon.classList.contains('fa-clock')) info.hours = text;
+        });
+        return info;
+      }
+
+      // Hard-coded fallback for the "Today's Special" category (Explore Our
+      // Menu section) so the assistant always knows about it, even on pages
+      // that don't render the full menu markup in their DOM.
+      const TODAYS_SPECIAL_ITEMS = [
+        { name: "Three Milk Cake Slice", price: 1100, priceText: "Rs. 1100", desc: "Today only — our beloved three milk cake at a special price, soaked fresh this morning.", badge: "Today's Special", category: 'special' },
+        { name: "Double Chocolate Cookie Duo", price: 550, priceText: "Rs. 550", desc: "Two fudgy double chocolate cookies, warm from the oven, bundled at today's special price.", badge: "Today's Special", category: 'special' },
+        { name: "Strawberry Mini Treat", price: 350, priceText: "Rs. 350", desc: "A fresh box of 12 strawberry buttercream minis, baked this morning and priced special for today.", badge: "Today's Special", category: 'special' },
+        { name: "Rich Hot Chocolate", price: 380, priceText: "Rs. 380", desc: "Velvety melted chocolate topped with whipped cream — today's special sip to pair with your treats.", badge: "Today's Special", category: 'special' },
+      ];
+
+      function readMenu() {
+        const items = [];
+        document.querySelectorAll('.menu-category').forEach((cat) => {
+          const category = cat.getAttribute('data-category') || '';
+          cat.querySelectorAll('.card').forEach((card) => {
+            const name = card.querySelector('.item-title')?.textContent.trim() || '';
+            const priceText = card.querySelector('.item-price')?.textContent.trim() || '';
+            const price = parseInt(priceText.replace(/[^\d]/g, ''), 10) || null;
+            const desc = card.querySelector('.item-desc')?.textContent.trim() || '';
+            const badge = card.querySelector('.badge')?.textContent.trim() || '';
+            if (name) items.push({ name, price, priceText, desc, badge, category, el: card });
+          });
+        });
+        // Guarantee "Today's Special" is always part of the assistant's
+        // knowledge, whether or not this page renders the Menu section.
+        if (!items.some((i) => i.category === 'special')) {
+          items.push(...TODAYS_SPECIAL_ITEMS);
+        }
+        return items;
+      }
+
+      // Cached once on first open, since the page content doesn't change at runtime.
+      let CONTACT = null;
+      let MENU = null;
+
+      function ensureKnowledgeLoaded() {
+        if (!CONTACT) CONTACT = readContactInfo();
+        if (!MENU) MENU = readMenu();
+      }
+
+      // ---------------------------------------------------------------
+      // 2. TEXT UNDERSTANDING — normalization, tokenizing, fuzzy match
+      // ---------------------------------------------------------------
+      const STOPWORDS = new Set(['a', 'an', 'the', 'is', 'are', 'do', 'does', 'you', 'your', 'i', 'my', 'me',
+        'to', 'for', 'of', 'on', 'in', 'at', 'it', 'this', 'that', 'can', 'please', 'and', 'or', 'have', 'has',
+        'what', 'whats', "what's", 'how', 'about', 'there', 'be', 'with', 'im', "i'm", 'want', 'would', 'like']);
+
+      function normalize(str) {
+        return str.toLowerCase().replace(/[^\w\s'-]/g, ' ').replace(/\s+/g, ' ').trim();
+      }
+
+      function tokenize(str) {
+        return normalize(str).split(' ').filter(Boolean);
+      }
+
+      function meaningfulTokens(tokens) {
+        const out = tokens.filter((t) => !STOPWORDS.has(t) && t.length > 1);
+        return out.length ? out : tokens;
+      }
+
+      // Levenshtein edit distance — lets the assistant handle typos
+      // ("delivary", "hourz", "cupcak") instead of requiring exact words.
+      function editDistance(a, b) {
+        if (a === b) return 0;
+        const m = a.length, n = b.length;
+        if (!m) return n;
+        if (!n) return m;
+        const dp = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
+        for (let j = 0; j <= n; j++) dp[0][j] = j;
+        for (let i = 1; i <= m; i++) {
+          for (let j = 1; j <= n; j++) {
+            dp[i][j] = a[i - 1] === b[j - 1]
+              ? dp[i - 1][j - 1]
+              : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+          }
+        }
+        return dp[m][n];
+      }
+
+      function fuzzyMatches(token, keyword) {
+        if (token === keyword) return true;
+        if (token.length > 3 && (token.startsWith(keyword) || keyword.startsWith(token))) return true;
+        const tolerance = keyword.length >= 7 ? 2 : keyword.length >= 5 ? 1 : 0;
+        return editDistance(token, keyword) <= tolerance;
+      }
+
+      // ---------------------------------------------------------------
+      // 3. INTENT MODEL — weighted keyword sets scored per message,
+      // not a single fixed regex, so multiple topics in one sentence
+      // ("do you deliver and what time do you close?") are all caught.
+      // ---------------------------------------------------------------
+      const INTENTS = [
+        {
+          name: 'greeting',
+          weight: 1,
+          keywords: ['hi', 'hello', 'hey', 'yo', 'salam', 'assalamualaikum', 'morning', 'evening', 'afternoon'],
+        },
+        {
+          name: 'thanks',
+          weight: 1,
+          keywords: ['thank', 'thanks', 'thankyou', 'appreciate', 'cool', 'great', 'awesome', 'nice', 'perfect'],
+        },
+        {
+          name: 'farewell',
+          weight: 1,
+          keywords: ['bye', 'goodbye', 'seeya', 'later', 'cya'],
+        },
+        {
+          name: 'hours',
+          weight: 2,
+          keywords: ['hour', 'hours', 'open', 'opening', 'close', 'closing', 'timing', 'timings', 'time', 'today',
+            'weekend', 'sunday', 'saturday', 'schedule'],
+        },
+        {
+          name: 'delivery_area',
+          weight: 3,
+          keywords: ['deliver', 'delivery', 'delivers', 'delivering', 'ship', 'reach', 'zone', 'radius', 'area',
+            'karachi', 'clifton', 'saddar', 'malir', 'korangi', 'defence', 'dha', 'nazimabad', 'gulshan', 'johar'],
+        },
+        {
+          name: 'location',
+          weight: 2,
+          keywords: ['address', 'location', 'located', 'shop', 'store', 'where', 'map', 'directions', 'visit'],
+        },
+        {
+          name: 'contact',
+          weight: 2,
+          keywords: ['contact', 'phone', 'call', 'number', 'whatsapp', 'email', 'reach', 'talk', 'human', 'agent',
+            'representative', 'someone'],
+        },
+        {
+          name: 'order_help',
+          weight: 2,
+          keywords: ['order', 'ordering', 'checkout', 'pickup', 'pick', 'cart', 'buy', 'purchase', 'payment', 'pay'],
+        },
+        {
+          name: 'custom_cake',
+          weight: 3,
+          keywords: ['custom', 'birthday', 'wedding', 'bulk', 'party', 'event', 'celebration', 'theme', 'personalized',
+            'engagement', 'anniversary'],
+        },
+        {
+          name: 'ingredients',
+          weight: 3,
+          keywords: ['ingredient', 'ingredients', 'allerg', 'allergic', 'gluten', 'nut', 'egg', 'vegan', 'preservative',
+            'fresh', 'quality', 'halal'],
+        },
+        {
+          name: 'offers',
+          weight: 2,
+          keywords: ['offer', 'offers', 'discount', 'deal', 'deals', 'promo', 'promotion', 'coupon', 'sale'],
+        },
+        {
+          name: 'recommend',
+          weight: 3,
+          keywords: ['recommend', 'suggestion', 'suggest', 'best', 'popular', 'bestseller', 'favorite', 'favourite',
+            'top', 'special'],
+        },
+        {
+          name: 'complaint',
+          weight: 4,
+          keywords: ['bad', 'worst', 'terrible', 'awful', 'stale', 'cold', 'late', 'rude', 'disappointed', 'refund',
+            'complaint', 'complain', 'wrong', 'missing', 'problem', 'issue', 'unhappy', 'never', 'suck', 'sucks',
+            'sucked', 'hate', 'hated', 'horrible', 'disgusting'],
+        },
+        {
+          name: 'menu_general',
+          weight: 1,
+          keywords: ['menu', 'items', 'options', 'flavors', 'flavours', 'selection', 'range', 'catalog',
+            'cupcake', 'cupcakes', 'cookie', 'cookies', 'beverage', 'beverages', 'drink', 'drinks', 'mini', 'minis',
+            'price', 'prices', 'cost', 'rate', 'rates'],
+        },
+      ];
+
+      function scoreIntents(tokens) {
+        const scores = {};
+        INTENTS.forEach((intent) => {
+          let score = 0;
+          intent.keywords.forEach((kw) => {
+            tokens.forEach((tok) => {
+              if (fuzzyMatches(tok, kw)) score += intent.weight;
+            });
+          });
+          if (score > 0) scores[intent.name] = score;
+        });
+        return scores;
+      }
+
+      // Find a menu item the user is referring to by fuzzy name overlap.
+      function findMenuItem(tokens) {
+        const meaningful = meaningfulTokens(tokens);
+        let best = null;
+        let bestScore = 0;
+        MENU.forEach((item) => {
+          const nameTokens = tokenize(item.name);
+          let score = 0;
+          nameTokens.forEach((nt) => {
+            meaningful.forEach((tok) => {
+              if (fuzzyMatches(tok, nt)) score += nt.length > 3 ? 2 : 1;
+            });
+          });
+          if (score > bestScore) {
+            bestScore = score;
+            best = item;
+          }
+        });
+        return bestScore >= 2 ? best : null;
+      }
+
+      function findCategoryMention(tokens) {
+        const map = {
+          special: ['special', 'specials'],
+          cupcakes: ['cupcake', 'cupcakes'],
+          cookies: ['cookie', 'cookies'],
+          beverages: ['beverage', 'beverages', 'drink', 'drinks', 'coffee', 'tea', 'latte'],
+          minis: ['mini', 'minis', 'bite', 'bites'],
+        };
+        for (const [cat, words] of Object.entries(map)) {
+          if (tokens.some((t) => words.some((w) => fuzzyMatches(t, w)))) return cat;
+        }
+        return null;
+      }
+
+      // ---------------------------------------------------------------
+      // 3b. MODERATION — catches profanity, slurs, and common evasions
+      // (letter-spacing, repeated letters, basic leetspeak) before the
+      // message ever reaches intent scoring. This is a lightweight
+      // in-page filter; for a public production site you'd normally
+      // back it with a maintained list (e.g. an "obscenity" or
+      // "leo-profanity" package) since slang and slurs keep evolving.
+      // ---------------------------------------------------------------
+      const BLOCKED_TERMS = [
+        'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'cunt', 'dick', 'piss',
+        'slut', 'whore', 'douchebag', 'motherfucker', 'nigger', 'nigga',
+        'faggot', 'fag', 'retard', 'chink', 'spic', 'kike', 'paki', 'tranny',
+        'coon', 'gook',
+      ];
+
+      const LEET_MAP = { '0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '@': 'a', '$': 's' };
+
+      function normalizeForModeration(raw) {
+        return raw
+          .toLowerCase()
+          .split('')
+          .map((ch) => LEET_MAP[ch] || ch)
+          .join('')
+          .replace(/[^a-z\s]/g, ' ');
+      }
+
+      function collapseRepeats(s) {
+        return s.replace(/(.)\1+/g, '$1');
+      }
+
+      function containsBlockedTerm(raw) {
+        const normalized = normalizeForModeration(raw);
+        const collapsedSpaced = collapseRepeats(normalized);
+        const collapsedTight = collapsedSpaced.replace(/\s+/g, '');
+        return BLOCKED_TERMS.some((term) => {
+          const t = collapseRepeats(term);
+          return collapsedSpaced.includes(t) || collapsedTight.includes(t);
+        });
+      }
+
+      // ---------------------------------------------------------------
+      // 4. CONVERSATION STATE (short-term memory, in-memory only)
+      // ---------------------------------------------------------------
+      const state = {
+        started: false,
+        turns: 0,
+        fallbacks: 0,
+        lastIntent: null,
+        lastItem: null,
+        lastCategory: null,
+        awaitingComplaintDetail: false,
+        moderationWarnings: 0,
+      };
+
+      // ---------------------------------------------------------------
+      // 4b. PHRASE-LEVEL DETECTORS — small-talk and sentiment checks that
+      // don't fit the single-keyword scoring model above (e.g. "how are
+      // you" is three stopwords; "didn't like the food" is a negated
+      // positive, not a negative keyword).
+      // ---------------------------------------------------------------
+      function detectWellbeingQuestion(text) {
+        return /\bhow\s+(are|r)\s+(you|u)\b/.test(text)
+          || /\bhow('?s| is| are) (it going|things|everything)\b/.test(text)
+          || /\byou (doing|feeling) (ok|okay|good|alright|well)\b/.test(text);
+      }
+
+      function detectReputationQuestion(text) {
+        const asksIfGood = /\b(is|are)\b[^?]*\b(good|great|worth it|legit|any good|the best|nice|reliable)\b/.test(text);
+        const mentionsPlace = /\b(bakery|place|shop|store|food|cake|cakes|cupcake|cupcakes|you guys|here)\b/.test(text);
+        return asksIfGood && mentionsPlace;
+      }
+
+      // Catches negated-positive phrasing ("didn't like the food", "wasn't
+      // great") that the keyword scorer can't see, since it only looks for
+      // *negative* words, not the absence of a positive one.
+      function detectNegativeExperiencePhrase(text) {
+        return /\b(didn'?t|did not|don'?t|do not|doesn'?t|does not|wasn'?t|was not|isn'?t|is not)\b[^.!]{0,25}\b(like|enjoy|love|good|great|fresh|worth it)\b/.test(text);
+      }
+
+      function timeGreeting() {
+        const h = new Date().getHours();
+        if (h < 12) return 'Good morning';
+        if (h < 17) return 'Good afternoon';
+        return 'Good evening';
+      }
+
+      // ---------------------------------------------------------------
+      // 5. RESPONSE BUILDERS — reason over live data rather than
+      // returning one fixed string per topic.
+      // ---------------------------------------------------------------
+      function replyHours() {
+        state.lastIntent = 'hours';
+        const hours = CONTACT.hours || 'Mon – Sun: 9:00 AM – 9:00 PM';
+        return {
+          text: `We're open ${hours}. Same-day delivery is available for orders placed before 12 PM.`,
+          chips: ['Do you deliver to me?', 'Show me the menu', 'Talk to a human'],
+        };
+      }
+
+      function replyContact() {
+        state.lastIntent = 'contact';
+        const bits = [];
+        if (CONTACT.phone) bits.push(`call/WhatsApp us at ${CONTACT.phone}`);
+        if (CONTACT.email) bits.push(`email ${CONTACT.email}`);
+        const line = bits.length ? `You can ${bits.join(' or ')}.` : 'You can reach our team through the contact form in the footer.';
+        return {
+          text: `${line} You can also use the "Send Us a Message" form at the bottom of the page and we'll get back to you.`,
+          chips: ['Where are you located?', 'What are your hours?'],
+        };
+      }
+
+      function replyLocation() {
+        state.lastIntent = 'location';
+        const addr = CONTACT.address ? `We're at ${CONTACT.address}.` : "You'll find our shop address in the footer.";
+        return {
+          text: `${addr} Want to check if we deliver to your area? Click the location pin icon in the header and use "Use My Location," or ask me your neighborhood directly.`,
+          chips: ['Do you deliver to Clifton?', 'What are your hours?'],
+        };
+      }
+
+      function replyDeliveryArea(tokens) {
+        state.lastIntent = 'delivery_area';
+        const config = (typeof BAKERY_CONFIG !== 'undefined') ? BAKERY_CONFIG : null;
+        const areas = (typeof AREA_DISTANCES_KM !== 'undefined') ? AREA_DISTANCES_KM : null;
+
+        if (areas) {
+          const matchArea = Object.keys(areas).find((area) =>
+            tokenize(area).some((areaTok) => tokens.some((t) => fuzzyMatches(t, areaTok))));
+
+          if (matchArea) {
+            const dist = areas[matchArea];
+            const radius = config ? config.deliveryRadiusKm : 8;
+            if (dist <= radius) {
+              return {
+                text: `Good news — ${matchArea} is about ${dist} km from our shop, well within our ${radius} km delivery zone. We can deliver there!`,
+                chips: ['What are your hours?', 'Show me the menu'],
+              };
+            }
+            return {
+              text: `${matchArea} is roughly ${dist} km away, just outside our current ${radius} km delivery zone. Pickup at the shop is still available, or you're welcome to check again if you're closer to us.`,
+              chips: ['Where is the shop?', 'Talk to a human'],
+            };
+          }
+        }
+
+        return {
+          text: `We currently deliver within about ${config ? config.deliveryRadiusKm : 8} km of our shop, with same-day delivery for orders placed before 12 PM. Tell me your neighborhood and I'll check, or use the location pin icon in the header for an exact check.`,
+          chips: ['Do you deliver to Clifton?', 'Do you deliver to Malir?', 'Where is the shop?'],
+        };
+      }
+
+      function formatItem(item) {
+        const badge = item.badge ? ` (${item.badge})` : '';
+        return `${item.name}${badge} — ${item.priceText || 'price on request'}. ${item.desc}`;
+      }
+
+      function replyMenuItem(item) {
+        state.lastIntent = 'menu_item';
+        state.lastItem = item;
+        return {
+          text: formatItem(item),
+          chips: ['Add it to my cart', `More ${item.category}`, 'Anything you recommend?'],
+        };
+      }
+
+      function replyCategory(cat) {
+        state.lastIntent = 'menu_category';
+        state.lastCategory = cat;
+        const items = MENU.filter((m) => m.category === cat);
+        if (!items.length) {
+          return { text: "I couldn't find that category right now — check the Our Menu section for the full list.", chips: ['Show me the menu'] };
+        }
+        const list = items.slice(0, 5).map((i) => `• ${i.name} — ${i.priceText}`).join('\n');
+        return {
+          text: `Here's what we have in ${cat}:\n${list}${items.length > 5 ? `\n...and ${items.length - 5} more in the Menu section.` : ''}`,
+          chips: [`Cheapest ${cat}`, 'Anything you recommend?', 'How do I order?'],
+        };
+      }
+
+      function replyTodaysSpecial() {
+        state.lastIntent = 'menu_category';
+        state.lastCategory = 'special';
+        const items = MENU.filter((m) => m.category === 'special');
+        if (!items.length) {
+          return { text: "We don't have any specials listed right now — check the Menu section for our full lineup.", chips: ['Show me the menu'] };
+        }
+        const list = items.map((i) => `• ${i.name} — ${i.priceText || 'price on request'}\n  ${i.desc}`).join('\n\n');
+        return {
+          text: `Here's everything on Today's Special:\n\n${list}`,
+          chips: ['Add it to my cart', 'How do I order?', 'Anything else you recommend?'],
+        };
+      }
+
+      function replyMenuGeneral() {
+        state.lastIntent = 'menu_general';
+        const cats = [...new Set(MENU.map((m) => m.category))];
+        const prices = MENU.map((m) => m.price).filter(Boolean);
+        const range = prices.length ? `from Rs. ${Math.min(...prices)} to Rs. ${Math.max(...prices)}` : '';
+        return {
+          text: `Our menu spans ${cats.join(', ')} — ${MENU.length} items ${range ? 'ranging ' + range : ''}. Ask me about a specific treat, or tell me a category you're curious about.`,
+          chips: ['Cupcakes', 'Cookies', 'Beverages', 'Anything you recommend?'],
+        };
+      }
+
+      function replyRecommend(cat) {
+        if (cat === 'special') return replyTodaysSpecial();
+        state.lastIntent = 'recommend';
+        let pool = MENU.filter((m) => m.badge);
+        if (cat) pool = pool.filter((m) => m.category === cat).length ? pool.filter((m) => m.category === cat) : pool;
+        if (!pool.length) pool = MENU;
+        const pick = pool[Math.floor(Math.random() * Math.min(pool.length, 3))];
+        if (!pick) return { text: 'Take a look at our Menu section — everything is baked fresh daily!', chips: ['Show me the menu'] };
+        return {
+          text: `I'd point you toward our ${pick.name}${pick.badge ? ` — it's one of our ${pick.badge.toLowerCase()} picks` : ''}: ${pick.desc} (${pick.priceText}).`,
+          chips: ['Tell me more', 'Show me the full menu', 'How do I order?'],
+        };
+      }
+
+      function replyCheapest(cat) {
+        const pool = cat ? MENU.filter((m) => m.category === cat) : MENU;
+        const priced = pool.filter((m) => m.price);
+        if (!priced.length) return { text: "I don't have pricing on that category yet — check the Menu section.", chips: ['Show me the menu'] };
+        const cheapest = priced.reduce((a, b) => (a.price < b.price ? a : b));
+        return { text: `Our most budget-friendly ${cat || 'item'} is ${cheapest.name} at ${cheapest.priceText}.`, chips: ['Anything you recommend?', 'How do I order?'] };
+      }
+
+      function replyOrderHelp() {
+        state.lastIntent = 'order_help';
+        return {
+          text: 'Browse the Our Menu section, tap "Add" on anything you like, then open the cart icon in the header to review and check out. Orders placed before 12 PM qualify for same-day delivery.',
+          chips: ['Open my cart', 'Do you deliver to me?', 'Show me the menu'],
+        };
+      }
+
+      function replyCustomCake() {
+        state.lastIntent = 'custom_cake';
+        const line = CONTACT.phone
+          ? `For custom or bulk orders (birthdays, weddings, events), it's best to message us directly at ${CONTACT.phone} or ${CONTACT.email || 'via the contact form'} with your date, size, and theme.`
+          : 'For custom or bulk orders, reach out through the contact form in the footer with your date, size, and theme.';
+        return { text: line, chips: ['What are your hours?', 'Do you deliver to me?'] };
+      }
+
+      function replyIngredients() {
+        state.lastIntent = 'ingredients';
+        return {
+          text: 'Everything is baked fresh with real butter, cream, and premium chocolate — no artificial preservatives. If you have a specific allergy or dietary need, let us know when ordering so the team can advise on that item.',
+          chips: ['Talk to a human', 'Show me the menu'],
+        };
+      }
+
+      function replyOffers() {
+        state.lastIntent = 'offers';
+        return {
+          text: "Offers rotate around holidays and weekends — the ticker at the top of the page and our social pages are the best place to catch current deals.",
+          chips: ['Show me the menu', 'What are your hours?'],
+        };
+      }
+
+      // Step 1 of the complaint flow: acknowledge and ask what actually
+      // happened, instead of immediately pushing a contact number.
+      function replyComplaintAsk() {
+        state.lastIntent = 'complaint';
+        state.awaitingComplaintDetail = true;
+        return {
+          text: "I'm really sorry to hear that — that's not the experience we want you to have. What happened, exactly? Was it the food, the order, or something else?",
+          chips: ['Talk to a human'],
+        };
+      }
+
+      // Step 2: whatever the user says next is treated as the detail,
+      // and we close the loop by pointing them to the feedback form.
+      function replyComplaintFollowup() {
+        state.lastIntent = 'complaint_followup';
+        state.awaitingComplaintDetail = false;
+        const contactBit = CONTACT.phone
+          ? ` You can also reach our team directly at ${CONTACT.phone}${CONTACT.email ? ` or ${CONTACT.email}` : ''}.`
+          : '';
+        return {
+          text: `Thanks for telling me — I'm sorry that happened. You can give us feedback and we'll definitely look into it.${contactBit}`,
+          chips: ['Leave feedback', 'Talk to a human'],
+        };
+      }
+
+      function replyWellbeing() {
+        state.lastIntent = 'smalltalk';
+        return {
+          text: "I'm doing great, thanks for asking! I'm an AI, so I don't get tired of talking about cupcakes 😄 How can I help — menu, delivery, hours, or something else?",
+          chips: ['Show me the menu', 'Anything you recommend?', 'Do you deliver to me?'],
+        };
+      }
+
+      function replyReputation() {
+        state.lastIntent = 'reputation';
+        return {
+          text: `Honestly, yes — ${SHOP_NAME} is known for fresh-baked cupcakes, cookies, and treats made daily, and plenty of customers come back for the custom cakes too. Don't just take my word for it though — check out the menu and see for yourself!`,
+          chips: ['Show me the menu', 'Anything you recommend?', 'Where are you located?'],
+        };
+      }
+
+      function replyGreeting() {
+        state.lastIntent = 'greeting';
+        return {
+          text: `${timeGreeting()}! I'm the ${SHOP_NAME} assistant — ask me about the menu, delivery to your area, hours, or custom orders.`,
+          chips: ['Show me the menu', 'Do you deliver to me?', 'What are your hours?'],
+        };
+      }
+
+      function replyThanks() {
+        state.lastIntent = 'thanks';
+        return { text: "You're very welcome! Anything else I can help you find? 🍪", chips: ['Show me the menu', 'Anything you recommend?'] };
+      }
+
+      function replyFarewell() {
+        state.lastIntent = 'farewell';
+        return { text: 'Thanks for stopping by — have a sweet day! 👋', chips: [] };
+      }
+
+      function replyModeration() {
+        state.moderationWarnings += 1;
+        state.lastIntent = 'moderation';
+        if (state.moderationWarnings === 1) {
+          return {
+            text: "Let's keep things friendly — I won't respond to offensive language or slurs. Happy to help with the menu, delivery, hours, or anything else once we keep it respectful.",
+            chips: ['Show me the menu', 'What are your hours?'],
+          };
+        }
+        return {
+          text: "I still can't engage with language like that. If there's something I can genuinely help with, I'm here — otherwise our team is reachable directly through the contact form in the footer.",
+          chips: [],
+        };
+      }
+
+      function replyFallback(raw) {
+        state.fallbacks += 1;
+        if (state.fallbacks >= 2) {
+          const contactBit = CONTACT.phone || CONTACT.email
+            ? `${CONTACT.phone || ''}${CONTACT.phone && CONTACT.email ? ' or ' : ''}${CONTACT.email || ''}`
+            : 'the contact form in the footer';
+          return {
+            text: `I don't want to guess wrong on this one — our team can help directly via ${contactBit}.`,
+            chips: ['Show me the menu', 'What are your hours?'],
+          };
+        }
+        return {
+          text: "I'm not fully sure I follow — I can help with the menu, prices, delivery areas, hours, custom orders, or ordering. Could you rephrase, or pick something below?",
+          chips: ['Show me the menu', 'Do you deliver to me?', 'What are your hours?'],
+        };
+      }
+
+      // ---------------------------------------------------------------
+      // 6. DIALOGUE MANAGER — resolves intent(s) + context each turn
+      // ---------------------------------------------------------------
+      function resolveReply(userText) {
+        const normalizedText = normalize(userText);
+
+        // Moderation runs before anything else — no intent, menu lookup,
+        // or follow-up state gets a chance to fire on abusive input.
+        if (containsBlockedTerm(userText)) {
+          return replyModeration();
+        }
+
+        // Multi-turn: if we just asked "what happened", this message IS
+        // the detail — close the loop rather than re-classifying it.
+        if (state.awaitingComplaintDetail) {
+          return replyComplaintFollowup();
+        }
+
+        // Small-talk / opinion questions bypass keyword scoring entirely,
+        // since "how are you" is three stopwords and has no topic keyword.
+        if (detectWellbeingQuestion(normalizedText)) return replyWellbeing();
+        if (detectReputationQuestion(normalizedText)) return replyReputation();
+
+        const tokens = tokenize(userText);
+        const meaningful = meaningfulTokens(tokens);
+        const scores = scoreIntents(tokens);
+        const category = findCategoryMention(tokens);
+
+        // Negated-positive phrasing ("didn't like the food") won't match
+        // any single negative keyword, so boost complaint score directly.
+        if (detectNegativeExperiencePhrase(normalizedText)) {
+          scores.complaint = (scores.complaint || 0) + 6;
+        }
+
+        // Pronoun/context resolution: "how much is it / that / this one"
+        const referencesContext = /\b(it|that|this|those|them)\b/.test(normalize(userText));
+        if (referencesContext && state.lastItem && (scores.menu_general || /much|price|cost/.test(normalize(userText)))) {
+          return replyMenuItem(state.lastItem);
+        }
+
+        // Direct menu item name lookup takes priority — it's the most specific signal.
+        const item = findMenuItem(tokens);
+        if (item && (scores.menu_general || item)) {
+          return replyMenuItem(item);
+        }
+
+        // "Today's Special" is a named category people ask about directly —
+        // answer with the full list rather than a single random pick.
+        if (category === 'special') {
+          return replyTodaysSpecial();
+        }
+
+        // Rank remaining intents by score.
+        const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        const top = ranked[0];
+
+        if (!top) {
+          // No keyword signal at all — try to be conversational for very short inputs.
+          if (meaningful.length === 0) return replyFallback(userText);
+          return replyFallback(userText);
+        }
+
+        const [topIntent] = top;
+
+        switch (topIntent) {
+          case 'greeting': return replyGreeting();
+          case 'thanks': return replyThanks();
+          case 'farewell': return replyFarewell();
+          case 'hours': return replyHours();
+          case 'delivery_area': return replyDeliveryArea(tokens);
+          case 'location': return replyLocation();
+          case 'contact': return replyContact();
+          case 'order_help': return replyOrderHelp();
+          case 'custom_cake': return replyCustomCake();
+          case 'ingredients': return replyIngredients();
+          case 'offers': return replyOffers();
+          case 'complaint': return replyComplaintAsk();
+          case 'recommend': return replyRecommend(category || state.lastCategory);
+          case 'menu_general': {
+            if (/cheap|afford|budget|less/.test(normalize(userText))) return replyCheapest(category);
+            if (category) return replyCategory(category);
+            return replyMenuGeneral();
+          }
+          default: return replyFallback(userText);
+        }
+      }
+
+      // ---------------------------------------------------------------
+      // 7. UI RENDERING
+      // ---------------------------------------------------------------
+      function scrollToBottom() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function timeNow() {
+        return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+
+      function clearSuggestions() {
+        const existing = chatMessages.querySelector('.chat-suggestions');
+        if (existing) existing.remove();
+      }
+
+      function renderSuggestions(chips) {
+        clearSuggestions();
+        if (!chips || !chips.length) return;
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-suggestions';
+        chips.forEach((label) => {
+          const btn = document.createElement('button');
+          btn.className = 'chat-suggestion-chip';
+          btn.type = 'button';
+          btn.textContent = label;
+          btn.addEventListener('click', () => {
+            if (btn.disabled) return;
+            if (label === 'Leave feedback') {
+              window.location.href = 'Feedback.html';
+              return;
+            }
+            wrap.querySelectorAll('button').forEach((b) => (b.disabled = true));
+            sendChatMessage(label);
+          });
+          wrap.appendChild(btn);
+        });
+        chatMessages.appendChild(wrap);
+        scrollToBottom();
+      }
+
+      function addMessage(text, sender) {
+        clearSuggestions();
+        const row = document.createElement('div');
+        row.className = `chat-msg-row ${sender}`;
+
+        if (sender === 'bot') {
+          const avatar = document.createElement('div');
+          avatar.className = 'chat-msg-avatar';
+          avatar.innerHTML = '<i class="fa-solid fa-cookie-bite"></i>';
+          row.appendChild(avatar);
+        }
+
+        const col = document.createElement('div');
+        col.className = 'chat-msg-col';
+
+        const bubble = document.createElement('div');
+        bubble.className = `chat-msg ${sender}`;
+        bubble.textContent = text;
+
+        const time = document.createElement('div');
+        time.className = 'chat-msg-time';
+        time.textContent = timeNow();
+
+        col.appendChild(bubble);
+        col.appendChild(time);
+        row.appendChild(col);
+        chatMessages.appendChild(row);
+        scrollToBottom();
+      }
+
+      let typingRow = null;
+
+      function showTyping() {
+        typingRow = document.createElement('div');
+        typingRow.className = 'chat-typing-row';
+        typingRow.innerHTML = `
+          <div class="chat-msg-avatar"><i class="fa-solid fa-cookie-bite"></i></div>
+          <div class="chat-typing-bubble"><span></span><span></span><span></span></div>
+        `;
+        chatMessages.appendChild(typingRow);
+        scrollToBottom();
+      }
+
+      function hideTyping() {
+        if (typingRow) {
+          typingRow.remove();
+          typingRow = null;
+        }
+      }
+
+      function sendChatMessage(rawText) {
+        const trimmed = (rawText || '').trim();
+        if (!trimmed) return;
+        ensureKnowledgeLoaded();
+
+        addMessage(trimmed, 'user');
+        chatInput.value = '';
+        chatSendBtn.disabled = true;
+        state.turns += 1;
+
+        showTyping();
+        // Variable "thinking" delay scaled to response complexity feels more natural
+        // than a fixed timeout, and gives the typing indicator real purpose.
+        const thinkTime = 480 + Math.min(700, trimmed.length * 12) + Math.random() * 250;
+
+        setTimeout(() => {
+          let result;
+          try {
+            result = resolveReply(trimmed);
+          } catch (err) {
+            result = { text: "Sorry, I hit a snag processing that — could you try rephrasing?", chips: ['Show me the menu', 'Talk to a human'] };
+          }
+          hideTyping();
+          addMessage(result.text, 'bot');
+          renderSuggestions(result.chips);
+          chatSendBtn.disabled = false;
+          chatInput.focus();
+        }, thinkTime);
+      }
+
+      function resetConversation() {
+        state.started = false;
+        state.turns = 0;
+        state.fallbacks = 0;
+        state.lastIntent = null;
+        state.lastItem = null;
+        state.lastCategory = null;
+        state.awaitingComplaintDetail = false;
+        chatMessages.innerHTML = '';
+        startConversation();
+      }
+
+      function startConversation() {
+        if (state.started) return;
+        state.started = true;
+        ensureKnowledgeLoaded();
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMessage(`${timeGreeting()}! Welcome to ${SHOP_NAME} 👋 I'm your AI assistant — ask me anything about the menu, prices, delivery to your area, hours, or custom orders.`, 'bot');
+          renderSuggestions(['Show me the menu', 'Do you deliver to me?', 'What are your hours?', 'Anything you recommend?']);
+        }, 550);
+      }
+
+      function toggleChatPanel(open) {
+        chatPanel.classList.toggle('open', open);
+        chatToggleBtn.classList.toggle('is-active', open);
+        if (open) {
+          startConversation();
+          setTimeout(() => chatInput.focus(), 300);
+        }
+      }
+
+      chatToggleBtn.addEventListener('click', () => toggleChatPanel(!chatPanel.classList.contains('open')));
+      chatPanelClose.addEventListener('click', () => toggleChatPanel(false));
+      chatPanelReset.addEventListener('click', resetConversation);
+
+      chatSendBtn.addEventListener('click', () => sendChatMessage(chatInput.value));
+      chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') sendChatMessage(chatInput.value);
+      });
+      chatInput.addEventListener('input', () => {
+        if (chatSubtitle) chatSubtitle.textContent = 'Online now · ask me anything';
+      });
+    })();
+
+    // --- QUICK VIEW MODAL ---
+    const quickviewOverlay = document.getElementById('quickview-overlay');
+    const quickviewClose = document.getElementById('quickview-close');
+    const quickviewImg = document.getElementById('quickview-img');
+    const quickviewTitle = document.getElementById('quickview-title');
+    const quickviewPrice = document.getElementById('quickview-price');
+    const quickviewDesc = document.getElementById('quickview-desc');
+    const quickviewAddBtn = document.getElementById('quickview-add-btn');
+
+    let currentQuickviewProduct = null;
+
+    function openQuickView(btnEl) {
+      // Read straight off this exact card's own markup (image, name, price,
+      // description) instead of matching against the separate `products`
+      // array by id. Several cards on this page intentionally share the
+      // same id, so an id-based lookup pulled up whichever product in the
+      // array happened to match first — showing the wrong picture and
+      // price. Reading the card itself guarantees Quick View always shows
+      // exactly what's on that card.
+      const cardEl = btnEl.closest('.card');
+      if (!cardEl) return;
+
+      const imgEl = cardEl.querySelector('.card-img');
+      const titleEl = cardEl.querySelector('.item-title');
+      const priceEl = cardEl.querySelector('.item-price');
+      const descEl = cardEl.querySelector('.item-desc');
+      if (!imgEl || !titleEl || !priceEl) return;
+
+      const name = titleEl.textContent.trim();
+      const priceText = priceEl.textContent.trim();
+      const priceNumber = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
+      const imgSrc = imgEl.getAttribute('src');
+      const desc = descEl ? descEl.textContent.trim() : '';
+
+      currentQuickviewProduct = { name, price: priceNumber, img: imgSrc };
+      quickviewImg.src = imgSrc;
+      quickviewImg.alt = name;
+      quickviewTitle.textContent = name;
+      quickviewPrice.textContent = priceText;
+      quickviewDesc.textContent = desc;
+
+      quickviewOverlay.classList.add('open');
+    }
+
+    function closeQuickView() {
+      quickviewOverlay.classList.remove('open');
+    }
+
+    quickviewClose.addEventListener('click', closeQuickView);
+    quickviewOverlay.addEventListener('click', (e) => {
+      if (e.target === quickviewOverlay) closeQuickView();
+    });
+
+    quickviewAddBtn.addEventListener('click', () => {
+      if (!currentQuickviewProduct) return;
+      addToCart(currentQuickviewProduct.name, currentQuickviewProduct.price, currentQuickviewProduct.img, quickviewAddBtn);
+      setTimeout(closeQuickView, 700);
+    });
+
+    // --- FEEDBACK FORM ---
+    // Guarded: this markup isn't present on every page (e.g. it lives on a separate
+    // Feedback.html), so we bail out safely instead of throwing and breaking every
+    // script that runs after this block (which was blocking the hero slider below).
+    const feedbackForm = document.getElementById('feedback-form');
+    const ratingErrorRaw = document.getElementById('rating-error');
+    const messageErrorRaw = document.getElementById('message-error');
+
+    if (feedbackForm && ratingErrorRaw && messageErrorRaw) {
+      const feedbackStars = document.querySelectorAll('#feedback-stars i');
+      const feedbackMessage = document.getElementById('feedback-message');
+      const feedbackConfirmation = document.getElementById('feedback-confirmation');
+      const ratingErrorEl = ratingErrorRaw.closest('.feedback-field');
+      const messageErrorEl = messageErrorRaw.closest('.feedback-field');
+
+      let selectedRating = 0;
+
+      feedbackStars.forEach(star => {
+        star.addEventListener('click', () => {
+          selectedRating = parseInt(star.dataset.value, 10);
+          feedbackStars.forEach(s => {
+            s.classList.toggle('selected', parseInt(s.dataset.value, 10) <= selectedRating);
+          });
+          ratingErrorEl.classList.remove('invalid');
+        });
+      });
+
+      feedbackForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        feedbackConfirmation.classList.remove('show');
+
+        let isValid = true;
+
+        if (selectedRating === 0) {
+          ratingErrorEl.classList.add('invalid');
+          isValid = false;
+        } else {
+          ratingErrorEl.classList.remove('invalid');
+        }
+
+        if (feedbackMessage.value.trim() === '') {
+          messageErrorEl.classList.add('invalid');
+          isValid = false;
+        } else {
+          messageErrorEl.classList.remove('invalid');
+        }
+
+        if (!isValid) return;
+
+        // No backend connected — this only confirms submission in the browser.
+        // TODO: send { name, email, rating, message } to your server or form service here.
+        const feedbackData = {
+          name: document.getElementById('feedback-name').value.trim(),
+          email: document.getElementById('feedback-email').value.trim(),
+          rating: selectedRating,
+          message: feedbackMessage.value.trim()
+        };
+        console.log('Feedback submitted:', feedbackData);
+
+        feedbackConfirmation.classList.add('show');
+
+        feedbackForm.reset();
+        selectedRating = 0;
+        feedbackStars.forEach(s => s.classList.remove('selected'));
+
+        setTimeout(() => {
+          feedbackConfirmation.classList.remove('show');
+        }, 5000);
+      });
+    }
+
+    // --- FOOTER CONTACT FORM ---
+    const contactForm = document.getElementById('contact-form');
+    const contactName = document.getElementById('contact-name');
+    const contactEmail = document.getElementById('contact-email');
+    const contactMessage = document.getElementById('contact-message');
+    const contactEmailError = document.getElementById('contact-email-error');
+    const contactMessageError = document.getElementById('contact-message-error');
+    const footerFormConfirmation = document.getElementById('footer-form-confirmation');
+
+    function isValidEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      footerFormConfirmation.classList.remove('show');
+
+      let isValid = true;
+
+      if (!isValidEmail(contactEmail.value.trim())) {
+        contactEmail.classList.add('invalid');
+        contactEmailError.classList.add('show');
+        isValid = false;
+      } else {
+        contactEmail.classList.remove('invalid');
+        contactEmailError.classList.remove('show');
+      }
+
+      if (contactMessage.value.trim() === '') {
+        contactMessage.classList.add('invalid');
+        contactMessageError.classList.add('show');
+        isValid = false;
+      } else {
+        contactMessage.classList.remove('invalid');
+        contactMessageError.classList.remove('show');
+      }
+
+      if (!isValid) return;
+
+      // No backend connected — this only confirms submission in the browser.
+      // TODO: send { name, email, message } to your server or a form service here.
+      const contactData = {
+        name: contactName.value.trim(),
+        email: contactEmail.value.trim(),
+        message: contactMessage.value.trim()
+      };
+      console.log('Contact form submitted:', contactData);
+
+      footerFormConfirmation.classList.add('show');
+      contactForm.reset();
+
+      setTimeout(() => {
+        footerFormConfirmation.classList.remove('show');
+      }, 5000);
+    });
+
+    // --- FAQ ACCORDION ---
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+
+        faqItems.forEach(other => {
+          other.classList.remove('open');
+          other.querySelector('.faq-answer').style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // --- HERO CAROUSEL AUTO-SLIDE (seamless infinite loop) ---
+    let currentSlide = 0;
+    const dots = document.querySelectorAll('.slider-dots .dot');
+    const heroSliderEl = document.getElementById('hero-slider');
+    const realSlides = Array.from(document.querySelectorAll('.hero-slide'));
+    const slideCount = realSlides.length;
+
+    // Clone the first slide onto the end and the last slide onto the front.
+    // This lets next/prev always animate in one continuous direction, even
+    // when wrapping last->first or first->last, instead of jumping backward
+    // through every slide to get back to the start.
+    const firstClone = realSlides[0].cloneNode(true);
+    const lastClone = realSlides[slideCount - 1].cloneNode(true);
+    firstClone.setAttribute('aria-hidden', 'true');
+    lastClone.setAttribute('aria-hidden', 'true');
+    heroSliderEl.appendChild(firstClone);
+    heroSliderEl.insertBefore(lastClone, realSlides[0]);
+
+    // Track positions: 0 = lastClone, 1..slideCount = real slides, slideCount+1 = firstClone.
+    const trackSlides = Array.from(heroSliderEl.children);
+    let position = 1;
+
+    const AUTO_SLIDE_DELAY = 4000;
+    let slideTimeout = null;
+
+    // Guards against rapid clicking / overlapping auto-slide ticks. Without
+    // this, a click (or dot click) fired while a transition was still in
+    // flight could push `position` past the single clone on either end of
+    // the track, so trackSlides[position] became undefined and the slider
+    // silently rendered a blank space that no longer responded to input.
+    let isAnimating = false;
+    let animationSafetyTimer = null;
+
+    function setActive(realIndex, instant = false) {
+      if (instant) {
+        // The wrap-around snap swaps from an invisible clone (already at full
+        // opacity) to the real slide underneath it. That real slide was never
+        // marked active before, so without this it sits dim and then visibly
+        // fades up to full opacity over its own 0.5s transition right after
+        // the jump - a distracting blink at exactly the loop point. Killing
+        // each slide's opacity transition for this one swap makes it appear
+        // instantly at full opacity instead, matching the clone it replaced.
+        trackSlides.forEach(s => { s.style.transition = 'none'; });
+      }
+
+      trackSlides.forEach(s => s.classList.remove('active-slide'));
+      dots.forEach(d => d.classList.remove('active'));
+      trackSlides[position].classList.add('active-slide');
+      dots[realIndex].classList.add('active');
+      currentSlide = realIndex;
+
+      if (instant) {
+        // Force a reflow so transition:none takes effect before it's lifted.
+        void heroSliderEl.offsetWidth;
+        trackSlides.forEach(s => { s.style.transition = ''; });
+      }
+    }
+
+    function moveTo(newPosition, withTransition = true) {
+      // Hard safety clamp: `position` must never leave [0, trackSlides.length - 1]
+      // no matter what triggered this call. Previously that was only enforced by
+      // timing (an `isAnimating` flag plus a 700ms guess at the transition's
+      // length), so a single missed or delayed `transitionend` — background-tab
+      // throttling, the browser being under load, anything — could let an
+      // overlapping auto-slide tick push `position` one step too far. Once that
+      // happened, `trackSlides[position]` was `undefined`, the very next line
+      // threw, and since nothing ever pulled `position` back into range, EVERY
+      // future click hit that same error forever — the only fix was a reload.
+      // Clamping here makes that impossible: worst case an overlapping call is a
+      // harmless no-op, it can never index past the track.
+      newPosition = Math.max(0, Math.min(trackSlides.length - 1, newPosition));
+      heroSliderEl.style.transition = withTransition ? '' : 'none';
+      position = newPosition;
+      heroSliderEl.style.transform = `translateX(-${position * 100}%)`;
+      const realIndex = ((position - 1) % slideCount + slideCount) % slideCount;
+      setActive(realIndex, !withTransition);
+
+      if (!withTransition) {
+        // Force a reflow so the transition:none takes effect immediately,
+        // before we hand control back to the CSS transition below.
+        void heroSliderEl.offsetWidth;
+        heroSliderEl.style.transition = '';
+      }
+    }
+
+    // Step exactly one slide forward (1) or backward (-1), always animating
+    // visually in that direction, including across the wrap point. Ignored
+    // while a transition is already in progress so `position` can never run
+    // past the single clone buffered on each end of the track.
+    function step(direction) {
+      if (isAnimating) return;
+      beginAnimation();
+      moveTo(position + direction);
+    }
+
+    function beginAnimation() {
+      isAnimating = true;
+      // Safety net: if `transitionend` never fires for some reason (tab
+      // throttled in the background, transition interrupted by the browser,
+      // etc.) don't leave the slider permanently stuck ignoring clicks.
+      clearTimeout(animationSafetyTimer);
+      animationSafetyTimer = setTimeout(() => { isAnimating = false; }, 1200);
+    }
+
+    // Once the animated step lands on a clone, snap instantly (no transition)
+    // to the matching real slide, so the next click can keep going the same way.
+    function handleTrackTransitionSettled(e) {
+      // transitionend/transitioncancel bubble up from any descendant. Buttons
+      // (.btn) and the hero images have their own hover transform transitions,
+      // and without this check their bubbled events get mistaken for the
+      // track's own slide animation finishing - corrupting `position`/
+      // `isAnimating` and eventually stranding the slider off-screen.
+      if (e.target !== heroSliderEl) return;
+      if (e.propertyName !== 'transform') return;
+      if (position === 0) {
+        moveTo(slideCount, false);
+      } else if (position === slideCount + 1) {
+        moveTo(1, false);
+      }
+      clearTimeout(animationSafetyTimer);
+      isAnimating = false;
+    }
+    // `transitioncancel` fires (instead of `transitionend`) if the browser
+    // interrupts the transition partway through - e.g. the tab was backgrounded
+    // and the compositor dropped it. Listening for both means the lock always
+    // gets released by a real event rather than solely by the timing guess above.
+    heroSliderEl.addEventListener('transitionend', handleTrackTransitionSettled);
+    heroSliderEl.addEventListener('transitioncancel', handleTrackTransitionSettled);
+
+    // Used by the dots to jump straight to a specific slide.
+    function goToSlide(index) {
+      if (isAnimating) return;
+      const wrappedIndex = (index + slideCount) % slideCount;
+      const target = wrappedIndex + 1;
+      if (target === position) return;
+      beginAnimation();
+      moveTo(target);
+    }
+
+    // Schedules the next auto-slide 4 seconds from now. Any call to this
+    // (including the one fired by clicking an arrow/dot) cancels whatever
+    // was pending and starts the 4-second countdown over from 0.
+    function startAutoSlide() {
+      clearTimeout(slideTimeout);
+      slideTimeout = setTimeout(() => {
+        step(1);
+        startAutoSlide();
+      }, AUTO_SLIDE_DELAY);
+    }
+
+    function stopAutoSlide() {
+      clearTimeout(slideTimeout);
+    }
+
+    // Called on every manual interaction (arrow or dot click): reset the
+    // countdown back to 0 so it only auto-advances after 4s of no interaction.
+    function restartAutoSlide() {
+      startAutoSlide();
+    }
+
+    moveTo(1, false);
+    startAutoSlide();
+  </script>
+</body>
+
+</html>

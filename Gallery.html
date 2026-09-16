@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery | Baker'z Bite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg-cream: #FAF6ED;
+      --text-brown: #3C1C13;
+      --accent-red: #D11B47;
+      --card-brown: #3B1E13;
+      --light-brown: #F2E8DA;
+      --white: #FFFFFF;
+      --gold-accent: #C5A059;
+      --gold-hover: #e5be75;
+      --transition-fast: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-brown);
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ---------- HEADER / NAVBAR (matches About_Us.html / index.html / Feedback.html) ---------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 5%;
+      background-color: var(--bg-cream);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      transition: var(--transition-smooth);
+    }
+
+    .logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      color: var(--text-brown);
+      transition: var(--transition-fast);
+    }
+
+    .logo:hover {
+      transform: scale(1.02);
+      color: var(--accent-red);
+    }
+
+    header nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    header nav a {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-brown);
+      transition: var(--transition-fast);
+      position: relative;
+    }
+
+    header nav a:hover,
+    header nav a.active {
+      color: var(--accent-red);
+    }
+
+    header nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--accent-red);
+      transition: var(--transition-fast);
+    }
+
+    header nav a:hover::after,
+    header nav a.active::after {
+      width: 100%;
+    }
+
+
+    /* ---------- PAGE HERO (former top banner, now sits below the navbar) ---------- */
+    .gallery-hero {
+      background: linear-gradient(135deg, #2A130B 0%, var(--card-brown) 55%, #472418 100%);
+      color: var(--white);
+      padding: 60px 6% 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 85% 20%, rgba(197, 160, 89, 0.18), transparent 55%);
+      pointer-events: none;
+    }
+
+    .gallery-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .page-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold-accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .page-eyebrow::before {
+      content: '';
+      width: 30px;
+      height: 2px;
+      background: var(--gold-accent);
+    }
+
+    .gallery-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      max-width: 700px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .gallery-hero p {
+      max-width: 620px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    /* ---------- NAV ---------- */
+    .jump-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-cream);
+      display: flex;
+      gap: 6px;
+      padding: 14px 6%;
+      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(60, 28, 19, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .jump-nav a {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 30px;
+      background: var(--light-brown);
+      color: var(--text-brown);
+      transition: var(--transition-fast);
+    }
+
+    .jump-nav a:hover {
+      background: var(--accent-red);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- SECTIONS ---------- */
+    section {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 70px 6%;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+      max-width: 620px;
+    }
+
+    .section-label {
+      color: var(--accent-red);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      color: rgba(60, 28, 19, 0.7);
+      line-height: 1.6;
+    }
+
+    /* ---------- IMAGE GALLERY ---------- */
+    .category-tag {
+      display: inline-block;
+      background: var(--light-brown);
+      color: var(--text-brown);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .gallery-card {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      transition: var(--transition-smooth);
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-card .img-wrap {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--light-brown);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-smooth);
+    }
+
+    .gallery-card:hover img { transform: scale(1.06); }
+
+    .gallery-card .card-body {
+      padding: 16px 18px 18px;
+    }
+
+    .gallery-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .gallery-card p {
+      font-size: 0.82rem;
+      color: rgba(60, 28, 19, 0.65);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .gallery-card .used-on {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* full-width feature images (hero / collage / background) */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      margin-top: 12px;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .feature-card .img-wrap {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--light-brown);
+    }
+
+    .feature-card img { width: 100%; height: 100%; object-fit: cover; }
+    .feature-card .card-body { padding: 16px 18px 18px; }
+    .feature-card h4 { font-weight: 700; margin-bottom: 5px; font-size: 0.98rem; }
+    .feature-card p { font-size: 0.82rem; color: rgba(60,28,19,0.65); line-height: 1.5; }
+    .feature-card .used-on { font-size: 0.7rem; font-weight: 700; color: var(--gold-accent); text-transform: uppercase; letter-spacing: 0.3px; display: block; margin-top: 8px; }
+
+    .subgroup-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent-red);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin: 36px 0 16px;
+    }
+
+    .subgroup-title:first-of-type { margin-top: 0; }
+
+    /* ---------- CARD TITLE ROW (name + price), BADGES ---------- */
+    .card-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .card-title-row h4 { margin-bottom: 0; }
+
+    .price-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-red);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+
+    /* ---------- FOOTER (matches index.html) ---------- */
+    .site-footer {
+      background: var(--card-brown);
+      color: var(--light-brown);
+      padding: 60px 24px 0;
+    }
+
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1.2fr 1.3fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-col h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: rgba(242, 232, 218, 0.75);
+    }
+
+    .footer-contact ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .footer-contact li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: rgba(242, 232, 218, 0.85);
+    }
+
+    .footer-contact li i {
+      color: var(--gold-accent);
+      font-size: 0.95rem;
+      margin-top: 2px;
+      width: 16px;
+      flex-shrink: 0;
+    }
+
+    .footer-contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-contact-form input,
+    .footer-contact-form textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      resize: vertical;
+      transition: var(--transition-fast);
+    }
+
+    .footer-contact-form input::placeholder,
+    .footer-contact-form textarea::placeholder {
+      color: rgba(242, 232, 218, 0.5);
+    }
+
+    .footer-contact-form input:focus,
+    .footer-contact-form textarea:focus {
+      border-color: var(--gold-accent);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-contact-form input.invalid,
+    .footer-contact-form textarea.invalid {
+      border-color: var(--accent-red);
+    }
+
+    .footer-form-error {
+      display: none;
+      color: #f3a3b6;
+      font-size: 0.76rem;
+      margin-top: -6px;
+    }
+
+    .footer-form-error.show {
+      display: block;
+    }
+
+    .footer-contact-form button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--gold-accent);
+      color: #1A0D0A;
+      border: none;
+      border-radius: 25px;
+      padding: 11px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .footer-contact-form button:hover {
+      background: var(--gold-hover);
+      transform: translateY(-2px);
+    }
+
+    .footer-form-confirmation {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(45, 90, 39, 0.25);
+      border: 1px solid rgba(87, 173, 74, 0.4);
+      color: #b7e6ac;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .footer-form-confirmation.show {
+      display: flex;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(242, 232, 218, 0.6);
+    }
+
+    @media (max-width: 860px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .gallery-hero { padding: 44px 6% 36px; }
+      section { padding: 50px 6%; }
+    }
+
+    @media (max-width: 768px) {
+      header nav ul { gap: 14px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER / NAVBAR (matches About_Us.html / index.html / Feedback.html) -->
+  <header>
+    <a href="index.html" class="logo">Baker'z Bite</a>
+    <nav>
+      <ul>
+        <li><a href="index.html#merchandise-section">Merchandise</a></li>
+        <li><a href="index.html#menu-section">Our Menu</a></li>
+        <li><a href="index.html#faq-section">FAQ</a></li>
+        <li><a href="Gallery.html" class="active">Gallery</a></li>
+        <li><a href="Feedback.html">Feedback</a></li>
+        <li><a href="About_Us.html">About Us</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+
+  <!-- PAGE HERO (moved below the navbar) -->
+  <section class="gallery-hero">
+    <div class="gallery-hero-inner">
+      <div class="page-eyebrow">Site Reference</div>
+      <h1>Image Gallery</h1>
+      <p>Every photo actually used across About_Us.html and index.html — hero slider, merchandise, and the full
+        menu — collected in one place for quick reference.</p>
+    </div>
+  </section>
+
+  <nav class="jump-nav">
+    <a href="#images-story">Story Images</a>
+    <a href="#images-hero-slider">Hero Slider</a>
+    <a href="#images-merch">Merchandise</a>
+    <a href="#images-menu">Menu Photos</a>
+    <a href="#images-feature">Feature &amp; Background Images</a>
+  </nav>
+
+  <!-- ================= IMAGES: STORY / ABOUT ================= -->
+  <section id="images-story">
+    <div class="section-header">
+      <div class="section-label">Image Gallery</div>
+      <h2>Story &amp; Images</h2>
+      <p>Photos used in the About Us hero and the "Baked With Purpose" story collage.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1519733870-f96bef9bc85f?auto=format&fit=crop&w=900&q=80" alt="Baker piping icing onto a fresh cupcake"></div>
+        <div class="card-body">
+          <h4>Baker piping icing onto a fresh cupcake</h4>
+          <p>About hero image.</p>
+          <span class="used-on">About_Us.html — Hero</span>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1726950189914-8fe1016eb9c7?auto=format&fit=crop&w=700&q=80" alt="Baker'z Bite display case full of cakes and pastries"></div>
+        <div class="card-body">
+          <h4>Display case of cakes and pastries</h4>
+          <p>Part of the story-section photo collage.</p>
+          <span class="used-on">About_Us.html — Story Collage</span>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1623246123320-0d6636755796?auto=format&fit=crop&w=700&q=80" alt="A table of freshly frosted cupcakes"></div>
+        <div class="card-body">
+          <h4>Table of freshly frosted cupcakes</h4>
+          <p>Part of the story-section photo collage.</p>
+          <span class="used-on">About_Us.html — Story Collage</span>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1642068151055-e007bc0ca3b3?auto=format&fit=crop&w=700&q=80" alt="A fresh stack of baked cookies"></div>
+        <div class="card-body">
+          <h4>Fresh stack of baked cookies</h4>
+          <p>Part of the story-section photo collage (also reused as a menu photo).</p>
+          <span class="used-on">About_Us.html — Story Collage</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= IMAGES: HOMEPAGE HERO SLIDER ================= -->
+  <section id="images-hero-slider">
+    <div class="section-header">
+      <div class="section-label">Image Gallery</div>
+      <h2>Homepage Hero Slider</h2>
+      <p>The paired left/right product shots that rotate through the four auto-playing slides at the very top of index.html.</p>
+    </div>
+
+    <div class="subgroup-title">Slide 1 — "Spreading Joy in every bite!"</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/LotusMini.png" alt="Lotus Mini"></div>
+        <div class="card-body"><h4>Lotus Mini</h4><p>Left-hand hero visual on the opening slide, paired with the "Spreading Joy in every bite!" headline. Also doubles as the Assorted Mini Box photo in the Minis menu.</p><span class="used-on">index.html — Hero Slider (Slide 1)</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/ChocolateChipCookie.png" alt="Chocolate Chip Cookie"></div>
+        <div class="card-body"><h4>Chocolate Chip Cookie</h4><p>Right-hand hero visual on the opening slide. Reused as the Chocolate Chip Cookie photo in the Cookies menu.</p><span class="used-on">index.html — Hero Slider (Slide 1)</span></div>
+      </div>
+    </div>
+
+    <div class="subgroup-title">Slide 2 — "Handcrafted Treats, Baked Fresh Daily!"</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/RedVelvetMini.png" alt="Red Velvet Mini"></div>
+        <div class="card-body"><h4>Red Velvet Mini</h4><p>Left-hand hero visual on the second slide. Reused as the Red Velvet Mini photo in the Minis menu.</p><span class="used-on">index.html — Hero Slider (Slide 2)</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/HazelNutCookie.png" alt="Hazel Nut Cookie"></div>
+        <div class="card-body"><h4>Hazel Nut Cookie</h4><p>Right-hand hero visual on the second slide. Reused as the Hazel Nut Cookie photo in the Cookies menu.</p><span class="used-on">index.html — Hero Slider (Slide 2)</span></div>
+      </div>
+    </div>
+
+    <div class="subgroup-title">Slide 3 — "Freshly Baked Every Single Morning!"</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/BlueberryMini.png" alt="Blueberry Mini"></div>
+        <div class="card-body"><h4>Blueberry Mini</h4><p>Left-hand hero visual on the third slide. Reused as the Blueberry Mini photo in the Minis menu.</p><span class="used-on">index.html — Hero Slider (Slide 3)</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Cappuccino.png" alt="Cappuccino"></div>
+        <div class="card-body"><h4>Cappuccino</h4><p>Right-hand hero visual on the third slide. Reused as the Cappuccino photo in the Beverages menu.</p><span class="used-on">index.html — Hero Slider (Slide 3)</span></div>
+      </div>
+    </div>
+
+    <div class="subgroup-title">Slide 4 — "Custom Cakes For Every Celebration!"</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/CheeseCake.png" alt="CheeseCake"></div>
+        <div class="card-body"><h4>Cheese Cake</h4><p>Left-hand hero visual on the closing slide. Reused as the Cheese Cake photo in the Cakes menu.</p><span class="used-on">index.html — Hero Slider (Slide 4)</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/StrawberryMini.png" alt="Strawberry Mini"></div>
+        <div class="card-body"><h4>Strawberry Mini</h4><p>Right-hand hero visual on the closing slide. Reused as the Strawberry Mini photo in the Minis menu.</p><span class="used-on">index.html — Hero Slider (Slide 4)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= IMAGES: MERCHANDISE ================= -->
+  <section id="images-merch">
+    <div class="section-header">
+      <div class="section-label">Image Gallery</div>
+      <h2>Merchandise</h2>
+      <p>Branded merchandise photos from the Merchandise section of index.html.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Mugs.png" alt="Bakerz Bite Mugs"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Bakerz Bite Mugs</h4><span class="price-tag">Rs. 950</span></div>
+          <p>Ceramic mug printed with the Baker'z Bite logo — perfect for your morning coffee.</p>
+          <span class="used-on">index.html — Merchandise</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Purse.png" alt="Bakerz Bite Bags"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Bakerz Bite Bags</h4><span class="price-tag">Rs. 1,200</span></div>
+          <p>Reusable canvas tote bag with the Baker'z Bite print — great for grocery runs or gifting.</p>
+          <span class="used-on">index.html — Merchandise</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Jug.png" alt="Bakerz Bite Glasses"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Bakerz Bite Glasses</h4><span class="price-tag">Rs. 1,100</span></div>
+          <p>Etched glass set featuring the Baker'z Bite logo — perfect for milk, juice, or iced coffee.</p>
+          <span class="used-on">index.html — Merchandise</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Trays.png" alt="Bakerz Bite Trays"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Bakerz Bite Trays</h4><span class="price-tag">Rs. 1,250</span></div>
+          <p>Wooden serving tray branded with the Baker'z Bite logo — ideal for serving your favorite treats.</p>
+          <span class="used-on">index.html — Merchandise</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= IMAGES: MENU (CAKES, COOKIES, BEVERAGES, MINIS) ================= -->
+  <section id="images-menu">
+    <div class="section-header">
+      <div class="section-label">Image Gallery</div>
+      <h2>Menu Photos</h2>
+      <p>Every product photo used in the index.html menu grid, grouped the same way the on-page category filters (All / Today's Special / Cakes / Cookies / Beverages / Mini's) are.</p>
+    </div>
+
+    <div class="subgroup-title">Today's Special</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Three_Milk_Cake_Slice.png" alt="Three Milk Cake Slice"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Three Milk Cake Slice</h4><span class="price-tag">Rs. 1,100</span></div>
+          <p>Today only — our beloved three milk cake at a special price, soaked fresh this morning.</p>
+          <span class="used-on">index.html — Menu (Today's Special)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Double_Chocolate_Cookie_Duo.png" alt="Double Chocolate Cookie Duo"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Double Chocolate Cookie Duo</h4><span class="price-tag">Rs. 550</span></div>
+          <p>Two fudgy double chocolate cookies, warm from the oven, bundled at today's special price.</p>
+          <span class="used-on">index.html — Menu (Today's Special)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Strawberry_Mini_Treat.png" alt="Strawberry Mini Treat"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Strawberry Mini Treat</h4><span class="price-tag">Rs. 350</span></div>
+          <p>A fresh box of 12 strawberry buttercream minis, baked this morning and priced special for today.</p>
+          <span class="used-on">index.html — Menu (Today's Special)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Rich_Hot_Chocolate.png" alt="Rich Hot Chocolate"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Rich Hot Chocolate</h4><span class="price-tag">Rs. 380</span></div>
+          <p>Velvety melted chocolate topped with whipped cream — today's special sip to pair with your treats.</p>
+          <span class="used-on">index.html — Menu (Today's Special)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subgroup-title">Cakes</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/KitkatCake.png" alt="Kitkat Cake"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Kitkat Cake</h4><span class="price-tag">Rs. 1,200</span></div>
+          <p>Chocolate sponge wrapped in crisp Kitkat fingers with a rich chocolate drip.</p>
+          <span class="used-on">index.html — Menu (Cakes)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/CheeseCake.png" alt="Cheese Cake"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Cheese Cake</h4><span class="price-tag">Rs. 1,200</span></div>
+          <p>Creamy baked cheesecake on a buttery biscuit base with a smooth vanilla finish.</p>
+          <span class="used-on">index.html — Menu (Cakes) &amp; Hero Slider (Slide 4)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/ThreeMilkCake.png" alt="Three Milk Cake"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Three Milk Cake</h4><span class="price-tag">Rs. 1,700</span></div>
+          <p>Soft sponge soaked in three kinds of milk, finished with a light whipped cream.</p>
+          <span class="used-on">index.html — Menu (Cakes)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/NutellaCake.png" alt="Nutella Cake"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Nutella Cake</h4><span class="price-tag">Rs. 1,550</span></div>
+          <p>Chocolate sponge layered with silky Nutella cream and a hazelnut chocolate glaze.</p>
+          <span class="used-on">index.html — Menu (Cakes)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/RedVelvetCake.png" alt="Red Velvet Cake"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Red Velvet Cake</h4><span class="price-tag">Rs. 1,300</span></div>
+          <p>Traditional rich red cocoa cake layered with smooth cream cheese frosting.</p>
+          <span class="used-on">index.html — Menu (Cakes)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/ChocolateCake.png" alt="Chocolate Cake"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Chocolate Cake</h4><span class="price-tag">Rs. 1,450</span></div>
+          <p>Dark chocolate cake filled with fudge lava and whipped chocolate frosting.</p>
+          <span class="used-on">index.html — Menu (Cakes)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subgroup-title">Cookies</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/ChocolateChipCookie.png" alt="Chocolate Chip Cookie"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Chocolate Chip Cookie</h4><span class="price-tag">Rs. 380</span></div>
+          <p>Warm, chewy brown butter cookie loaded with semi-sweet dark chocolate chunks.</p>
+          <span class="used-on">index.html — Menu (Cookies) &amp; Hero Slider (Slide 1)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/HazelNutCookie.png" alt="Hazel Nut Cookie"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Hazel Nut Cookie</h4><span class="price-tag">Rs. 450</span></div>
+          <p>Buttery cookie packed with toasted hazelnuts and a hint of cocoa.</p>
+          <span class="used-on">index.html — Menu (Cookies) &amp; Hero Slider (Slide 2)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/AlmondCookie.png" alt="Almond Cookie"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Almond Cookie</h4><span class="price-tag">Rs. 370</span></div>
+          <p>Crisp cookie studded with sliced almonds and a delicate almond aroma.</p>
+          <span class="used-on">index.html — Menu (Cookies)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Classic Cookie.png" alt="Classic Cookie"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Classic Cookie</h4><span class="price-tag">Rs. 300</span></div>
+          <p>A simple, buttery classic cookie baked golden with a soft centre.</p>
+          <span class="used-on">index.html — Menu (Cookies)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/DoubleChocolateCookie.png" alt="Double Chocolate Cookie"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Double Chocolate Cookie</h4><span class="price-tag">Rs. 450</span></div>
+          <p>Loaded with cocoa and chocolate chunks for a rich, fudgy bite.</p>
+          <span class="used-on">index.html — Menu (Cookies)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/PeanutCookie.png" alt="Peanut Cookie"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Peanut Cookie</h4><span class="price-tag">Rs. 370</span></div>
+          <p>Crumbly cookie packed with roasted peanuts and a nutty finish.</p>
+          <span class="used-on">index.html — Menu (Cookies)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subgroup-title">Beverages</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/CaramelLatte.png" alt="Caramel Latte"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Caramel Latte</h4><span class="price-tag">Rs. 950</span></div>
+          <p>Smooth espresso and steamed milk finished with a swirl of house-made caramel.</p>
+          <span class="used-on">index.html — Menu (Beverages)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Cappuccino.png" alt="Cappuccino"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Cappuccino</h4><span class="price-tag">Rs. 880</span></div>
+          <p>Bold espresso topped with steamed milk foam and a dusting of cocoa.</p>
+          <span class="used-on">index.html — Menu (Beverages) &amp; Hero Slider (Slide 3)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/IcedLatte.png" alt="Iced Latte"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Iced Latte</h4><span class="price-tag">Rs. 820</span></div>
+          <p>Cold-brewed coffee over ice with a touch of vanilla bean syrup and cream.</p>
+          <span class="used-on">index.html — Menu (Beverages)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/Latte.png" alt="Latte"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Latte</h4><span class="price-tag">Rs. 780</span></div>
+          <p>Smooth espresso balanced with steamed milk for a mellow, creamy cup.</p>
+          <span class="used-on">index.html — Menu (Beverages)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/HotChocolate.png" alt="Hot Chocolate"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Hot Chocolate</h4><span class="price-tag">Rs. 620</span></div>
+          <p>Rich melted chocolate topped with whipped cream and a dusting of cocoa.</p>
+          <span class="used-on">index.html — Menu (Beverages)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subgroup-title">Mini's</div>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/LotusMini.png" alt="Lotus Mini"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Assorted Mini Box</h4><span class="price-tag">Rs. 500</span></div>
+          <p>Box of 12 bite-sized signature cupcakes featuring our top popular flavors.</p>
+          <span class="used-on">index.html — Menu (Mini's) &amp; Hero Slider (Slide 1)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/RedVelvetMini.png" alt="Red Velvet Mini"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Red Velvet Mini</h4><span class="price-tag">Rs. 500</span></div>
+          <p>Box of 12 miniature red velvet cupcakes topped with cream cheese frosting.</p>
+          <span class="used-on">index.html — Menu (Mini's) &amp; Hero Slider (Slide 2)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/StrawberryMini.png" alt="Strawberry Mini"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Strawberry Mini</h4><span class="price-tag">Rs. 500</span></div>
+          <p>Box of 12 mini cupcakes topped with fresh strawberry buttercream.</p>
+          <span class="used-on">index.html — Menu (Mini's) &amp; Hero Slider (Slide 4)</span>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="img-wrap"><img src="Images/BlueberryMini.png" alt="Blueberry Mini"></div>
+        <div class="card-body">
+          <div class="card-title-row"><h4>Blueberry Mini</h4><span class="price-tag">Rs. 500</span></div>
+          <p>Box of 12 mini cupcakes swirled with blueberry compote and cream.</p>
+          <span class="used-on">index.html — Menu (Mini's) &amp; Hero Slider (Slide 3)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= IMAGES: FEATURE / BACKGROUND ================= -->
+  <section id="images-feature">
+    <div class="section-header">
+      <div class="section-label">Image Gallery</div>
+      <h2>Feature &amp; Background Images</h2>
+      <p>Large CSS background-image shared by two different sections — the closing CTA banner on About_Us.html and
+        the "Baked Fresh, Every Single Morning" banner on index.html.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="img-wrap"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1000&q=80" alt="Bakery counter background"></div>
+        <div class="card-body">
+          <h4>Bakery counter background</h4>
+          <p>CSS background-image behind the promotional banner text.</p>
+          <span class="used-on">About_Us.html — Closing CTA Banner &amp; index.html — Featured Banner</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+
+      <div class="footer-col footer-brand">
+        <h3>Baker'z Bite</h3>
+        <p>Freshly baked happiness, delivered with love — cupcakes, cookies, and treats made every single morning.</p>
+      </div>
+
+      <div class="footer-col footer-contact">
+        <h4>Get in Touch</h4>
+        <ul>
+          <li><i class="fa-solid fa-envelope"></i><span>hello@bakerzbite.com</span></li>
+          <li><i class="fa-solid fa-location-dot"></i><span>Shop #12, Main Boulevard, Karachi, Pakistan</span></li>
+          <li><i class="fa-solid fa-phone"></i><span>+92 300 1234567</span></li>
+          <li><i class="fa-solid fa-clock"></i><span>Mon – Sun: 9:00 AM – 9:00 PM</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-form-col">
+        <h4>Send Us a Message</h4>
+        <form id="contact-form" class="footer-contact-form" novalidate>
+          <input type="text" id="contact-name" placeholder="Your Name (optional)">
+
+          <input type="email" id="contact-email" placeholder="Your Email">
+          <span class="footer-form-error" id="contact-email-error">Please enter a valid email.</span>
+
+          <textarea id="contact-message" rows="3" placeholder="Your Message"></textarea>
+          <span class="footer-form-error" id="contact-message-error">Please enter a message.</span>
+
+          <button type="submit">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Send Message</span>
+          </button>
+
+          <div class="footer-form-confirmation" id="footer-form-confirmation">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Message sent! We'll get back to you soon.</span>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Baker'z Bite. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // --- FOOTER CONTACT FORM (matches index.html) ---
+    const contactForm = document.getElementById('contact-form');
+    const contactName = document.getElementById('contact-name');
+    const contactEmail = document.getElementById('contact-email');
+    const contactMessage = document.getElementById('contact-message');
+    const contactEmailError = document.getElementById('contact-email-error');
+    const contactMessageError = document.getElementById('contact-message-error');
+    const footerFormConfirmation = document.getElementById('footer-form-confirmation');
+
+    function isValidEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      footerFormConfirmation.classList.remove('show');
+
+      let isValid = true;
+
+      if (!isValidEmail(contactEmail.value.trim())) {
+        contactEmail.classList.add('invalid');
+        contactEmailError.classList.add('show');
+        isValid = false;
+      } else {
+        contactEmail.classList.remove('invalid');
+        contactEmailError.classList.remove('show');
+      }
+
+      if (contactMessage.value.trim() === '') {
+        contactMessage.classList.add('invalid');
+        contactMessageError.classList.add('show');
+        isValid = false;
+      } else {
+        contactMessage.classList.remove('invalid');
+        contactMessageError.classList.remove('show');
+      }
+
+      if (!isValid) return;
+
+      // No backend connected — this only confirms submission in the browser.
+      const contactData = {
+        name: contactName.value.trim(),
+        email: contactEmail.value.trim(),
+        message: contactMessage.value.trim()
+      };
+      console.log('Contact form submitted:', contactData);
+
+      footerFormConfirmation.classList.add('show');
+      contactForm.reset();
+
+      setTimeout(() => {
+        footerFormConfirmation.classList.remove('show');
+      }, 5000);
+    });
+  </script>
+
+</body>
+
+</html>
