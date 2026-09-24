@@ -46,7 +46,6 @@
       font-family: 'Playfair Display', serif;
     }
 
-    /* ---------- HEADER / NAVBAR (matches About_Us.html / index.html / Feedback.html) ---------- */
     header {
       display: flex;
       justify-content: space-between;
@@ -107,8 +106,6 @@
       width: 100%;
     }
 
-
-    /* ---------- PAGE HERO (former top banner, now sits below the navbar) ---------- */
     .gallery-hero {
       background: linear-gradient(135deg, #2A130B 0%, var(--card-brown) 55%, #472418 100%);
       color: var(--white);
@@ -166,7 +163,6 @@
       line-height: 1.6;
     }
 
-    /* ---------- NAV ---------- */
     .jump-nav {
       position: sticky;
       top: 0;
@@ -196,7 +192,6 @@
       transform: translateY(-2px);
     }
 
-    /* ---------- SECTIONS ---------- */
     section {
       max-width: 1300px;
       margin: 0 auto;
@@ -228,7 +223,6 @@
       line-height: 1.6;
     }
 
-    /* ---------- IMAGE GALLERY ---------- */
     .category-tag {
       display: inline-block;
       background: var(--light-brown);
@@ -303,7 +297,6 @@
       letter-spacing: 0.3px;
     }
 
-    /* full-width feature images (hero / collage / background) */
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -341,7 +334,6 @@
 
     .subgroup-title:first-of-type { margin-top: 0; }
 
-    /* ---------- CARD TITLE ROW (name + price), BADGES ---------- */
     .card-title-row {
       display: flex;
       justify-content: space-between;
@@ -359,8 +351,6 @@
       flex-shrink: 0;
     }
 
-
-    /* ---------- FOOTER (matches index.html) ---------- */
     .site-footer {
       background: var(--card-brown);
       color: var(--light-brown);
@@ -539,7 +529,6 @@
 
 <body>
 
-  <!-- HEADER / NAVBAR (matches About_Us.html / index.html / Feedback.html) -->
   <header>
     <a href="index.html" class="logo">Baker'z Bite</a>
     <nav>
@@ -555,7 +544,6 @@
     </nav>
   </header>
 
-  <!-- PAGE HERO (moved below the navbar) -->
   <section class="gallery-hero">
     <div class="gallery-hero-inner">
       <div class="page-eyebrow">Site Reference</div>
@@ -573,7 +561,6 @@
     <a href="#images-feature">Feature &amp; Background Images</a>
   </nav>
 
-  <!-- ================= IMAGES: STORY / ABOUT ================= -->
   <section id="images-story">
     <div class="section-header">
       <div class="section-label">Image Gallery</div>
@@ -616,7 +603,6 @@
     </div>
   </section>
 
-  <!-- ================= IMAGES: HOMEPAGE HERO SLIDER ================= -->
   <section id="images-hero-slider">
     <div class="section-header">
       <div class="section-label">Image Gallery</div>
@@ -673,7 +659,6 @@
     </div>
   </section>
 
-  <!-- ================= IMAGES: MERCHANDISE ================= -->
   <section id="images-merch">
     <div class="section-header">
       <div class="section-label">Image Gallery</div>
@@ -716,7 +701,6 @@
     </div>
   </section>
 
-  <!-- ================= IMAGES: MENU (CAKES, COOKIES, BEVERAGES, MINIS) ================= -->
   <section id="images-menu">
     <div class="section-header">
       <div class="section-label">Image Gallery</div>
@@ -945,7 +929,6 @@
     </div>
   </section>
 
-  <!-- ================= IMAGES: FEATURE / BACKGROUND ================= -->
   <section id="images-feature">
     <div class="section-header">
       <div class="section-label">Image Gallery</div>
@@ -1014,7 +997,6 @@
   </footer>
 
   <script>
-    // --- FOOTER CONTACT FORM (matches index.html) ---
     const contactForm = document.getElementById('contact-form');
     const contactName = document.getElementById('contact-name');
     const contactEmail = document.getElementById('contact-email');
@@ -1053,7 +1035,6 @@
 
       if (!isValid) return;
 
-      // No backend connected — this only confirms submission in the browser.
       const contactData = {
         name: contactName.value.trim(),
         email: contactEmail.value.trim(),

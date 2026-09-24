@@ -5,17 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Baker'z Bite | Spreading Joy in Every Bite!</title>
-  <!-- Google Fonts: Pacifico for logo, Montserrat & Playfair Display for modern typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
     rel="stylesheet">
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* --- CSS RESET & THEME VARIABLES --- */
     * {
       margin: 0;
       padding: 0;
@@ -48,7 +45,6 @@
       color: inherit;
     }
 
-    /* --- ANNOUNCEMENT TICKER --- */
     .ticker-bar {
       background-color: var(--light-brown);
       color: var(--text-brown);
@@ -87,7 +83,6 @@
       }
     }
 
-    /* --- HEADER / NAVBAR --- */
     header {
       display: flex;
       justify-content: space-between;
@@ -148,7 +143,6 @@
       width: 100%;
     }
 
-
     .header-icons {
       display: flex;
       gap: 20px;
@@ -179,7 +173,6 @@
       transition: var(--transition-fast);
     }
 
-    /* Cart Badge - Hidden by default when 0 */
     .cart-badge {
       position: absolute;
       top: -5px;
@@ -192,13 +185,11 @@
       height: 16px;
       border-radius: 50%;
       display: none;
-      /* Initially hidden */
       align-items: center;
       justify-content: center;
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    /* --- SEARCH BAR OVERLAY --- */
     .search-overlay {
       position: fixed;
       top: 0;
@@ -316,7 +307,6 @@
       color: var(--accent-red);
     }
 
-    /* --- QUICK VIEW MODAL --- */
     .quickview-overlay {
       position: fixed;
       inset: 0;
@@ -417,7 +407,6 @@
       padding: 13px 18px;
     }
 
-    /* --- SLIDE-OUT CART DRAWER --- */
     .cart-drawer-overlay {
       position: fixed;
       top: 0;
@@ -679,7 +668,6 @@
       box-shadow: 0 6px 18px rgba(209, 27, 71, 0.3);
     }
 
-    /* --- REWORKED THEMED ADD-TO-CART BUTTON STYLES --- */
     .card-actions {
       display: flex;
       align-items: center;
@@ -709,8 +697,6 @@
       transition: transform 0.3s ease;
     }
 
-    /* Confirmation state: same pill, new color — sized by the row it
-       already has, never by the length of the label. */
     .card .add-btn.added-state-standard {
       background-color: #3FAE5C;
       border-color: #3FAE5C;
@@ -760,7 +746,6 @@
       transform: translateY(-2px);
     }
 
-    /* Standard Card Button */
     .card .add-btn {
       flex: 1;
       padding: 9px 14px;
@@ -781,9 +766,6 @@
       transform: scale(1.15) rotate(-8deg);
     }
 
-    
-
-    /* --- HERO CAROUSEL SECTION --- */
     .hero-wrapper {
       max-width: 1400px;
       margin: 0 auto;
@@ -964,7 +946,6 @@
       border-radius: 10px;
     }
 
-    /* --- FEATURED BANNER SECTION --- */
     .featured-section {
       display: flex;
       width: 100%;
@@ -1011,7 +992,6 @@
       transform: scale(1.03);
     }
 
-    /* --- MENU SECTION --- */
     .menu-header {
       text-align: center;
       padding: 60px 20px 20px 20px;
@@ -1057,7 +1037,6 @@
       box-shadow: 0 4px 10px rgba(60, 28, 19, 0.15);
     }
 
-    /* --- SCROLLABLE MENU CONTAINER --- */
     .menu-scroll-wrapper {
       max-width: 1200px;
       margin: 0 auto 80px auto;
@@ -1096,7 +1075,6 @@
 
     .menu-category {
       display: block;
-      /* Managed dynamically via JavaScript filter */
     }
 
     .category-title {
@@ -1117,7 +1095,6 @@
       gap: 30px;
     }
 
-    /* ITEM CARD */
     .card {
       background-color: var(--white);
       border-radius: 20px;
@@ -1228,7 +1205,6 @@
       flex-grow: 1;
     }
 
-    /* --- FAQ SECTION --- */
     #faq-section {
       padding: 70px 24px;
       background: var(--bg-cream);
@@ -1321,7 +1297,6 @@
       text-decoration: underline;
     }
 
-    /* --- FEEDBACK SECTION --- */
     #feedback-section {
       padding: 70px 24px;
       background: var(--bg-cream);
@@ -1491,7 +1466,6 @@
       }
     }
 
-    /* --- FOOTER --- */
     .site-footer {
       background: var(--card-brown);
       color: var(--light-brown);
@@ -1657,7 +1631,6 @@
       }
     }
 
-    /* --- CHAT BOT WIDGET (launcher button — colors intentionally unchanged) --- */
     .chat-widget {
       position: fixed;
       bottom: 20px;
@@ -1720,7 +1693,6 @@
       line-height: 1.2;
     }
 
-    /* --- CHAT PANEL (redesigned assistant UI) --- */
     .chat-panel {
       position: fixed;
       bottom: 92px;
@@ -2002,7 +1974,6 @@
       padding: 0 3px;
     }
 
-    /* Typing indicator */
     .chat-typing-row {
       display: flex;
       align-items: flex-end;
@@ -2054,7 +2025,6 @@
       }
     }
 
-    /* Contextual suggestion chips (rendered inline in the conversation) */
     .chat-suggestions {
       display: flex;
       flex-wrap: wrap;
@@ -2164,7 +2134,6 @@
       }
     }
 
-    /* --- RESPONSIVE STYLES --- */
     @media (max-width: 900px) {
 
       .hero-img-left,
@@ -2203,7 +2172,6 @@
       }
     }
 
-    /* --- DELIVERY LOCATION CHECK MODAL --- */
     .location-overlay {
       position: fixed;
       inset: 0;
@@ -2447,7 +2415,6 @@
 
 <body>
 
-  <!-- ANNOUNCEMENT TICKER -->
   <div class="ticker-bar">
     <div class="ticker-content">
       <span class="ticker-item">FREE SHIPPING ON ORDERS OVER RS. 3,500</span> •
@@ -2463,7 +2430,6 @@
     </div>
   </div>
 
-  <!-- SEARCH OVERLAY -->
   <div class="search-overlay" id="search-overlay">
     <div class="search-input-wrapper">
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -2474,7 +2440,6 @@
     <div class="search-results-list" id="search-results"></div>
   </div>
 
-  <!-- DELIVERY LOCATION CHECK MODAL -->
   <div class="location-overlay" id="location-overlay">
     <div class="location-modal">
       <button class="location-close-btn" id="location-close">&times;</button>
@@ -2517,7 +2482,6 @@
     </div>
   </div>
 
-  <!-- QUICK VIEW MODAL -->
   <div class="quickview-overlay" id="quickview-overlay">
     <div class="quickview-modal">
       <button class="quickview-close-btn" id="quickview-close">&times;</button>
@@ -2536,7 +2500,6 @@
     </div>
   </div>
 
-  <!-- SLIDE-OUT CART DRAWER -->
   <div class="cart-drawer-overlay" id="cart-overlay"></div>
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-header">
@@ -2561,7 +2524,6 @@
     </div>
   </div>
 
-  <!-- HEADER / NAVBAR -->
   <header>
     <a href="#" class="logo">Baker'z Bite</a>
 
@@ -2603,11 +2565,9 @@
     </div>
   </header>
 
-  <!-- HERO SLIDER SECTION -->
   <section class="hero-wrapper">
     <div class="hero-slider" id="hero-slider">
 
-      <!-- Slide 1 -->
       <div class="hero-slide active-slide">
         <img class="hero-img-left"
           src="Images/LotusMini.png"
@@ -2626,7 +2586,6 @@
         </div>
       </div>
 
-      <!-- Slide 2 -->
       <div class="hero-slide">
         <img class="hero-img-left"
           src="Images/RedVelvetMini.png"
@@ -2645,7 +2604,6 @@
         </div>
       </div>
 
-      <!-- Slide 3 -->
       <div class="hero-slide">
         <img class="hero-img-left"
           src="Images/BlueberryMini.png"
@@ -2664,7 +2622,6 @@
         </div>
       </div>
 
-      <!-- Slide 4 -->
       <div class="hero-slide">
         <img class="hero-img-left"
           src="Images/CheeseCake.png"
@@ -2685,13 +2642,11 @@
 
     </div>
 
-    <!-- Prev / Next Arrows -->
     <button class="hero-arrow prev" onclick="step(-1); restartAutoSlide();"><i
         class="fa-solid fa-chevron-left"></i></button>
     <button class="hero-arrow next" onclick="step(1); restartAutoSlide();"><i
         class="fa-solid fa-chevron-right"></i></button>
 
-    <!-- Navigation Dots -->
     <div class="slider-dots">
       <div class="dot active" onclick="goToSlide(0); restartAutoSlide();"></div>
       <div class="dot" onclick="goToSlide(1); restartAutoSlide();"></div>
@@ -2700,8 +2655,6 @@
     </div>
   </section>
 
-
-  <!-- FEATURED BANNER SECTION -->
   <section class="featured-section" id="About-Us">
     <div class="featured-text">
       <h2>Baked Fresh, Every Single Morning</h2>
@@ -2715,8 +2668,6 @@
     <div class="featured-image"></div>
   </section>
 
-
-  <!-- MERCHANDISE SECTION -->
   <section id="merchandise-section">
     <div class="menu-header">
       <h2>Merchandise</h2>
@@ -2837,7 +2788,6 @@
     </div>
   </section>
 
-  <!-- MENU SECTION -->
   <section id="menu-section">
     <div class="menu-header">
       <h2>Explore Our Menu</h2>
@@ -2856,7 +2806,6 @@
     <div class="menu-scroll-wrapper">
       <div class="menu-container" id="menu-container">
 
-        <!-- TODAY'S SPECIAL CATEGORY -->
         <div class="menu-category" data-category="special" id="category-special">
           <h3 class="category-title">Today's Special</h3>
           <div class="items-grid">
@@ -2972,7 +2921,6 @@
           </div>
         </div>
 
-        <!-- CAKES CATEGORY -->
         <div class="menu-category" data-category="cupcakes" id="category-cupcakes">
           <h3 class="category-title">Cakes</h3>
           <div class="items-grid">
@@ -3140,7 +3088,6 @@
           </div>
         </div>
 
-        <!-- COOKIES CATEGORY -->
         <div class="menu-category" data-category="cookies" id="category-cookies">
           <h3 class="category-title">Cookies</h3>
           <div class="items-grid">
@@ -3305,7 +3252,6 @@
           </div>
         </div>
 
-        <!-- BEVERAGES CATEGORY -->
         <div class="menu-category" data-category="beverages" id="category-beverages">
           <h3 class="category-title">Beverages</h3>
           <div class="items-grid">
@@ -3440,12 +3386,10 @@
                 </div>
               </div>
             </div>
-            
 
           </div>
         </div>
 
-        <!-- MINIS CATEGORY -->
         <div class="menu-category" data-category="minis" id="category-minis">
           <h3 class="category-title">Mini's</h3>
           <div class="items-grid">
@@ -3559,7 +3503,6 @@
     </div>
   </section>
 
-  <!-- FAQ SECTION -->
   <section id="faq-section">
     <div class="faq-container">
       <h2>Frequently Asked Questions</h2>
@@ -3707,8 +3650,6 @@
     </div>
   </section>
 
-
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-container">
 
@@ -3757,7 +3698,6 @@
     </div>
   </footer>
 
-  <!-- CHAT BOT WIDGET (launcher — colors unchanged) -->
   <div class="chat-widget" id="chat-toggle-btn">
     <div class="chat-icon">
       <i class="fa-solid fa-comments"></i>
@@ -3766,7 +3706,6 @@
     <div class="chat-text">Need Help?<br>Chat with us!</div>
   </div>
 
-  <!-- CHAT PANEL: Baker'z Bite AI Assistant -->
   <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Baker'z Bite AI Assistant">
     <div class="chat-panel-header">
       <div class="chat-panel-header-info">
@@ -3799,9 +3738,7 @@
     <div class="chat-panel-footnote">Baker'z Bite Assistant can occasionally be mistaken — for anything urgent, reach us directly.</div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // --- DATABASE OF ALL PRODUCTS ---
     const products = [
       { id: 'item-special-three-milk-cake', name: 'Three Milk Cake Slice', price: 1100, img: 'Images/Three_Milk_Cake_Slice.png', desc: 'Today only — our beloved three milk cake at a special price, soaked fresh this morning', category: 'special' },
       { id: 'item-special-double-choc-cookie', name: 'Double Chocolate Cookie Duo', price: 550, img: 'Images/Double_Chocolate_Cookie_Duo.png', desc: 'Two fudgy double chocolate cookies, warm from the oven, bundled at today\'s special price', category: 'special' },
@@ -3834,8 +3771,6 @@
       { id: 'item-bakerz-tray', name: 'Bakerz Bite Trays', price: 1250, img: 'Images/Trays.png', desc: 'Wooden serving tray branded with the bakery logo', category: 'merchandise' }
     ];
 
-    // --- CART MANAGEMENT ---
-    // Stored in localStorage so the cart is shared with About_Us.html
     const CART_STORAGE_KEY = 'bakerzBiteCart';
 
     function loadCart() {
@@ -3851,7 +3786,6 @@
       try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
       } catch (e) {
-        /* storage unavailable (private mode) - cart just won't persist */
       }
     }
 
@@ -3899,7 +3833,6 @@
 
       const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
 
-      // Toggle badge visibility depending on items in cart
       if (totalQty > 0) {
         cartCountEl.style.display = "flex";
         cartCountEl.innerText = totalQty;
@@ -3973,7 +3906,6 @@
       toggleCart(false);
     }
 
-    // --- CART DRAWER TOGGLE ---
     const cartBtn = document.getElementById('cart-btn');
     const closeCartBtn = document.getElementById('close-cart');
     const cartDrawer = document.getElementById('cart-drawer');
@@ -3993,7 +3925,6 @@
     closeCartBtn.addEventListener('click', () => toggleCart(false));
     cartOverlay.addEventListener('click', () => toggleCart(false));
 
-    // --- SEARCH FUNCTIONALITY ---
     const searchBtn = document.getElementById('search-btn');
     const closeSearchBtn = document.getElementById('close-search');
     const searchOverlay = document.getElementById('search-overlay');
@@ -4047,21 +3978,18 @@
     function selectSearchResult(elementId, category) {
       toggleSearch(false);
 
-      // Automatically switch category button selection and show filtered items if item belongs to a menu category
       if (category) {
         const targetBtn = document.getElementById(`btn-cat-${category}`);
         if (targetBtn) {
           filterCategory(category, targetBtn);
         }
       } else {
-        // Fallback to 'all' if unmapped
         const allCategoryBtn = document.querySelector('.category-nav .cat-btn');
         if (allCategoryBtn) {
           filterCategory('all', allCategoryBtn);
         }
       }
 
-      // Allow a brief browser paint cycle for display block rendering before scrolling and highlighting
       setTimeout(() => {
         const el = document.getElementById(elementId);
         if (el) {
@@ -4074,7 +4002,6 @@
       }, 50);
     }
 
-    // --- MENU FILTERING & HIDING REST SECTIONS ---
     function filterCategory(category, btnElement) {
       const buttons = document.querySelectorAll('.category-nav .cat-btn');
       buttons.forEach(btn => btn.classList.remove('active'));
@@ -4100,10 +4027,6 @@
       }
     }
 
-    // --- RESTORE CART + HANDLE LINKS COMING FROM OTHER PAGES ---
-    // Shows any items saved from another page, and if we arrived via a
-    // search result on About_Us.html (index.html#item-...), opens that
-    // item's category and highlights it.
     updateCartUI();
 
     window.addEventListener('load', () => {
@@ -4114,14 +4037,12 @@
       selectSearchResult(product.id, product.category || '');
     });
 
-    // --- DELIVERY LOCATION CHECK ---
     const BAKERY_CONFIG = {
-      lat: 24.8607,          // TODO: replace with Baker'z Bite's actual shop coordinates
+      lat: 24.8607,
       lng: 67.0011,
-      deliveryRadiusKm: 8    // how far your delivery reaches from the shop
+      deliveryRadiusKm: 8
     };
 
-    // TODO: replace with real distances (km) from your shop to each area
     const AREA_DISTANCES_KM = {
       "Saddar": 3,
       "Clifton": 6,
@@ -4240,17 +4161,6 @@
       showDeliveryResult(distance, selectedArea);
     });
 
-    // ================================================================
-    // BAKER'Z BITE AI ASSISTANT
-    // A self-contained, dependency-free conversational engine.
-    // Instead of matching fixed phrases, it: normalizes and tokenizes
-    // input, tolerates typos via edit-distance, scores multiple
-    // intents at once, reads live data straight from the page (menu
-    // items, prices, badges, delivery zones, footer contact details)
-    // so answers stay accurate even if the site content changes, and
-    // keeps short-term conversational memory so it can resolve
-    // follow-ups like "how much is that" or "what about weekends".
-    // ================================================================
     (function bakerzBiteAssistant() {
       const chatToggleBtn = document.getElementById('chat-toggle-btn');
       const chatPanel = document.getElementById('chat-panel');
@@ -4263,9 +4173,6 @@
 
       const SHOP_NAME = "Baker'z Bite";
 
-      // ---------------------------------------------------------------
-      // 1. LIVE KNOWLEDGE BASE — pulled from the page itself
-      // ---------------------------------------------------------------
       function readContactInfo() {
         const info = { email: '', phone: '', address: '', hours: '' };
         document.querySelectorAll('.footer-contact li').forEach((li) => {
@@ -4280,9 +4187,6 @@
         return info;
       }
 
-      // Hard-coded fallback for the "Today's Special" category (Explore Our
-      // Menu section) so the assistant always knows about it, even on pages
-      // that don't render the full menu markup in their DOM.
       const TODAYS_SPECIAL_ITEMS = [
         { name: "Three Milk Cake Slice", price: 1100, priceText: "Rs. 1100", desc: "Today only — our beloved three milk cake at a special price, soaked fresh this morning.", badge: "Today's Special", category: 'special' },
         { name: "Double Chocolate Cookie Duo", price: 550, priceText: "Rs. 550", desc: "Two fudgy double chocolate cookies, warm from the oven, bundled at today's special price.", badge: "Today's Special", category: 'special' },
@@ -4303,15 +4207,12 @@
             if (name) items.push({ name, price, priceText, desc, badge, category, el: card });
           });
         });
-        // Guarantee "Today's Special" is always part of the assistant's
-        // knowledge, whether or not this page renders the Menu section.
         if (!items.some((i) => i.category === 'special')) {
           items.push(...TODAYS_SPECIAL_ITEMS);
         }
         return items;
       }
 
-      // Cached once on first open, since the page content doesn't change at runtime.
       let CONTACT = null;
       let MENU = null;
 
@@ -4320,9 +4221,6 @@
         if (!MENU) MENU = readMenu();
       }
 
-      // ---------------------------------------------------------------
-      // 2. TEXT UNDERSTANDING — normalization, tokenizing, fuzzy match
-      // ---------------------------------------------------------------
       const STOPWORDS = new Set(['a', 'an', 'the', 'is', 'are', 'do', 'does', 'you', 'your', 'i', 'my', 'me',
         'to', 'for', 'of', 'on', 'in', 'at', 'it', 'this', 'that', 'can', 'please', 'and', 'or', 'have', 'has',
         'what', 'whats', "what's", 'how', 'about', 'there', 'be', 'with', 'im', "i'm", 'want', 'would', 'like']);
@@ -4340,8 +4238,6 @@
         return out.length ? out : tokens;
       }
 
-      // Levenshtein edit distance — lets the assistant handle typos
-      // ("delivary", "hourz", "cupcak") instead of requiring exact words.
       function editDistance(a, b) {
         if (a === b) return 0;
         const m = a.length, n = b.length;
@@ -4366,11 +4262,6 @@
         return editDistance(token, keyword) <= tolerance;
       }
 
-      // ---------------------------------------------------------------
-      // 3. INTENT MODEL — weighted keyword sets scored per message,
-      // not a single fixed regex, so multiple topics in one sentence
-      // ("do you deliver and what time do you close?") are all caught.
-      // ---------------------------------------------------------------
       const INTENTS = [
         {
           name: 'greeting',
@@ -4468,7 +4359,6 @@
         return scores;
       }
 
-      // Find a menu item the user is referring to by fuzzy name overlap.
       function findMenuItem(tokens) {
         const meaningful = meaningfulTokens(tokens);
         let best = null;
@@ -4503,14 +4393,6 @@
         return null;
       }
 
-      // ---------------------------------------------------------------
-      // 3b. MODERATION — catches profanity, slurs, and common evasions
-      // (letter-spacing, repeated letters, basic leetspeak) before the
-      // message ever reaches intent scoring. This is a lightweight
-      // in-page filter; for a public production site you'd normally
-      // back it with a maintained list (e.g. an "obscenity" or
-      // "leo-profanity" package) since slang and slurs keep evolving.
-      // ---------------------------------------------------------------
       const BLOCKED_TERMS = [
         'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'cunt', 'dick', 'piss',
         'slut', 'whore', 'douchebag', 'motherfucker', 'nigger', 'nigga',
@@ -4543,9 +4425,6 @@
         });
       }
 
-      // ---------------------------------------------------------------
-      // 4. CONVERSATION STATE (short-term memory, in-memory only)
-      // ---------------------------------------------------------------
       const state = {
         started: false,
         turns: 0,
@@ -4557,12 +4436,6 @@
         moderationWarnings: 0,
       };
 
-      // ---------------------------------------------------------------
-      // 4b. PHRASE-LEVEL DETECTORS — small-talk and sentiment checks that
-      // don't fit the single-keyword scoring model above (e.g. "how are
-      // you" is three stopwords; "didn't like the food" is a negated
-      // positive, not a negative keyword).
-      // ---------------------------------------------------------------
       function detectWellbeingQuestion(text) {
         return /\bhow\s+(are|r)\s+(you|u)\b/.test(text)
           || /\bhow('?s| is| are) (it going|things|everything)\b/.test(text)
@@ -4575,9 +4448,6 @@
         return asksIfGood && mentionsPlace;
       }
 
-      // Catches negated-positive phrasing ("didn't like the food", "wasn't
-      // great") that the keyword scorer can't see, since it only looks for
-      // *negative* words, not the absence of a positive one.
       function detectNegativeExperiencePhrase(text) {
         return /\b(didn'?t|did not|don'?t|do not|doesn'?t|does not|wasn'?t|was not|isn'?t|is not)\b[^.!]{0,25}\b(like|enjoy|love|good|great|fresh|worth it)\b/.test(text);
       }
@@ -4589,10 +4459,6 @@
         return 'Good evening';
       }
 
-      // ---------------------------------------------------------------
-      // 5. RESPONSE BUILDERS — reason over live data rather than
-      // returning one fixed string per topic.
-      // ---------------------------------------------------------------
       function replyHours() {
         state.lastIntent = 'hours';
         const hours = CONTACT.hours || 'Mon – Sun: 9:00 AM – 9:00 PM';
@@ -4761,8 +4627,6 @@
         };
       }
 
-      // Step 1 of the complaint flow: acknowledge and ask what actually
-      // happened, instead of immediately pushing a contact number.
       function replyComplaintAsk() {
         state.lastIntent = 'complaint';
         state.awaitingComplaintDetail = true;
@@ -4772,8 +4636,6 @@
         };
       }
 
-      // Step 2: whatever the user says next is treated as the detail,
-      // and we close the loop by pointing them to the feedback form.
       function replyComplaintFollowup() {
         state.lastIntent = 'complaint_followup';
         state.awaitingComplaintDetail = false;
@@ -4789,7 +4651,7 @@
       function replyWellbeing() {
         state.lastIntent = 'smalltalk';
         return {
-          text: "I'm doing great, thanks for asking! I'm an AI, so I don't get tired of talking about cupcakes 😄 How can I help — menu, delivery, hours, or something else?",
+          text: "I'm doing great, thanks for asking! I'm an AI, so I don't get tired of talking about cupcakes How can I help — menu, delivery, hours, or something else?",
           chips: ['Show me the menu', 'Anything you recommend?', 'Do you deliver to me?'],
         };
       }
@@ -4812,12 +4674,12 @@
 
       function replyThanks() {
         state.lastIntent = 'thanks';
-        return { text: "You're very welcome! Anything else I can help you find? 🍪", chips: ['Show me the menu', 'Anything you recommend?'] };
+        return { text: "You're very welcome! Anything else I can help you find?", chips: ['Show me the menu', 'Anything you recommend?'] };
       }
 
       function replyFarewell() {
         state.lastIntent = 'farewell';
-        return { text: 'Thanks for stopping by — have a sweet day! 👋', chips: [] };
+        return { text: 'Thanks for stopping by — have a sweet day!', chips: [] };
       }
 
       function replyModeration() {
@@ -4852,26 +4714,17 @@
         };
       }
 
-      // ---------------------------------------------------------------
-      // 6. DIALOGUE MANAGER — resolves intent(s) + context each turn
-      // ---------------------------------------------------------------
       function resolveReply(userText) {
         const normalizedText = normalize(userText);
 
-        // Moderation runs before anything else — no intent, menu lookup,
-        // or follow-up state gets a chance to fire on abusive input.
         if (containsBlockedTerm(userText)) {
           return replyModeration();
         }
 
-        // Multi-turn: if we just asked "what happened", this message IS
-        // the detail — close the loop rather than re-classifying it.
         if (state.awaitingComplaintDetail) {
           return replyComplaintFollowup();
         }
 
-        // Small-talk / opinion questions bypass keyword scoring entirely,
-        // since "how are you" is three stopwords and has no topic keyword.
         if (detectWellbeingQuestion(normalizedText)) return replyWellbeing();
         if (detectReputationQuestion(normalizedText)) return replyReputation();
 
@@ -4880,36 +4733,28 @@
         const scores = scoreIntents(tokens);
         const category = findCategoryMention(tokens);
 
-        // Negated-positive phrasing ("didn't like the food") won't match
-        // any single negative keyword, so boost complaint score directly.
         if (detectNegativeExperiencePhrase(normalizedText)) {
           scores.complaint = (scores.complaint || 0) + 6;
         }
 
-        // Pronoun/context resolution: "how much is it / that / this one"
         const referencesContext = /\b(it|that|this|those|them)\b/.test(normalize(userText));
         if (referencesContext && state.lastItem && (scores.menu_general || /much|price|cost/.test(normalize(userText)))) {
           return replyMenuItem(state.lastItem);
         }
 
-        // Direct menu item name lookup takes priority — it's the most specific signal.
         const item = findMenuItem(tokens);
         if (item && (scores.menu_general || item)) {
           return replyMenuItem(item);
         }
 
-        // "Today's Special" is a named category people ask about directly —
-        // answer with the full list rather than a single random pick.
         if (category === 'special') {
           return replyTodaysSpecial();
         }
 
-        // Rank remaining intents by score.
         const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
         const top = ranked[0];
 
         if (!top) {
-          // No keyword signal at all — try to be conversational for very short inputs.
           if (meaningful.length === 0) return replyFallback(userText);
           return replyFallback(userText);
         }
@@ -4939,9 +4784,6 @@
         }
       }
 
-      // ---------------------------------------------------------------
-      // 7. UI RENDERING
-      // ---------------------------------------------------------------
       function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
       }
@@ -5041,8 +4883,6 @@
         state.turns += 1;
 
         showTyping();
-        // Variable "thinking" delay scaled to response complexity feels more natural
-        // than a fixed timeout, and gives the typing indicator real purpose.
         const thinkTime = 480 + Math.min(700, trimmed.length * 12) + Math.random() * 250;
 
         setTimeout(() => {
@@ -5079,7 +4919,7 @@
         showTyping();
         setTimeout(() => {
           hideTyping();
-          addMessage(`${timeGreeting()}! Welcome to ${SHOP_NAME} 👋 I'm your AI assistant — ask me anything about the menu, prices, delivery to your area, hours, or custom orders.`, 'bot');
+          addMessage(`${timeGreeting()}! Welcome to ${SHOP_NAME} I'm your AI assistant — ask me anything about the menu, prices, delivery to your area, hours, or custom orders.`, 'bot');
           renderSuggestions(['Show me the menu', 'Do you deliver to me?', 'What are your hours?', 'Anything you recommend?']);
         }, 550);
       }
@@ -5106,7 +4946,6 @@
       });
     })();
 
-    // --- QUICK VIEW MODAL ---
     const quickviewOverlay = document.getElementById('quickview-overlay');
     const quickviewClose = document.getElementById('quickview-close');
     const quickviewImg = document.getElementById('quickview-img');
@@ -5118,13 +4957,6 @@
     let currentQuickviewProduct = null;
 
     function openQuickView(btnEl) {
-      // Read straight off this exact card's own markup (image, name, price,
-      // description) instead of matching against the separate `products`
-      // array by id. Several cards on this page intentionally share the
-      // same id, so an id-based lookup pulled up whichever product in the
-      // array happened to match first — showing the wrong picture and
-      // price. Reading the card itself guarantees Quick View always shows
-      // exactly what's on that card.
       const cardEl = btnEl.closest('.card');
       if (!cardEl) return;
 
@@ -5165,10 +4997,6 @@
       setTimeout(closeQuickView, 700);
     });
 
-    // --- FEEDBACK FORM ---
-    // Guarded: this markup isn't present on every page (e.g. it lives on a separate
-    // Feedback.html), so we bail out safely instead of throwing and breaking every
-    // script that runs after this block (which was blocking the hero slider below).
     const feedbackForm = document.getElementById('feedback-form');
     const ratingErrorRaw = document.getElementById('rating-error');
     const messageErrorRaw = document.getElementById('message-error');
@@ -5214,8 +5042,6 @@
 
         if (!isValid) return;
 
-        // No backend connected — this only confirms submission in the browser.
-        // TODO: send { name, email, rating, message } to your server or form service here.
         const feedbackData = {
           name: document.getElementById('feedback-name').value.trim(),
           email: document.getElementById('feedback-email').value.trim(),
@@ -5236,7 +5062,6 @@
       });
     }
 
-    // --- FOOTER CONTACT FORM ---
     const contactForm = document.getElementById('contact-form');
     const contactName = document.getElementById('contact-name');
     const contactEmail = document.getElementById('contact-email');
@@ -5275,8 +5100,6 @@
 
       if (!isValid) return;
 
-      // No backend connected — this only confirms submission in the browser.
-      // TODO: send { name, email, message } to your server or a form service here.
       const contactData = {
         name: contactName.value.trim(),
         email: contactEmail.value.trim(),
@@ -5292,7 +5115,6 @@
       }, 5000);
     });
 
-    // --- FAQ ACCORDION ---
     const faqItems = document.querySelectorAll('.faq-item');
 
     faqItems.forEach(item => {
@@ -5314,17 +5136,12 @@
       });
     });
 
-    // --- HERO CAROUSEL AUTO-SLIDE (seamless infinite loop) ---
     let currentSlide = 0;
     const dots = document.querySelectorAll('.slider-dots .dot');
     const heroSliderEl = document.getElementById('hero-slider');
     const realSlides = Array.from(document.querySelectorAll('.hero-slide'));
     const slideCount = realSlides.length;
 
-    // Clone the first slide onto the end and the last slide onto the front.
-    // This lets next/prev always animate in one continuous direction, even
-    // when wrapping last->first or first->last, instead of jumping backward
-    // through every slide to get back to the start.
     const firstClone = realSlides[0].cloneNode(true);
     const lastClone = realSlides[slideCount - 1].cloneNode(true);
     firstClone.setAttribute('aria-hidden', 'true');
@@ -5332,30 +5149,17 @@
     heroSliderEl.appendChild(firstClone);
     heroSliderEl.insertBefore(lastClone, realSlides[0]);
 
-    // Track positions: 0 = lastClone, 1..slideCount = real slides, slideCount+1 = firstClone.
     const trackSlides = Array.from(heroSliderEl.children);
     let position = 1;
 
     const AUTO_SLIDE_DELAY = 4000;
     let slideTimeout = null;
 
-    // Guards against rapid clicking / overlapping auto-slide ticks. Without
-    // this, a click (or dot click) fired while a transition was still in
-    // flight could push `position` past the single clone on either end of
-    // the track, so trackSlides[position] became undefined and the slider
-    // silently rendered a blank space that no longer responded to input.
     let isAnimating = false;
     let animationSafetyTimer = null;
 
     function setActive(realIndex, instant = false) {
       if (instant) {
-        // The wrap-around snap swaps from an invisible clone (already at full
-        // opacity) to the real slide underneath it. That real slide was never
-        // marked active before, so without this it sits dim and then visibly
-        // fades up to full opacity over its own 0.5s transition right after
-        // the jump - a distracting blink at exactly the loop point. Killing
-        // each slide's opacity transition for this one swap makes it appear
-        // instantly at full opacity instead, matching the clone it replaced.
         trackSlides.forEach(s => { s.style.transition = 'none'; });
       }
 
@@ -5366,24 +5170,12 @@
       currentSlide = realIndex;
 
       if (instant) {
-        // Force a reflow so transition:none takes effect before it's lifted.
         void heroSliderEl.offsetWidth;
         trackSlides.forEach(s => { s.style.transition = ''; });
       }
     }
 
     function moveTo(newPosition, withTransition = true) {
-      // Hard safety clamp: `position` must never leave [0, trackSlides.length - 1]
-      // no matter what triggered this call. Previously that was only enforced by
-      // timing (an `isAnimating` flag plus a 700ms guess at the transition's
-      // length), so a single missed or delayed `transitionend` — background-tab
-      // throttling, the browser being under load, anything — could let an
-      // overlapping auto-slide tick push `position` one step too far. Once that
-      // happened, `trackSlides[position]` was `undefined`, the very next line
-      // threw, and since nothing ever pulled `position` back into range, EVERY
-      // future click hit that same error forever — the only fix was a reload.
-      // Clamping here makes that impossible: worst case an overlapping call is a
-      // harmless no-op, it can never index past the track.
       newPosition = Math.max(0, Math.min(trackSlides.length - 1, newPosition));
       heroSliderEl.style.transition = withTransition ? '' : 'none';
       position = newPosition;
@@ -5392,17 +5184,11 @@
       setActive(realIndex, !withTransition);
 
       if (!withTransition) {
-        // Force a reflow so the transition:none takes effect immediately,
-        // before we hand control back to the CSS transition below.
         void heroSliderEl.offsetWidth;
         heroSliderEl.style.transition = '';
       }
     }
 
-    // Step exactly one slide forward (1) or backward (-1), always animating
-    // visually in that direction, including across the wrap point. Ignored
-    // while a transition is already in progress so `position` can never run
-    // past the single clone buffered on each end of the track.
     function step(direction) {
       if (isAnimating) return;
       beginAnimation();
@@ -5411,21 +5197,11 @@
 
     function beginAnimation() {
       isAnimating = true;
-      // Safety net: if `transitionend` never fires for some reason (tab
-      // throttled in the background, transition interrupted by the browser,
-      // etc.) don't leave the slider permanently stuck ignoring clicks.
       clearTimeout(animationSafetyTimer);
       animationSafetyTimer = setTimeout(() => { isAnimating = false; }, 1200);
     }
 
-    // Once the animated step lands on a clone, snap instantly (no transition)
-    // to the matching real slide, so the next click can keep going the same way.
     function handleTrackTransitionSettled(e) {
-      // transitionend/transitioncancel bubble up from any descendant. Buttons
-      // (.btn) and the hero images have their own hover transform transitions,
-      // and without this check their bubbled events get mistaken for the
-      // track's own slide animation finishing - corrupting `position`/
-      // `isAnimating` and eventually stranding the slider off-screen.
       if (e.target !== heroSliderEl) return;
       if (e.propertyName !== 'transform') return;
       if (position === 0) {
@@ -5436,14 +5212,9 @@
       clearTimeout(animationSafetyTimer);
       isAnimating = false;
     }
-    // `transitioncancel` fires (instead of `transitionend`) if the browser
-    // interrupts the transition partway through - e.g. the tab was backgrounded
-    // and the compositor dropped it. Listening for both means the lock always
-    // gets released by a real event rather than solely by the timing guess above.
     heroSliderEl.addEventListener('transitionend', handleTrackTransitionSettled);
     heroSliderEl.addEventListener('transitioncancel', handleTrackTransitionSettled);
 
-    // Used by the dots to jump straight to a specific slide.
     function goToSlide(index) {
       if (isAnimating) return;
       const wrappedIndex = (index + slideCount) % slideCount;
@@ -5453,9 +5224,6 @@
       moveTo(target);
     }
 
-    // Schedules the next auto-slide 4 seconds from now. Any call to this
-    // (including the one fired by clicking an arrow/dot) cancels whatever
-    // was pending and starts the 4-second countdown over from 0.
     function startAutoSlide() {
       clearTimeout(slideTimeout);
       slideTimeout = setTimeout(() => {
@@ -5468,8 +5236,6 @@
       clearTimeout(slideTimeout);
     }
 
-    // Called on every manual interaction (arrow or dot click): reset the
-    // countdown back to 0 so it only auto-advances after 4s of no interaction.
     function restartAutoSlide() {
       startAutoSlide();
     }

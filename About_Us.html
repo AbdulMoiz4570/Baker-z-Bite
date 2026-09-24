@@ -5,17 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Baker'z Bite</title>
-  <!-- Google Fonts: Pacifico for logo, Montserrat & Playfair Display for modern typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Pacifico&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap"
     rel="stylesheet">
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* --- CSS RESET & THEME VARIABLES (matches index.html) --- */
     * {
       margin: 0;
       padding: 0;
@@ -53,7 +50,6 @@
       max-width: 100%;
     }
 
-    /* --- ANNOUNCEMENT TICKER --- */
     .ticker-bar {
       background-color: var(--light-brown);
       color: var(--text-brown);
@@ -87,7 +83,6 @@
       100% { transform: translate3d(-50%, 0, 0); }
     }
 
-    /* --- HEADER / NAVBAR --- */
     header {
       display: flex;
       justify-content: space-between;
@@ -148,7 +143,6 @@
       width: 100%;
     }
 
-
     .header-icons {
       display: flex;
       gap: 20px;
@@ -179,7 +173,6 @@
       transition: var(--transition-fast);
     }
 
-    /* --- SHARED BUTTONS --- */
     .btn {
       padding: 14px 28px;
       border-radius: 30px;
@@ -225,9 +218,6 @@
       border-color: var(--gold-accent);
     }
 
-    /* ============================================================ */
-    /* ABOUT HERO — dark banner with gold accent, inspired by ref   */
-    /* ============================================================ */
     .about-hero {
       position: relative;
       background: linear-gradient(135deg, #2A130B 0%, var(--card-brown) 55%, #472418 100%);
@@ -392,9 +382,6 @@
       }
     }
 
-    /* ============================================================ */
-    /* STORY SECTION — two column, image collage w/ badge (ref idea)*/
-    /* ============================================================ */
     .story-section {
       max-width: 1300px;
       margin: 0 auto;
@@ -523,9 +510,6 @@
       }
     }
 
-    /* ============================================================ */
-    /* STATS BAND                                                    */
-    /* ============================================================ */
     .stats-band {
       background: var(--card-brown);
       color: var(--white);
@@ -594,9 +578,6 @@
       }
     }
 
-    /* ============================================================ */
-    /* VALUES SECTION                                                */
-    /* ============================================================ */
     .values-section {
       padding: 100px 5% 60px;
       text-align: center;
@@ -669,9 +650,6 @@
       }
     }
 
-    /* ============================================================ */
-    /* JOURNEY / TIMELINE SECTION                                    */
-    /* ============================================================ */
     .journey-section {
       padding: 60px 5% 100px;
       background-color: var(--light-brown);
@@ -744,9 +722,6 @@
       }
     }
 
-    /* ============================================================ */
-    /* QUOTE SECTION                                                 */
-    /* ============================================================ */
     .quote-section {
       max-width: 850px;
       margin: 0 auto;
@@ -783,9 +758,6 @@
       margin-top: 3px;
     }
 
-    /* ============================================================ */
-    /* CTA BANNER (variant of homepage featured-section)             */
-    /* ============================================================ */
     .about-cta {
       display: flex;
       width: 100%;
@@ -849,7 +821,6 @@
       }
     }
 
-    /* --- SECTION HEADER (reused pattern) --- */
     .menu-header {
       text-align: center;
       padding: 0 20px 20px 20px;
@@ -867,9 +838,6 @@
       color: #6B4E45;
     }
 
-    /* ============================================================ */
-    /* FOOTER (matches index.html)                                 */
-    /* ============================================================ */
     .site-footer {
       background: var(--card-brown);
       color: var(--light-brown);
@@ -1034,8 +1002,6 @@
         grid-template-columns: 1fr;
       }
     }
-    /* --- CART BADGE + SEARCH OVERLAY (shared with index.html) --- */
-    /* Cart Badge - Hidden by default when 0 */
     .cart-badge {
       position: absolute;
       top: -5px;
@@ -1048,13 +1014,11 @@
       height: 16px;
       border-radius: 50%;
       display: none;
-      /* Initially hidden */
       align-items: center;
       justify-content: center;
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    /* --- SEARCH BAR OVERLAY --- */
     .search-overlay {
       position: fixed;
       top: 0;
@@ -1172,8 +1136,6 @@
       color: var(--accent-red);
     }
 
-
-    /* --- SLIDE-OUT CART DRAWER --- */
     .cart-drawer-overlay {
       position: fixed;
       top: 0;
@@ -1435,8 +1397,6 @@
       box-shadow: 0 6px 18px rgba(209, 27, 71, 0.3);
     }
 
-
-    /* --- DELIVERY LOCATION CHECK MODAL --- */
     .location-overlay {
       position: fixed;
       inset: 0;
@@ -1675,7 +1635,6 @@
       margin-bottom: 3px;
       font-size: 14px;
     }
-    /* --- CHAT BOT WIDGET (launcher button — colors intentionally unchanged) --- */
     .chat-widget {
       position: fixed;
       bottom: 20px;
@@ -1738,7 +1697,6 @@
       line-height: 1.2;
     }
 
-    /* --- CHAT PANEL (redesigned assistant UI) --- */
     .chat-panel {
       position: fixed;
       bottom: 92px;
@@ -2020,7 +1978,6 @@
       padding: 0 3px;
     }
 
-    /* Typing indicator */
     .chat-typing-row {
       display: flex;
       align-items: flex-end;
@@ -2072,7 +2029,6 @@
       }
     }
 
-    /* Contextual suggestion chips (rendered inline in the conversation) */
     .chat-suggestions {
       display: flex;
       flex-wrap: wrap;
@@ -2187,7 +2143,6 @@
 
 <body>
 
-  <!-- ANNOUNCEMENT TICKER -->
   <div class="ticker-bar">
     <div class="ticker-content">
       <span class="ticker-item">ORDER BEFORE 12PM FOR SAME DAY DELIVERY</span> •
@@ -2199,7 +2154,6 @@
     </div>
   </div>
 
-  <!-- SEARCH OVERLAY -->
   <div class="search-overlay" id="search-overlay">
     <div class="search-input-wrapper">
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -2210,7 +2164,6 @@
     <div class="search-results-list" id="search-results"></div>
   </div>
 
-  <!-- DELIVERY LOCATION CHECK MODAL -->
   <div class="location-overlay" id="location-overlay">
     <div class="location-modal">
       <button class="location-close-btn" id="location-close">&times;</button>
@@ -2253,7 +2206,6 @@
     </div>
   </div>
 
-  <!-- SLIDE-OUT CART DRAWER -->
   <div class="cart-drawer-overlay" id="cart-overlay"></div>
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-header">
@@ -2278,7 +2230,6 @@
     </div>
   </div>
 
-  <!-- HEADER / NAVBAR -->
   <header>
     <a href="index.html" class="logo">Baker'z Bite</a>
 
@@ -2320,7 +2271,6 @@
     </div>
   </header>
 
-  <!-- ABOUT HERO -->
   <section class="about-hero">
     <div class="about-hero-inner">
       <div class="about-hero-text">
@@ -2358,7 +2308,6 @@
     </div>
   </section>
 
-  <!-- STORY SECTION -->
   <section class="story-section" id="our-story">
     <div class="story-collage">
       <div class="collage-img collage-3">
@@ -2397,7 +2346,6 @@
     </div>
   </section>
 
-  <!-- STATS BAND -->
   <section class="stats-band">
     <div class="stats-inner">
       <div class="stat-item">
@@ -2419,7 +2367,6 @@
     </div>
   </section>
 
-  <!-- VALUES SECTION -->
   <section class="values-section">
     <div class="menu-header">
       <h2>What We Stand For</h2>
@@ -2450,7 +2397,6 @@
     </div>
   </section>
 
-  <!-- JOURNEY / TIMELINE SECTION -->
   <section class="journey-section">
     <div class="menu-header">
       <h2>Our Journey So Far</h2>
@@ -2481,7 +2427,6 @@
     </div>
   </section>
 
-  <!-- QUOTE SECTION -->
   <section class="quote-section">
     <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
     <blockquote>
@@ -2494,7 +2439,6 @@
     </div>
   </section>
 
-  <!-- CTA BANNER -->
   <section class="about-cta">
     <div class="about-cta-text">
       <h2>Come Taste the Difference</h2>
@@ -2507,7 +2451,6 @@
     <div class="about-cta-image"></div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-container">
 
@@ -2555,7 +2498,6 @@
       <p>&copy; 2026 Baker'z Bite. All rights reserved.</p>
     </div>
   </footer>
-  <!-- CHAT BOT WIDGET (launcher — colors unchanged) -->
   <div class="chat-widget" id="chat-toggle-btn">
     <div class="chat-icon">
       <i class="fa-solid fa-comments"></i>
@@ -2564,7 +2506,6 @@
     <div class="chat-text">Need Help?<br>Chat with us!</div>
   </div>
 
-  <!-- CHAT PANEL: Baker'z Bite AI Assistant -->
   <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Baker'z Bite AI Assistant">
     <div class="chat-panel-header">
       <div class="chat-panel-header-info">
@@ -2598,7 +2539,6 @@
   </div>
 
   <script>
-    // --- FOOTER CONTACT FORM ---
     const contactForm = document.getElementById('contact-form');
     const contactName = document.getElementById('contact-name');
     const contactEmail = document.getElementById('contact-email');
@@ -2637,8 +2577,6 @@
 
       if (!isValid) return;
 
-      // No backend connected — this only confirms submission in the browser.
-      // TODO: send { name, email, message } to your server or a form service here.
       const contactData = {
         name: contactName.value.trim(),
         email: contactEmail.value.trim(),
@@ -2656,15 +2594,10 @@
   </script>
 
   <script>
-    // --- LIVE "TREATS DELIVERED" COUNTER ---
-    // Simulates a live order feed by ticking the number up at random
-    // intervals instead of showing a fixed value.
     (function liveTreatsCounter() {
       const el = document.getElementById('live-treats-counter');
       if (!el) return;
 
-      // Start slightly above the old fixed baseline (50,000) so returning
-      // visitors still see the count moving forward.
       let count = 50000 + Math.floor(Math.random() * 400);
 
       function render() {
@@ -2672,9 +2605,9 @@
       }
 
       function scheduleNext() {
-        const delay = 2500 + Math.random() * 4500; // every ~2.5–7 seconds
+        const delay = 2500 + Math.random() * 4500;
         setTimeout(() => {
-          count += Math.floor(Math.random() * 3) + 1; // +1 to +3 treats
+          count += Math.floor(Math.random() * 3) + 1;
           render();
           scheduleNext();
         }, delay);
@@ -2686,13 +2619,7 @@
   </script>
 
   <script>
-    // =============================================================
-    // HEADER TOOLS: SEARCH / DELIVERY LOCATION / CART
-    // Same behaviour as index.html. The cart is kept in
-    // localStorage so it is shared between the two pages.
-    // =============================================================
 
-    // --- DATABASE OF ALL PRODUCTS (kept in sync with index.html) ---
     const products = [
       { id: 'item-special-three-milk-cake', name: 'Three Milk Cake Slice', price: 1100, img: 'Images/Three_Milk_Cake_Slice.png', desc: 'Today only — our beloved three milk cake at a special price, soaked fresh this morning', category: 'special' },
       { id: 'item-special-double-choc-cookie', name: 'Double Chocolate Cookie Duo', price: 550, img: 'Images/Double_Chocolate_Cookie_Duo.png', desc: 'Two fudgy double chocolate cookies, warm from the oven, bundled at today\'s special price', category: 'special' },
@@ -2725,7 +2652,6 @@
       { id: 'item-bakerz-tray', name: 'Bakerz Bite Trays', price: 1250, img: 'Images/Trays.png', desc: 'Wooden serving tray branded with the bakery logo', category: 'merchandise' }
     ];
 
-    // --- CART MANAGEMENT (shared with index.html via localStorage) ---
     const CART_STORAGE_KEY = 'bakerzBiteCart';
     let cart = loadCart();
 
@@ -2742,7 +2668,6 @@
       try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
       } catch (e) {
-        /* storage unavailable (private mode) - cart just won't persist */
       }
     }
 
@@ -2821,7 +2746,6 @@
       toggleCart(false);
     }
 
-    // --- CART DRAWER TOGGLE ---
     const cartBtn = document.getElementById('cart-btn');
     const closeCartBtn = document.getElementById('close-cart');
     const cartDrawer = document.getElementById('cart-drawer');
@@ -2838,7 +2762,6 @@
 
     updateCartUI();
 
-    // --- SEARCH FUNCTIONALITY ---
     const searchBtn = document.getElementById('search-btn');
     const closeSearchBtn = document.getElementById('close-search');
     const searchOverlay = document.getElementById('search-overlay');
@@ -2889,22 +2812,17 @@
       searchResults.innerHTML = html;
     }
 
-    // The products themselves live on the menu page, so a result sends the
-    // visitor there; index.html reads the hash, opens the right category
-    // and highlights the item.
     function selectSearchResult(elementId) {
       toggleSearch(false);
       window.location.href = `index.html#${elementId}`;
     }
 
-    // --- DELIVERY LOCATION CHECK ---
     const BAKERY_CONFIG = {
-      lat: 24.8607,          // TODO: replace with Baker'z Bite's actual shop coordinates
+      lat: 24.8607,
       lng: 67.0011,
-      deliveryRadiusKm: 8    // how far your delivery reaches from the shop
+      deliveryRadiusKm: 8
     };
 
-    // TODO: replace with real distances (km) from your shop to each area
     const AREA_DISTANCES_KM = {
       "Saddar": 3,
       "Clifton": 6,
@@ -3021,7 +2939,6 @@
       showDeliveryResult(AREA_DISTANCES_KM[selectedArea], selectedArea);
     });
 
-    // Esc closes whichever panel is open
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
       toggleSearch(false);
@@ -3030,19 +2947,7 @@
     });
   </script>
 
-  <!-- CHAT BOT LOGIC (added from index.html) -->
   <script>
-    // ================================================================
-    // BAKER'Z BITE AI ASSISTANT
-    // A self-contained, dependency-free conversational engine.
-    // Instead of matching fixed phrases, it: normalizes and tokenizes
-    // input, tolerates typos via edit-distance, scores multiple
-    // intents at once, reads live data straight from the page (menu
-    // items, prices, badges, delivery zones, footer contact details)
-    // so answers stay accurate even if the site content changes, and
-    // keeps short-term conversational memory so it can resolve
-    // follow-ups like "how much is that" or "what about weekends".
-    // ================================================================
     (function bakerzBiteAssistant() {
       const chatToggleBtn = document.getElementById('chat-toggle-btn');
       const chatPanel = document.getElementById('chat-panel');
@@ -3055,9 +2960,6 @@
 
       const SHOP_NAME = "Baker'z Bite";
 
-      // ---------------------------------------------------------------
-      // 1. LIVE KNOWLEDGE BASE — pulled from the page itself
-      // ---------------------------------------------------------------
       function readContactInfo() {
         const info = { email: '', phone: '', address: '', hours: '' };
         document.querySelectorAll('.footer-contact li').forEach((li) => {
@@ -3072,9 +2974,6 @@
         return info;
       }
 
-      // Hard-coded fallback for the "Today's Special" category (Explore Our
-      // Menu section) so the assistant always knows about it, even on pages
-      // that don't render the full menu markup in their DOM.
       const TODAYS_SPECIAL_ITEMS = [
         { name: "Three Milk Cake Slice", price: 1100, priceText: "Rs. 1100", desc: "Today only — our beloved three milk cake at a special price, soaked fresh this morning.", badge: "Today's Special", category: 'special' },
         { name: "Double Chocolate Cookie Duo", price: 550, priceText: "Rs. 550", desc: "Two fudgy double chocolate cookies, warm from the oven, bundled at today's special price.", badge: "Today's Special", category: 'special' },
@@ -3095,15 +2994,12 @@
             if (name) items.push({ name, price, priceText, desc, badge, category, el: card });
           });
         });
-        // Guarantee "Today's Special" is always part of the assistant's
-        // knowledge, whether or not this page renders the Menu section.
         if (!items.some((i) => i.category === 'special')) {
           items.push(...TODAYS_SPECIAL_ITEMS);
         }
         return items;
       }
 
-      // Cached once on first open, since the page content doesn't change at runtime.
       let CONTACT = null;
       let MENU = null;
 
@@ -3112,9 +3008,6 @@
         if (!MENU) MENU = readMenu();
       }
 
-      // ---------------------------------------------------------------
-      // 2. TEXT UNDERSTANDING — normalization, tokenizing, fuzzy match
-      // ---------------------------------------------------------------
       const STOPWORDS = new Set(['a', 'an', 'the', 'is', 'are', 'do', 'does', 'you', 'your', 'i', 'my', 'me',
         'to', 'for', 'of', 'on', 'in', 'at', 'it', 'this', 'that', 'can', 'please', 'and', 'or', 'have', 'has',
         'what', 'whats', "what's", 'how', 'about', 'there', 'be', 'with', 'im', "i'm", 'want', 'would', 'like']);
@@ -3132,8 +3025,6 @@
         return out.length ? out : tokens;
       }
 
-      // Levenshtein edit distance — lets the assistant handle typos
-      // ("delivary", "hourz", "cupcak") instead of requiring exact words.
       function editDistance(a, b) {
         if (a === b) return 0;
         const m = a.length, n = b.length;
@@ -3158,11 +3049,6 @@
         return editDistance(token, keyword) <= tolerance;
       }
 
-      // ---------------------------------------------------------------
-      // 3. INTENT MODEL — weighted keyword sets scored per message,
-      // not a single fixed regex, so multiple topics in one sentence
-      // ("do you deliver and what time do you close?") are all caught.
-      // ---------------------------------------------------------------
       const INTENTS = [
         {
           name: 'greeting',
@@ -3260,7 +3146,6 @@
         return scores;
       }
 
-      // Find a menu item the user is referring to by fuzzy name overlap.
       function findMenuItem(tokens) {
         const meaningful = meaningfulTokens(tokens);
         let best = null;
@@ -3295,14 +3180,6 @@
         return null;
       }
 
-      // ---------------------------------------------------------------
-      // 3b. MODERATION — catches profanity, slurs, and common evasions
-      // (letter-spacing, repeated letters, basic leetspeak) before the
-      // message ever reaches intent scoring. This is a lightweight
-      // in-page filter; for a public production site you'd normally
-      // back it with a maintained list (e.g. an "obscenity" or
-      // "leo-profanity" package) since slang and slurs keep evolving.
-      // ---------------------------------------------------------------
       const BLOCKED_TERMS = [
         'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'cunt', 'dick', 'piss',
         'slut', 'whore', 'douchebag', 'motherfucker', 'nigger', 'nigga',
@@ -3335,9 +3212,6 @@
         });
       }
 
-      // ---------------------------------------------------------------
-      // 4. CONVERSATION STATE (short-term memory, in-memory only)
-      // ---------------------------------------------------------------
       const state = {
         started: false,
         turns: 0,
@@ -3349,12 +3223,6 @@
         moderationWarnings: 0,
       };
 
-      // ---------------------------------------------------------------
-      // 4b. PHRASE-LEVEL DETECTORS — small-talk and sentiment checks that
-      // don't fit the single-keyword scoring model above (e.g. "how are
-      // you" is three stopwords; "didn't like the food" is a negated
-      // positive, not a negative keyword).
-      // ---------------------------------------------------------------
       function detectWellbeingQuestion(text) {
         return /\bhow\s+(are|r)\s+(you|u)\b/.test(text)
           || /\bhow('?s| is| are) (it going|things|everything)\b/.test(text)
@@ -3367,9 +3235,6 @@
         return asksIfGood && mentionsPlace;
       }
 
-      // Catches negated-positive phrasing ("didn't like the food", "wasn't
-      // great") that the keyword scorer can't see, since it only looks for
-      // *negative* words, not the absence of a positive one.
       function detectNegativeExperiencePhrase(text) {
         return /\b(didn'?t|did not|don'?t|do not|doesn'?t|does not|wasn'?t|was not|isn'?t|is not)\b[^.!]{0,25}\b(like|enjoy|love|good|great|fresh|worth it)\b/.test(text);
       }
@@ -3381,10 +3246,6 @@
         return 'Good evening';
       }
 
-      // ---------------------------------------------------------------
-      // 5. RESPONSE BUILDERS — reason over live data rather than
-      // returning one fixed string per topic.
-      // ---------------------------------------------------------------
       function replyHours() {
         state.lastIntent = 'hours';
         const hours = CONTACT.hours || 'Mon – Sun: 9:00 AM – 9:00 PM';
@@ -3553,8 +3414,6 @@
         };
       }
 
-      // Step 1 of the complaint flow: acknowledge and ask what actually
-      // happened, instead of immediately pushing a contact number.
       function replyComplaintAsk() {
         state.lastIntent = 'complaint';
         state.awaitingComplaintDetail = true;
@@ -3564,8 +3423,6 @@
         };
       }
 
-      // Step 2: whatever the user says next is treated as the detail,
-      // and we close the loop by pointing them to the feedback form.
       function replyComplaintFollowup() {
         state.lastIntent = 'complaint_followup';
         state.awaitingComplaintDetail = false;
@@ -3581,7 +3438,7 @@
       function replyWellbeing() {
         state.lastIntent = 'smalltalk';
         return {
-          text: "I'm doing great, thanks for asking! I'm an AI, so I don't get tired of talking about cupcakes 😄 How can I help — menu, delivery, hours, or something else?",
+          text: "I'm doing great, thanks for asking! I'm an AI, so I don't get tired of talking about cupcakes How can I help — menu, delivery, hours, or something else?",
           chips: ['Show me the menu', 'Anything you recommend?', 'Do you deliver to me?'],
         };
       }
@@ -3604,12 +3461,12 @@
 
       function replyThanks() {
         state.lastIntent = 'thanks';
-        return { text: "You're very welcome! Anything else I can help you find? 🍪", chips: ['Show me the menu', 'Anything you recommend?'] };
+        return { text: "You're very welcome! Anything else I can help you find?", chips: ['Show me the menu', 'Anything you recommend?'] };
       }
 
       function replyFarewell() {
         state.lastIntent = 'farewell';
-        return { text: 'Thanks for stopping by — have a sweet day! 👋', chips: [] };
+        return { text: 'Thanks for stopping by — have a sweet day!', chips: [] };
       }
 
       function replyModeration() {
@@ -3644,26 +3501,17 @@
         };
       }
 
-      // ---------------------------------------------------------------
-      // 6. DIALOGUE MANAGER — resolves intent(s) + context each turn
-      // ---------------------------------------------------------------
       function resolveReply(userText) {
         const normalizedText = normalize(userText);
 
-        // Moderation runs before anything else — no intent, menu lookup,
-        // or follow-up state gets a chance to fire on abusive input.
         if (containsBlockedTerm(userText)) {
           return replyModeration();
         }
 
-        // Multi-turn: if we just asked "what happened", this message IS
-        // the detail — close the loop rather than re-classifying it.
         if (state.awaitingComplaintDetail) {
           return replyComplaintFollowup();
         }
 
-        // Small-talk / opinion questions bypass keyword scoring entirely,
-        // since "how are you" is three stopwords and has no topic keyword.
         if (detectWellbeingQuestion(normalizedText)) return replyWellbeing();
         if (detectReputationQuestion(normalizedText)) return replyReputation();
 
@@ -3672,36 +3520,28 @@
         const scores = scoreIntents(tokens);
         const category = findCategoryMention(tokens);
 
-        // Negated-positive phrasing ("didn't like the food") won't match
-        // any single negative keyword, so boost complaint score directly.
         if (detectNegativeExperiencePhrase(normalizedText)) {
           scores.complaint = (scores.complaint || 0) + 6;
         }
 
-        // Pronoun/context resolution: "how much is it / that / this one"
         const referencesContext = /\b(it|that|this|those|them)\b/.test(normalize(userText));
         if (referencesContext && state.lastItem && (scores.menu_general || /much|price|cost/.test(normalize(userText)))) {
           return replyMenuItem(state.lastItem);
         }
 
-        // Direct menu item name lookup takes priority — it's the most specific signal.
         const item = findMenuItem(tokens);
         if (item && (scores.menu_general || item)) {
           return replyMenuItem(item);
         }
 
-        // "Today's Special" is a named category people ask about directly —
-        // answer with the full list rather than a single random pick.
         if (category === 'special') {
           return replyTodaysSpecial();
         }
 
-        // Rank remaining intents by score.
         const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
         const top = ranked[0];
 
         if (!top) {
-          // No keyword signal at all — try to be conversational for very short inputs.
           if (meaningful.length === 0) return replyFallback(userText);
           return replyFallback(userText);
         }
@@ -3731,9 +3571,6 @@
         }
       }
 
-      // ---------------------------------------------------------------
-      // 7. UI RENDERING
-      // ---------------------------------------------------------------
       function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
       }
@@ -3833,8 +3670,6 @@
         state.turns += 1;
 
         showTyping();
-        // Variable "thinking" delay scaled to response complexity feels more natural
-        // than a fixed timeout, and gives the typing indicator real purpose.
         const thinkTime = 480 + Math.min(700, trimmed.length * 12) + Math.random() * 250;
 
         setTimeout(() => {
@@ -3871,7 +3706,7 @@
         showTyping();
         setTimeout(() => {
           hideTyping();
-          addMessage(`${timeGreeting()}! Welcome to ${SHOP_NAME} 👋 I'm your AI assistant — ask me anything about the menu, prices, delivery to your area, hours, or custom orders.`, 'bot');
+          addMessage(`${timeGreeting()}! Welcome to ${SHOP_NAME} I'm your AI assistant — ask me anything about the menu, prices, delivery to your area, hours, or custom orders.`, 'bot');
           renderSuggestions(['Show me the menu', 'Do you deliver to me?', 'What are your hours?', 'Anything you recommend?']);
         }, 550);
       }
@@ -3900,6 +3735,5 @@
   </script>
 
 </body>
-
 
 </html>
