@@ -3438,7 +3438,7 @@
       function replyWellbeing() {
         state.lastIntent = 'smalltalk';
         return {
-          text: "I'm doing great, thanks for asking! I'm an AI, so I don't get tired of talking about cupcakes How can I help — menu, delivery, hours, or something else?",
+          text: "I'm doing great, thanks for asking! I'm an AI, so I don't get tired of talking about cupcakes 😄 How can I help — menu, delivery, hours, or something else?",
           chips: ['Show me the menu', 'Anything you recommend?', 'Do you deliver to me?'],
         };
       }
@@ -3461,12 +3461,12 @@
 
       function replyThanks() {
         state.lastIntent = 'thanks';
-        return { text: "You're very welcome! Anything else I can help you find?", chips: ['Show me the menu', 'Anything you recommend?'] };
+        return { text: "You're very welcome! Anything else I can help you find? 🍪", chips: ['Show me the menu', 'Anything you recommend?'] };
       }
 
       function replyFarewell() {
         state.lastIntent = 'farewell';
-        return { text: 'Thanks for stopping by — have a sweet day!', chips: [] };
+        return { text: 'Thanks for stopping by — have a sweet day! 👋', chips: [] };
       }
 
       function replyModeration() {
@@ -3706,7 +3706,7 @@
         showTyping();
         setTimeout(() => {
           hideTyping();
-          addMessage(`${timeGreeting()}! Welcome to ${SHOP_NAME} I'm your AI assistant — ask me anything about the menu, prices, delivery to your area, hours, or custom orders.`, 'bot');
+          addMessage(`${timeGreeting()}! Welcome to ${SHOP_NAME} 👋 I'm your AI assistant — ask me anything about the menu, prices, delivery to your area, hours, or custom orders.`, 'bot');
           renderSuggestions(['Show me the menu', 'Do you deliver to me?', 'What are your hours?', 'Anything you recommend?']);
         }, 550);
       }
